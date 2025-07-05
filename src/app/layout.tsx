@@ -1,8 +1,18 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { MantineProvider, createTheme } from "@mantine/core";
+import {
+  AppShell,
+  AppShellHeader,
+  AppShellMain,
+  Avatar,
+  Group,
+  MantineProvider,
+  Text,
+  createTheme,
+} from "@mantine/core";
 import "@mantine/core/styles.css";
+import { AuthProvider } from "@/hooks/useAuth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +33,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <AuthProvider>
+          <MantineProvider theme={theme}>
+            <AppShell
+              header={{
+                height: 60,
+              }}
+              padding="md"
+            >
+              <AppShellHeader>
+                <Group h="100%" px="md">
+                  <Avatar />
+                  <Text>Travel Guide Platform (Working Name)</Text>
+                </Group>
+              </AppShellHeader>
+
+              <AppShellMain>{children}</AppShellMain>
+            </AppShell>
+          </MantineProvider>
+        </AuthProvider>
       </body>
     </html>
   );
