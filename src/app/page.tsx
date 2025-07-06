@@ -11,6 +11,7 @@ import {
   Badge,
 } from "@mantine/core";
 import { IconMapPin, IconCategory, IconArrowRight } from "@tabler/icons-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getGuidesApiV1GuidesGet, Guide } from "tg-sdk";
 
@@ -49,13 +50,15 @@ export default function HomePage() {
           Explore curated travel guides from around the world. Find hidden gems,
           local recommendations, and unforgettable experiences.
         </Text>
-        <Button
-          size="lg"
-          radius="md"
-          rightSection={<IconArrowRight size={20} />}
-        >
-          Start Exploring
-        </Button>
+        <Link href="/login" style={{ textDecoration: "none" }}>
+          <Button
+            size="lg"
+            radius="md"
+            rightSection={<IconArrowRight size={20} />}
+          >
+            Get Started
+          </Button>
+        </Link>
       </div>
 
       {/* Featured Guides */}

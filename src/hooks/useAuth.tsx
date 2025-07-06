@@ -1,6 +1,6 @@
 "use client";
 import { AppAuthError, AppError } from "@/errors";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   AuthUserInfo,
   getCurrentUserApiV1AuthMeGet,
@@ -14,11 +14,13 @@ import {
 
 type AuthContextType = {
   user?: AuthUserInfo;
-  isLoading: boolean;
-  register: (credentials: RegisterInput) => Promise<AuthUserInfo | undefined>;
+  isLoggingIn: boolean;
+  isFetchingMe: boolean;
+  isRegistering: boolean;
+  register: (credentials: RegisterInput) => Promise<void>;
   login: (credentials: LoginInput) => Promise<AuthUserInfo | undefined>;
   isLoggedIn: () => boolean;
-  fetchMe: () => Promise<AuthUserInfo | undefined>;
+  fetchMe: (shouldThrow: boolean) => Promise<AuthUserInfo | undefined>;
   logout: () => Promise<void>;
 };
 
@@ -26,22 +28,22 @@ const AuthContext = React.createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = React.useState<AuthUserInfo | undefined>();
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoggingIn, setIsLoggingIn] = React.useState(false);
+  const [isFetchingMe, setIsFetchingMe] = React.useState(false);
+  const [isRegistering, setIsRegistering] = React.useState(false);
 
   const handleError = (error: unknown) => {
     if ((error as AppAuthErrorHttpResponse)?.code) {
       const err = error as AppAuthErrorHttpResponse;
-      console.error("Auth Error Response:", err);
       return new AppAuthError(err.detail, err.code);
     }
-    console.error("Unknown Error:", error);
     return new AppError(
       `${"An unexpected error during authentication occurred."}`
     );
   };
 
-  const fetchMe = async () => {
-    setIsLoading(true);
+  const fetchMe = async (shouldThrow = false) => {
+    setIsFetchingMe(true);
 
     try {
       const response = await getCurrentUserApiV1AuthMeGet({});
@@ -53,14 +55,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return response.data;
     } catch (error) {
       setUser(undefined);
-      throw handleError(error);
+      if (shouldThrow) {
+        throw handleError(error);
+      }
     } finally {
-      setIsLoading(false);
+      setIsFetchingMe(false);
     }
   };
 
   const login = async (credentials: LoginInput) => {
-    setIsLoading(true);
+    setIsLoggingIn(true);
 
     try {
       const response = await loginUserApiV1AuthLoginPost({
@@ -71,12 +75,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         throw response.error;
       }
 
-      return await fetchMe();
+      return await fetchMe(true);
     } catch (error) {
       setUser(undefined);
       throw handleError(error);
     } finally {
-      setIsLoading(false);
+      setIsLoggingIn(false);
     }
   };
 
@@ -95,7 +99,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const register = async (credentials: RegisterInput) => {
-    setIsLoading(true);
+    setIsRegistering(true);
 
     try {
       const response = await registerUserApiV1AuthRegisterPost({
@@ -105,27 +109,40 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (!response.data && response.error) {
         throw response.error;
       }
-
-      return await fetchMe();
     } catch (error) {
       setUser(undefined);
       handleError(error);
     } finally {
-      setIsLoading(false);
+      setIsRegistering(false);
     }
   };
+
+  useEffect(() => {
+    fetchMe().catch();
+  }, []);
 
   const providerValue: AuthContextType = React.useMemo(
     () => ({
       user,
-      isLoading,
+      isLoggingIn,
+      isFetchingMe,
+      isRegistering,
       fetchMe,
       logout,
-      isLoggedIn: () => !!user && !!user.id && !!user.role,
       login,
       register,
+      isLoggedIn: () => !!user && !!user.id && !!user.role,
     }),
-    [user, isLoading, fetchMe]
+    [
+      user,
+      isLoggingIn,
+      fetchMe,
+      logout,
+      login,
+      register,
+      isFetchingMe,
+      isRegistering,
+    ]
   );
 
   return (
