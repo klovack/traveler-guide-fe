@@ -1,8 +1,9 @@
-"use client";
+import { PREDEFINED_ROLES } from "@/constants/auth";
+import { requireUser } from "@/lib/auth.server";
 
-import { withAuthOnly } from "@/lib/withAuthOnly";
+export default async function DashboardPage() {
+  await requireUser(PREDEFINED_ROLES.ALL);
 
-function DashboardPage() {
   return (
     <div className="flex items-center justify-center h-screen">
       <h1 className="text-2xl font-bold">Dashboard</h1>
@@ -10,5 +11,3 @@ function DashboardPage() {
     </div>
   );
 }
-
-export default withAuthOnly(DashboardPage);
