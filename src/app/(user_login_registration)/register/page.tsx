@@ -10,7 +10,7 @@ import LoginRegisterForm from "../_components/loginRegisterForm";
 function RegisterPage() {
   const router = useRouter();
   const [authError, setAuthError] = useState<string | undefined>();
-  const { register, isRegistering } = useAuth();
+  const { register, isRegistering } = useAuth({ noAutoFetchMe: true });
   const form = useForm({
     mode: "uncontrolled",
     validateInputOnBlur: true,

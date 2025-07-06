@@ -15,7 +15,8 @@ export function withRole<P extends object>(
 
     useEffect(() => {
       if (!isFetchingMe && (!user || !allowedRoles.includes(user.role))) {
-        router.replace("/not-authorized");
+        // Replace the path with not-found to avoid exposing different pages for user
+        router.replace("/not-found");
       }
     }, [isFetchingMe, user]);
 

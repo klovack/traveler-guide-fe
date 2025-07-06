@@ -11,7 +11,7 @@ import { AppAuthError } from "@/errors";
 function LoginPage() {
   const router = useRouter();
   const [authError, setAuthError] = useState<string | undefined>();
-  const { login, isLoggingIn } = useAuth();
+  const { login, isLoggingIn } = useAuth({ noAutoFetchMe: true });
 
   const form = useForm({
     mode: "uncontrolled",

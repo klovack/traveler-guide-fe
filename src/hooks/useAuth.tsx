@@ -24,6 +24,15 @@ type AuthContextType = {
   logout: () => Promise<void>;
 };
 
+export type UseAuthOptions = {
+  /**
+   * If true, will not automatically fetch the current user on mount.
+   * This is useful if you want to control when the user data is fetched,
+   * for example, if you want to fetch it only after a successful login or registration.
+   */
+  noAutoFetchMe?: boolean;
+};
+
 const AuthContext = React.createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -152,10 +161,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const useAuth = () => {
+export const useAuth = ({ noAutoFetchMe = false }: UseAuthOptions = {}) => {
   const context = React.useContext(AuthContext);
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
+
+  useEffect(() => {
+    if (!noAutoFetchMe && !context.isFetchingMe && !context.isLoggedIn()) {
+      context.fetchMe(false).catch();
+    }
+  }, []);
+
   return context;
 };
