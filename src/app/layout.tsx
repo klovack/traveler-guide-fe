@@ -3,16 +3,13 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import {
   AppShell,
-  AppShellHeader,
   AppShellMain,
-  Avatar,
-  Group,
   MantineProvider,
-  Text,
   createTheme,
 } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { AuthProvider } from "@/hooks/useAuth";
+import Navbar from "./_components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -41,12 +38,7 @@ export default function RootLayout({
               }}
               padding="md"
             >
-              <AppShellHeader>
-                <Group h="100%" px="md">
-                  <Avatar />
-                  <Text>Travel Guide Platform (Working Name)</Text>
-                </Group>
-              </AppShellHeader>
+              <Navbar />
 
               <AppShellMain>{children}</AppShellMain>
             </AppShell>

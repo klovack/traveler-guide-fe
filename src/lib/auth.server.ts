@@ -6,13 +6,29 @@ import { envVar } from "./utils/env";
 
 const REDIRECT_PATH = "/login";
 
-export async function requireUser(
-  allowedRoles?: AppRoles[],
+export type RequireUserOptions = {
+  allowedRoles?: AppRoles[];
+  shouldRedirect?: boolean;
+}
+
+const defaultRequireUserOptions = {
+  shouldRedirect: true
+}
+
+export async function requireUser({
+  allowedRoles,
+  shouldRedirect,
+}: RequireUserOptions = defaultRequireUserOptions
 ): Promise<AuthUserInfo | undefined> {
   const theCookies = await cookies()
   const token = theCookies.get("access_token")?.value;
   const rToken = theCookies.get("'refresh_token'")?.value;
-  if (!token) redirect(REDIRECT_PATH);
+  if (!token) {
+    if (shouldRedirect)
+      redirect(REDIRECT_PATH);
+
+    return;
+  }
 
   try {
     const res = await getCurrentUserApiV1AuthMeGet({
@@ -29,12 +45,18 @@ export async function requireUser(
     const user = res.data;
 
     if (allowedRoles && !allowedRoles.includes(user.role)) {
-      redirect("/not-found");
+      if (shouldRedirect)
+        redirect("/not-found");
+
+      return;
     }
 
     return user
   } catch (err) {
     console.warn("User tries to get to protected pages unauthenticated", err)
-    redirect(REDIRECT_PATH)
+
+    if (shouldRedirect) {
+      redirect(REDIRECT_PATH)
+    }
   }
 }
