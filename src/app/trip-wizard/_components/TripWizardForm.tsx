@@ -6,14 +6,18 @@ import { z } from "zod";
 import DestinationMap from "./DestinationMap";
 import PreferencesFields from "./PreferencesFields";
 import GeneratedResult from "./GeneratedResult";
+import { NominatimFeatureSchema } from "@/lib/map/nominatim";
+import { useTripWizard } from "../_hooks/useTripWizard";
 
 const tripWizardSchema = z.object({
   trip_description: z.string().min(10),
-  destinations: z.array(z.string()).min(1),
-  dates: z.object({
-    start: z.string().optional(),
-    end: z.string().optional(),
-  }),
+  destinations: z.array(NominatimFeatureSchema).min(1),
+  dates: z
+    .object({
+      start: z.string().optional(),
+      end: z.string().optional(),
+    })
+    .optional(),
   group_size: z.number().optional(),
   languages: z.array(z.string()).optional(),
   budget: z.enum(["low", "medium", "high"]).optional(),
@@ -22,24 +26,29 @@ const tripWizardSchema = z.object({
 
 type TripWizardFormValues = z.infer<typeof tripWizardSchema>;
 
-export default function TripWizardForm() {
-  const form = useForm<TripWizardFormValues>({
-    resolver: zodResolver(tripWizardSchema),
-    defaultValues: {
-      destinations: [],
-      languages: [],
-      interests: [],
-    },
-  });
+export type TripWizardFormProps = {
+  onSubmit?: () => void;
+};
 
-  const onSubmit = (data: TripWizardFormValues) => {
+export default function TripWizardForm({
+  onSubmit,
+}: Readonly<TripWizardFormProps>) {
+  const { form } = useTripWizard();
+
+  const onSubmitForm = (data: TripWizardFormValues) => {
     // Later: call FastAPI /ai/trip-suggestions
     console.log("Trip preferences:", data);
+    onSubmit?.();
   };
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmitForm, (er) => {
+          console.log("ERROR", er);
+        })}
+        className="space-y-6"
+      >
         <DestinationMap />
         <PreferencesFields />
         <button

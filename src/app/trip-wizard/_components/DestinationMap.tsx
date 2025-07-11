@@ -4,7 +4,7 @@ import maplibregl, { Marker, NavigationControl } from "maplibre-gl";
 import "@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css";
 import "maplibre-gl/dist/maplibre-gl.css";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import openStreetMapStyleSpec from "./openStreetMap.style.json";
 import { Container, Pill, Text } from "@mantine/core";
@@ -13,46 +13,35 @@ import MaplibreGeocoder, {
   CarmenGeojsonFeature,
   MaplibreGeocoderFeatureResults,
 } from "@maplibre/maplibre-gl-geocoder";
-import { AppError } from "@/errors";
-
-type NominatimProperties = {
-  place_id: number;
-  osm_type: string;
-  osm_id: number;
-  place_rank: number;
-  category: string;
-  type: string;
-  importance: number;
-  addresstype: string;
-  name: string;
-  display_name: string;
-  address: {
-    city: string;
-    "ISO3166-2-lvl4": string;
-    country: string;
-    country_code: string;
-  };
-};
-
-type NominatimFeature = GeoJSON.Feature<
-  GeoJSON.Geometry,
-  NominatimProperties
-> & {
-  bbox: [number, number, number, number];
-};
-
-type NominatimFeatureCollection = {
-  type: "FeatureCollection";
-  features: Array<NominatimFeature>;
-};
+import {
+  NominatimFeature,
+  NominatimFeatureSchema,
+  querySearch,
+  reverseSearch,
+} from "@/lib/map/nominatim";
 
 export default function DestinationMap() {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const { setValue, getValues } = useFormContext();
-  const [dests, setDests] = useState<Record<number, NominatimFeature>>({});
+  const [destinations, setDestinations] = useState<
+    Record<number, NominatimFeature>
+  >({});
   const [markers, setMarkers] = useState<Marker[]>([]);
   const markersRef = useRef(markers);
+
+  const fetchDestinationsFromForm = useCallback(() => {
+    const destinationsFormValues: NominatimFeature[] =
+      getValues("destinations");
+    const destinationsMap: Record<number, NominatimFeature> = {};
+
+    destinationsFormValues.forEach((destination) => {
+      const id = destination.properties.place_id;
+      destinationsMap[id] = destination;
+    });
+
+    setDestinations(destinationsMap);
+  }, []);
 
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
@@ -72,22 +61,19 @@ export default function DestinationMap() {
       {
         forwardGeocode: async (config) => {
           const features: CarmenGeojsonFeature[] = [];
-          try {
-            const request = `https://nominatim.openstreetmap.org/search?q=${config.query}&format=geojson&addressdetails=0`;
-            const response = await fetch(request);
-            const geojson: NominatimFeatureCollection = await response.json();
-            for (const feature of geojson.features) {
+          const data = await querySearch(config.query);
+          if (data) {
+            for (const feature of data.features) {
+              if (!feature.geometry) continue; // Ensure geometry is present
               features.push({
                 ...feature,
                 id: String(feature.properties.place_id),
                 text: feature.properties.display_name,
                 place_name: feature.properties.name,
                 place_type: [feature.properties.addresstype],
+                geometry: feature.geometry, // Explicitly set geometry
               });
             }
-          } catch (e) {
-            // TODO: Error notification toast
-            console.error(`Failed to forwardGeocode with error: ${e}`);
           }
 
           return {
@@ -102,6 +88,8 @@ export default function DestinationMap() {
         flyTo: {
           zoom: 7,
         },
+        showResultMarkers: false,
+        showResultsWhileTyping: true,
       }
     );
 
@@ -112,19 +100,18 @@ export default function DestinationMap() {
       const id = e.result.properties.place_id;
       if (!id) return;
 
-      setDests((prevDests) => {
-        const newDests = {
-          ...prevDests,
+      setDestinations((prevDestinations) => {
+        const newDestinations = {
+          ...prevDestinations,
           [id]: e.result,
         };
-        return newDests;
+        return newDestinations;
       });
     });
 
     mapRef.current.on("click", async (e) => {
       const { lng, lat } = e.lngLat;
 
-      const toBeRemovedMarker: number[] = [];
       for (const marker of markersRef.current) {
         const { lng: markerLng, lat: markerLat } = marker.getLngLat();
 
@@ -137,32 +124,25 @@ export default function DestinationMap() {
         }
       }
 
-      try {
-        const res = await fetch(
-          `https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${lat}&lon=${lng}&zoom=10&addressdetails=1`
-        );
-        const data: NominatimFeatureCollection = await res.json();
-        if (!data || data.type !== "FeatureCollection") {
-          throw new AppError("No data inside the response body");
-        }
-
-        setDests((prevDests) => {
-          const newDests: Record<number, NominatimFeature> = {};
+      const data = await reverseSearch({ lat, lng });
+      if (data) {
+        setDestinations((prevDestinations) => {
+          const newDestinations: Record<number, NominatimFeature> = {};
 
           for (const feature of data.features) {
             const id = feature.properties.place_id;
-            newDests[id] = feature;
+            newDestinations[id] = feature;
           }
 
           return {
-            ...prevDests,
-            ...newDests,
+            ...prevDestinations,
+            ...newDestinations,
           };
         });
-      } catch (err) {
-        console.error("Reverse geocode failed", err);
       }
     });
+
+    fetchDestinationsFromForm();
   }, [mapContainerRef.current]);
 
   useEffect(() => {
@@ -170,7 +150,9 @@ export default function DestinationMap() {
     markers.forEach((m) => m.remove());
     setMarkers([]);
 
-    for (const dest of Object.values(dests)) {
+    const newMarkers = [];
+
+    for (const dest of Object.values(destinations)) {
       if (dest.geometry) {
         let lat = 0;
         let lng = 0;
@@ -198,17 +180,25 @@ export default function DestinationMap() {
         m.getElement().addEventListener("click", () => {
           onRemoveDestinations(dest);
         });
-        setMarkers((prevMarker) => {
-          return [...prevMarker, m];
-        });
+        newMarkers.push(m);
       }
     }
 
+    setMarkers(newMarkers);
+
     setValue(
       "destinations",
-      Object.values(dests).map((val) => val.properties.display_name)
+      Object.values(destinations)
+        .map((destination) => {
+          try {
+            return NominatimFeatureSchema.parse(destination);
+          } catch (e) {
+            console.error("ERROR PARSING", e);
+          }
+        })
+        .filter((destination) => destination !== undefined)
     );
-  }, [dests]);
+  }, [destinations, mapRef.current]);
 
   useEffect(() => {
     markersRef.current = markers;
@@ -216,12 +206,12 @@ export default function DestinationMap() {
 
   const onRemoveDestinations = (destination: NominatimFeature) => {
     const id = destination.properties.place_id;
-    const newDests = {
-      ...dests,
+    const newDestinations = {
+      ...destinations,
     };
-    delete newDests[id];
+    delete newDestinations[id];
 
-    setDests(newDests);
+    setDestinations(newDestinations);
   };
 
   return (
@@ -246,9 +236,9 @@ export default function DestinationMap() {
         </Container>
       </div>
 
-      {Object.values(dests)?.length > 0 && (
+      {Object.values(destinations)?.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2 text-sm text-gray-700">
-          {Object.values(dests).map((d, i) => (
+          {Object.values(destinations).map((d, i) => (
             <Pill
               key={d.properties.place_id}
               withRemoveButton
