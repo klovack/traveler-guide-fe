@@ -50,15 +50,27 @@ export default function HomePage() {
           Explore curated travel guides from around the world. Find hidden gems,
           local recommendations, and unforgettable experiences.
         </Text>
-        <Link href="/login" style={{ textDecoration: "none" }}>
-          <Button
-            size="lg"
-            radius="md"
-            rightSection={<IconArrowRight size={20} />}
-          >
-            Get Started
-          </Button>
-        </Link>
+        <Group>
+          <Link href="/trip-wizard" style={{ textDecoration: "none" }}>
+            <Button
+              size="lg"
+              radius="md"
+              rightSection={<IconArrowRight size={20} />}
+            >
+              Get Started
+            </Button>
+          </Link>
+          <Link href="/guide" style={{ textDecoration: "none" }}>
+            <Button
+              variant="light"
+              size="lg"
+              radius="md"
+              rightSection={<IconArrowRight size={20} />}
+            >
+              Become Guide
+            </Button>
+          </Link>
+        </Group>
       </div>
 
       {/* Featured Guides */}

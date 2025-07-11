@@ -10,16 +10,21 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.1.1",
     "@mantine/core": "^8.1.2",
     "@mantine/dates": "^8.1.2",
     "@mantine/form": "^8.1.2",
     "@mantine/hooks": "^8.1.2",
     "@mantine/notifications": "^8.1.2",
+    "@maplibre/maplibre-gl-geocoder": "^1.9.0",
     "@tabler/icons-react": "^3.34.0",
+    "maplibre-gl": "^5.6.1",
     "next": "15.3.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "tg-sdk": "link:/Users/fikriansyahmr/Development/Business/traveler-guide/packages/tg-sdk"
+    "react-hook-form": "^7.60.0",
+    "tg-sdk": "link:/Users/fikriansyahmr/Development/Business/traveler-guide/packages/tg-sdk",
+    "zod": "^3.25.74"
   },
   "devDependencies": {
     "@types/node": "^24.0.4",
