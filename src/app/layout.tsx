@@ -8,6 +8,7 @@ import {
   createTheme,
 } from "@mantine/core";
 import "@mantine/core/styles.css";
+import "@mantine/dates/styles.css";
 import { AuthProvider } from "@/hooks/useAuth";
 import Navbar from "./_components/Navbar";
 

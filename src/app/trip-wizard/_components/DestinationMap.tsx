@@ -19,11 +19,12 @@ import {
   querySearch,
   reverseSearch,
 } from "@/lib/map/nominatim";
+import { TripWizardFormValues } from "../_hooks/useTripWizard";
 
 export default function DestinationMap() {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
-  const { setValue, getValues } = useFormContext();
+  const { setValue, getValues } = useFormContext<TripWizardFormValues>();
   const [destinations, setDestinations] = useState<
     Record<number, NominatimFeature>
   >({});
@@ -32,7 +33,7 @@ export default function DestinationMap() {
 
   const fetchDestinationsFromForm = useCallback(() => {
     const destinationsFormValues: NominatimFeature[] =
-      getValues("destinations");
+      getValues<"destinations">("destinations");
     const destinationsMap: Record<number, NominatimFeature> = {};
 
     destinationsFormValues.forEach((destination) => {

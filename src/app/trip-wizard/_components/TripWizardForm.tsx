@@ -1,30 +1,12 @@
 "use client";
 
-import { useForm, FormProvider } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import DestinationMap from "./DestinationMap";
 import PreferencesFields from "./PreferencesFields";
 import GeneratedResult from "./GeneratedResult";
-import { NominatimFeatureSchema } from "@/lib/map/nominatim";
-import { useTripWizard } from "../_hooks/useTripWizard";
-
-const tripWizardSchema = z.object({
-  trip_description: z.string().min(10),
-  destinations: z.array(NominatimFeatureSchema).min(1),
-  dates: z
-    .object({
-      start: z.string().optional(),
-      end: z.string().optional(),
-    })
-    .optional(),
-  group_size: z.number().optional(),
-  languages: z.array(z.string()).optional(),
-  budget: z.enum(["low", "medium", "high"]).optional(),
-  interests: z.array(z.string()).optional(),
-});
-
-type TripWizardFormValues = z.infer<typeof tripWizardSchema>;
+import { TripWizardFormValues, useTripWizard } from "../_hooks/useTripWizard";
+import { Button, Flex } from "@mantine/core";
+import DateRangePicker from "./DateRangePicker";
 
 export type TripWizardFormProps = {
   onSubmit?: () => void;
@@ -42,23 +24,20 @@ export default function TripWizardForm({
   };
 
   return (
-    <FormProvider {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmitForm, (er) => {
-          console.log("ERROR", er);
-        })}
-        className="space-y-6"
-      >
-        <DestinationMap />
-        <PreferencesFields />
-        <button
-          type="submit"
-          className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800"
-        >
-          Generate Trip
-        </button>
-        <GeneratedResult />
-      </form>
-    </FormProvider>
+    <form
+      onSubmit={form.handleSubmit(onSubmitForm, (er) => {
+        console.log("FORM", form.getValues());
+        console.log("ERROR", er);
+      })}
+      className="space-y-6"
+    >
+      <DateRangePicker />
+      <DestinationMap />
+      <PreferencesFields />
+      <Flex justify="flex-end" align="center">
+        <Button type="submit">Generate Trip</Button>
+      </Flex>
+      <GeneratedResult />
+    </form>
   );
 }
