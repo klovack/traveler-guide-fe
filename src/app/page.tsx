@@ -11,11 +11,14 @@ import {
   Badge,
 } from "@mantine/core";
 import { IconMapPin, IconCategory, IconArrowRight } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getGuidesApiV1GuidesGet, Guide } from "tg-sdk";
 
 export default function HomePage() {
+  const t = useTranslations("HomePage");
+
   const [guides, setGuides] = useState<Guide[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -44,11 +47,10 @@ export default function HomePage() {
       {/* Hero Section */}
       <div className="text-center py-16">
         <Title order={1} size="3.5rem" mb="md" className="text-gradient">
-          Discover Amazing Travel Destinations
+          {t("title")}
         </Title>
         <Text size="xl" c="dimmed" mb="xl" maw={600} mx="auto">
-          Explore curated travel guides from around the world. Find hidden gems,
-          local recommendations, and unforgettable experiences.
+          {t("description")}
         </Text>
         <Group>
           <Link href="/trip-wizard" style={{ textDecoration: "none" }}>

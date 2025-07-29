@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import LogoutButton from "./LogoutButton";
 import { requireUser } from "@/lib/auth.server";
+import LocaleSwitcher from "./LocaleSwitcher";
 
 export default async function Navbar() {
   const user = await requireUser({ shouldRedirect: false });
@@ -39,7 +40,10 @@ export default async function Navbar() {
           </Group>
         </Link>
 
-        <Group h="100%">{navLinks}</Group>
+        <Group h="100%">
+          <LocaleSwitcher />
+          {navLinks}
+        </Group>
       </Group>
     </AppShellHeader>
   );

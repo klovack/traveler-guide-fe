@@ -11,6 +11,8 @@ import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import { AuthProvider } from "@/hooks/useAuth";
 import Navbar from "./_components/Navbar";
+import { getLocale } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,28 +25,32 @@ const theme = createTheme({
   /** Put your mantine theme override here */
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <AuthProvider>
-          <MantineProvider theme={theme}>
-            <AppShell
-              header={{
-                height: 60,
-              }}
-              padding="md"
-            >
-              <Navbar />
+  const locale = await getLocale();
 
-              <AppShellMain>{children}</AppShellMain>
-            </AppShell>
-          </MantineProvider>
-        </AuthProvider>
+  return (
+    <html lang={locale}>
+      <body className={inter.className}>
+        <NextIntlClientProvider>
+          <AuthProvider>
+            <MantineProvider theme={theme}>
+              <AppShell
+                header={{
+                  height: 60,
+                }}
+                padding="md"
+              >
+                <Navbar />
+
+                <AppShellMain>{children}</AppShellMain>
+              </AppShell>
+            </MantineProvider>
+          </AuthProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
