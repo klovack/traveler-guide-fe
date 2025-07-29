@@ -1,4 +1,3 @@
-// TODO: Remove this once SSR is implemented
 "use client";
 
 import { withoutAuthOnly } from "@/lib/withoutAuthOnly";
@@ -7,8 +6,10 @@ import { isEmail, isNotEmpty, useForm } from "@mantine/form";
 import LoginRegisterForm from "../_components/loginRegisterForm";
 import { useEffect, useRef, useState } from "react";
 import { resendEmailConfirmationApiV1AuthResendEmailConfirmationPost } from "tg-sdk";
+import { useTranslations } from "next-intl";
 
 function EmailConfirmationPage() {
+  const t = useTranslations("auth.EmailConfirmationPage");
   const RESEND_WAIT_SECONDS = 120; // 2 minutes
   const [timer, setTimer] = useState(RESEND_WAIT_SECONDS);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -83,46 +84,41 @@ function EmailConfirmationPage() {
 
   return (
     <LoginRegisterForm
-      title="Please confirm your email"
+      title={t("title")}
       form={form}
       onSubmit={handleEmailConfirmation}
       onErrorClose={() => form.clearErrors()}
       errors={form.errors ? Object.values(form.errors) : []}
-      submitText="Confirm Email"
+      submitText={t("submitButton")}
       disabled={isDisabled}
       textLink={{
-        text: "Don't have an account?",
-        linkText: "Register here",
+        text: t("textLink.text"),
+        linkText: t("textLink.linkText"),
         href: "/register",
         linkStyle: { textDecoration: "none" },
       }}
       loading={isSendingConfirmation}
     >
-      <Text>
-        Please check your email for a confirmation link. If you don't see it,
-        please check your spam folder.{" "}
-      </Text>
+      <Text>{t("checkEmailAndSpam")}</Text>
 
-      <Text>
-        If you still have not received the email, write your email below and
-        click the button to resend the confirmation email.
-      </Text>
+      <Text>{t("resendEmailConfirmation")}</Text>
 
       {isDisabled && (
         <Text c="red" size="sm">
-          You can resend the confirmation email in{" "}
-          {timer > 60
-            ? `${Math.floor(timer / 60)}:${String(timer % 60).padStart(
-                2,
-                "0"
-              )} minutes`
-            : `${timer} seconds`}
-          .
+          {t("resendEmailConfirmationIn", {
+            waitingTime:
+              timer > 60
+                ? `${Math.floor(timer / 60)}:${String(timer % 60).padStart(
+                    2,
+                    "0"
+                  )} ${t("minutes")}`
+                : `${timer} ${t("seconds")}`,
+          })}
         </Text>
       )}
       <TextInput
-        label="Email"
-        placeholder="your-email@your-domain.com"
+        label={t("emailInput.label")}
+        placeholder={t("emailInput.placeholder")}
         key={form.key("email")}
         required
         {...form.getInputProps("email")}

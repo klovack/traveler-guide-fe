@@ -2,5 +2,63 @@
   "HomePage": {
     "title": "Discover Amazing Travel Destinations",
     "description": "Explore curated travel guides from around the world. Find hidden gems, local recommendations, and unforgettable experiences."
+  },
+  "auth": {
+    "EmailConfirmationPage": {
+      "title": "Please confirm your email",
+      "checkEmailAndSpam": "Please check your email for a confirmation link. If you don't see it, please check your spam folder.",
+      "resendEmailConfirmation": "If you still have not received the email, write your email below and click the button to resend the confirmation email.",
+      "resendEmailConfirmationIn": "You can resend the confirmation email in {waitingTime}",
+      "seconds": "seconds",
+      "minutes": "minutes",
+      "emailInput": {
+        "label": "Email",
+        "placeholder": "Enter your email address"
+      },
+      "submitButton": "Resend Confirmation Email",
+      "textLink": {
+        "text": "Don't have an account?",
+        "linkText": "Register here"
+      }
+    },
+    "LoginPage": {
+      "title": "Welcome Back",
+      "description": "Log in to continue exploring your favorite travel destinations.",
+      "emailInput": {
+        "label": "Email",
+        "placeholder": "Enter your email address"
+      },
+      "passwordInput": {
+        "label": "Password",
+        "placeholder": "Enter your password"
+      },
+      "submitButton": "Log In",
+      "textLink": {
+        "text": "Don't have an account?",
+        "linkText": "Register here"
+      }
+    },
+    "RegisterPage": {
+      "title": "Create Your Account",
+      "description": "Join our community to start exploring and sharing travel experiences.",
+      "emailInput": {
+        "label": "Email",
+        "placeholder": "Enter your email address"
+      },
+      "passwordInput": {
+        "label": "Password",
+        "placeholder": "Create a password"
+      },
+      "confirmPasswordInput": {
+        "label": "Confirm Password",
+        "placeholder": "Re-enter your password"
+      },
+      "submitButton": "Register",
+      "textLink": {
+        "text": "Already have an account?",
+        "linkText": "Log in here"
+      },
+      "termsAndConditions": "By registering, you agree to our <terms>Terms of Service</terms> and <privacyPolicy>Privacy Policy</privacyPolicy>."
+    }
   }
 }

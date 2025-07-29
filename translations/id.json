@@ -2,5 +2,63 @@
   "HomePage": {
     "title": "Temui Tujuan Wisata yang Menakjubkan",
     "description": "Jelajahi panduan perjalanan terkurasi dari seluruh dunia. Temukan tempat-tempat tersembunyi, rekomendasi lokal, dan pengalaman tak terlupakan.."
+  },
+  "auth": {
+    "EmailConfirmationPage": {
+      "title": "Silakan konfirmasi email Anda",
+      "checkEmailAndSpam": "Silakan periksa email Anda untuk tautan konfirmasi. Jika tidak menemukannya, periksa folder spam Anda.",
+      "resendEmailConfirmation": "Jika Anda masih belum menerima email, masukkan email Anda di bawah ini dan klik tombol untuk mengirim ulang email konfirmasi.",
+      "resendEmailConfirmationIn": "Anda dapat mengirim ulang email konfirmasi dalam {waitingTime}.",
+      "seconds": "detik",
+      "minutes": "menit",
+      "emailInput": {
+        "label": "Email",
+        "placeholder": "Masukkan alamat email Anda"
+      },
+      "submitButton": "Kirim Ulang Email Konfirmasi",
+      "textLink": {
+        "text": "Belum punya akun?",
+        "linkText": "Daftar di sini"
+      }
+    },
+    "LoginPage": {
+      "title": "Selamat Datang Kembali",
+      "description": "Masuk untuk melanjutkan menjelajahi tujuan wisata favorit Anda.",
+      "emailInput": {
+        "label": "Email",
+        "placeholder": "Masukkan alamat email Anda"
+      },
+      "passwordInput": {
+        "label": "Kata Sandi",
+        "placeholder": "Masukkan kata sandi Anda"
+      },
+      "submitButton": "Masuk",
+      "textLink": {
+        "text": "Belum punya akun?",
+        "linkText": "Daftar di sini"
+      }
+    },
+    "RegisterPage": {
+      "title": "Buat Akun Anda",
+      "description": "Bergabunglah dengan komunitas kami untuk mulai menjelajahi dan berbagi pengalaman perjalanan.",
+      "emailInput": {
+        "label": "Email",
+        "placeholder": "Masukkan alamat email Anda"
+      },
+      "passwordInput": {
+        "label": "Kata Sandi",
+        "placeholder": "Buat kata sandi"
+      },
+      "confirmPasswordInput": {
+        "label": "Konfirmasi Kata Sandi",
+        "placeholder": "Masukkan ulang kata sandi Anda"
+      },
+      "submitButton": "Daftar",
+      "textLink": {
+        "text": "Sudah punya akun?",
+        "linkText": "Masuk di sini"
+      },
+      "termsAndConditions": "Dengan mendaftar, Anda setuju dengan <terms>Syarat Layanan</terms> dan <privacyPolicy>Kebijakan Privasi</privacyPolicy> kami."
+    }
   }
 }

@@ -2,5 +2,63 @@
   "HomePage": {
     "title": "Entdecken Sie erstaunliche Reiseziele",
     "description": "Erkunden Sie kuratierte Reiseführer aus der ganzen Welt. Finden Sie versteckte Schätze, lokale Empfehlungen und unvergessliche Erlebnisse."
+  },
+  "auth": {
+    "EmailConfirmationPage": {
+      "title": "Bitte bestätigen Sie Ihre E-Mail",
+      "checkEmailAndSpam": "Bitte überprüfen Sie Ihre E-Mail auf einen Bestätigungslink. Wenn Sie ihn nicht sehen, überprüfen Sie bitte Ihren Spam-Ordner.",
+      "resendEmailConfirmation": "Wenn Sie die E-Mail immer noch nicht erhalten haben, geben Sie Ihre E-Mail unten ein und klicken Sie auf die Schaltfläche, um die Bestätigungs-E-Mail erneut zu senden.",
+      "resendEmailConfirmationIn": "Sie können die Bestätigungs-E-Mail in {waitingTime} erneut senden",
+      "seconds": "Sekunden",
+      "minutes": "Minuten",
+      "emailInput": {
+        "label": "E-Mail",
+        "placeholder": "Geben Sie Ihre E-Mail-Adresse ein"
+      },
+      "submitButton": "Bestätigungs-E-Mail erneut senden",
+      "textLink": {
+        "text": "Haben Sie noch kein Konto?",
+        "linkText": "Hier registrieren"
+      }
+    },
+    "LoginPage": {
+      "title": "Willkommen zurück",
+      "description": "Melden Sie sich an, um weiterhin Ihre Lieblingsreiseziele zu entdecken.",
+      "emailInput": {
+        "label": "E-Mail",
+        "placeholder": "Geben Sie Ihre E-Mail-Adresse ein"
+      },
+      "passwordInput": {
+        "label": "Passwort",
+        "placeholder": "Geben Sie Ihr Passwort ein"
+      },
+      "submitButton": "Anmelden",
+      "textLink": {
+        "text": "Sie haben noch kein Konto?",
+        "linkText": "Hier registrieren"
+      }
+    },
+    "RegisterPage": {
+      "title": "Erstellen Sie Ihr Konto",
+      "description": "Treten Sie unserer Community bei, um Reiseerfahrungen zu entdecken und zu teilen.",
+      "emailInput": {
+        "label": "E-Mail",
+        "placeholder": "Geben Sie Ihre E-Mail-Adresse ein"
+      },
+      "passwordInput": {
+        "label": "Passwort",
+        "placeholder": "Erstellen Sie ein Passwort"
+      },
+      "confirmPasswordInput": {
+        "label": "Passwort bestätigen",
+        "placeholder": "Geben Sie Ihr Passwort erneut ein"
+      },
+      "submitButton": "Registrieren",
+      "textLink": {
+        "text": "Sie haben bereits ein Konto?",
+        "linkText": "Hier anmelden"
+      },
+      "termsAndConditions": "Mit der Registrierung stimmen Sie unseren <terms>Nutzungsbedingungen</terms> und der <privacyPolicy>Datenschutzerklärung</privacyPolicy> zu."
+    }
   }
 }

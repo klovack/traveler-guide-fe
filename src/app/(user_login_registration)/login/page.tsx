@@ -2,13 +2,15 @@
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { useForm, isEmail, isNotEmpty } from "@mantine/form";
-import { TextInput } from "@mantine/core";
+import { TextInput, Text } from "@mantine/core";
 import { useState } from "react";
 import { withoutAuthOnly } from "@/lib/withoutAuthOnly";
 import LoginRegisterForm from "../_components/loginRegisterForm";
 import { AppAuthError } from "@/errors";
+import { useTranslations } from "next-intl";
 
 function LoginPage() {
+  const t = useTranslations("auth.LoginPage");
   const router = useRouter();
   const [authError, setAuthError] = useState<string | undefined>();
   const { login, isLoggingIn } = useAuth({ noAutoFetchMe: true });
@@ -73,23 +75,24 @@ function LoginPage() {
 
   return (
     <LoginRegisterForm
-      title="Login"
+      title={t("title")}
       form={form}
       onSubmit={handleLogin}
       onErrorClose={handleClose}
       errors={errors}
-      submitText="Login"
+      submitText={t("submitButton")}
       textLink={{
-        text: "Don't have an account?",
-        linkText: "Register here",
+        text: t("textLink.text"),
+        linkText: t("textLink.linkText"),
         href: "/register",
         linkStyle: { textDecoration: "none" },
       }}
       loading={isLoggingIn}
     >
+      <Text>{t("description")}</Text>
       <TextInput
-        label="Email"
-        placeholder="your-email@your-domain.com"
+        label={t("emailInput.label")}
+        placeholder={t("emailInput.placeholder")}
         key={form.key("email")}
         required
         {...form.getInputProps("email")}
@@ -98,8 +101,8 @@ function LoginPage() {
         }}
       />
       <TextInput
-        label="Password"
-        placeholder="your-super-secret-password"
+        label={t("passwordInput.label")}
+        placeholder={t("passwordInput.placeholder")}
         type="password"
         key={form.key("password")}
         required

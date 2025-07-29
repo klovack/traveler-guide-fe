@@ -67,7 +67,7 @@ export default function LoginRegisterForm<T>(props: LoginRegisterFormProps<T>) {
       onSubmit={form.onSubmit((values) => onSubmit(values))}
       className="max-w-md mx-auto p-4"
     >
-      <Stack gap="md" justify="center" w="40vw" miw="300px">
+      <Stack gap="md" justify="center" miw="320px">
         {title && <Title order={1}>{title}</Title>}
         {children}
         {errorMessage}

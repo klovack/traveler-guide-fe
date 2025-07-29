@@ -2,12 +2,15 @@
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { useForm, isEmail, matchesField } from "@mantine/form";
-import { TextInput } from "@mantine/core";
+import { TextInput, Text, Checkbox } from "@mantine/core";
 import { useMemo, useState } from "react";
 import { withoutAuthOnly } from "@/lib/withoutAuthOnly";
 import LoginRegisterForm from "../_components/loginRegisterForm";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 function RegisterPage() {
+  const t = useTranslations("auth.RegisterPage");
   const router = useRouter();
   const [authError, setAuthError] = useState<string | undefined>();
   const { register, isRegistering } = useAuth({ noAutoFetchMe: true });
@@ -18,6 +21,7 @@ function RegisterPage() {
       email: "",
       password: "",
       passwordConfirmation: "",
+      termsOfService: false,
     },
     validate: {
       email: (value) => {
@@ -89,25 +93,34 @@ function RegisterPage() {
     );
   }, [authError, form.errors]);
 
+  const TermsLink = (chunks: React.ReactNode) => (
+    <Link href={"/terms"}>{chunks}</Link>
+  );
+
+  const PrivacyPolicyLink = (chunks: React.ReactNode) => (
+    <Link href={"/privacy-policy"}>{chunks}</Link>
+  );
+
   return (
     <LoginRegisterForm
-      title="Register"
+      title={t("title")}
       form={form}
       onSubmit={handleRegister}
       onErrorClose={handleClose}
       errors={errors}
-      submitText="Login"
+      submitText={t("submitButton")}
       textLink={{
-        text: "Already have an account?",
-        linkText: "Login here",
+        text: t("textLink.text"),
+        linkText: t("textLink.linkText"),
         href: "/login",
         linkStyle: { textDecoration: "none" },
       }}
       loading={isRegistering}
     >
+      <Text>{t("description")}</Text>
       <TextInput
-        label="Email"
-        placeholder="your-email@your-domain.com"
+        label={t("emailInput.label")}
+        placeholder={t("emailInput.placeholder")}
         key={form.key("email")}
         required
         {...form.getInputProps("email")}
@@ -116,8 +129,8 @@ function RegisterPage() {
         }}
       />
       <TextInput
-        label="Password"
-        placeholder="your-super-secret-password"
+        label={t("passwordInput.label")}
+        placeholder={t("passwordInput.placeholder")}
         type="password"
         key={form.key("password")}
         required
@@ -128,8 +141,8 @@ function RegisterPage() {
         }}
       />
       <TextInput
-        label="Password Confirmation"
-        placeholder="your-super-secret-password"
+        label={t("confirmPasswordInput.label")}
+        placeholder={t("confirmPasswordInput.placeholder")}
         type="password"
         key={form.key("passwordConfirmation")}
         required
@@ -138,6 +151,17 @@ function RegisterPage() {
         errorProps={{
           style: { display: "none" },
         }}
+      />
+
+      <Checkbox
+        key={form.key("termsOfService")}
+        {...form.getInputProps("termsOfService", {
+          type: "checkbox",
+        })}
+        label={t.rich("termsAndConditions", {
+          terms: TermsLink,
+          privacyPolicy: PrivacyPolicyLink,
+        })}
       />
     </LoginRegisterForm>
   );
