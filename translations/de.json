@@ -11,10 +11,6 @@
       "resendEmailConfirmationIn": "Sie können die Bestätigungs-E-Mail in {waitingTime} erneut senden",
       "seconds": "Sekunden",
       "minutes": "Minuten",
-      "emailInput": {
-        "label": "E-Mail",
-        "placeholder": "Geben Sie Ihre E-Mail-Adresse ein"
-      },
       "submitButton": "Bestätigungs-E-Mail erneut senden",
       "textLink": {
         "text": "Haben Sie noch kein Konto?",
@@ -24,14 +20,6 @@
     "LoginPage": {
       "title": "Willkommen zurück",
       "description": "Melden Sie sich an, um weiterhin Ihre Lieblingsreiseziele zu entdecken.",
-      "emailInput": {
-        "label": "E-Mail",
-        "placeholder": "Geben Sie Ihre E-Mail-Adresse ein"
-      },
-      "passwordInput": {
-        "label": "Passwort",
-        "placeholder": "Geben Sie Ihr Passwort ein"
-      },
       "submitButton": "Anmelden",
       "textLink": {
         "text": "Sie haben noch kein Konto?",
@@ -41,24 +29,40 @@
     "RegisterPage": {
       "title": "Erstellen Sie Ihr Konto",
       "description": "Treten Sie unserer Community bei, um Reiseerfahrungen zu entdecken und zu teilen.",
-      "emailInput": {
-        "label": "E-Mail",
-        "placeholder": "Geben Sie Ihre E-Mail-Adresse ein"
-      },
-      "passwordInput": {
-        "label": "Passwort",
-        "placeholder": "Erstellen Sie ein Passwort"
-      },
-      "confirmPasswordInput": {
-        "label": "Passwort bestätigen",
-        "placeholder": "Geben Sie Ihr Passwort erneut ein"
-      },
       "submitButton": "Registrieren",
       "textLink": {
         "text": "Sie haben bereits ein Konto?",
         "linkText": "Hier anmelden"
       },
       "termsAndConditions": "Mit der Registrierung stimmen Sie unseren <terms>Nutzungsbedingungen</terms> und der <privacyPolicy>Datenschutzerklärung</privacyPolicy> zu."
+    },
+    "shared": {
+      "emailInput": {
+        "label": "E-Mail",
+        "placeholder": "Geben Sie Ihre E-Mail-Adresse ein",
+        "validationError": {
+          "required": "E-Mail ist erforderlich",
+          "invalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein"
+        }
+      },
+      "passwordInput": {
+        "label": "Passwort",
+        "placeholder": "Erstellen Sie ein Passwort",
+        "validationError": {
+          "message": "Das Passwort muss {criteria}",
+          "minLength": "mindestens 8 Zeichen lang sein",
+          "uppercase": "mindestens einen Großbuchstaben enthalten",
+          "lowercase": "mindestens einen Kleinbuchstaben enthalten",
+          "number": "mindestens eine Zahl enthalten"
+        }
+      },
+      "confirmPasswordInput": {
+        "label": "Passwort bestätigen",
+        "placeholder": "Geben Sie Ihr Passwort erneut ein",
+        "validationError": {
+          "mismatch": "Passwörter stimmen nicht überein"
+        }
+      }
     }
   }
 }

@@ -10,7 +10,7 @@ import { AppAuthError } from "@/errors";
 import { useTranslations } from "next-intl";
 
 function LoginPage() {
-  const t = useTranslations("auth.LoginPage");
+  const t = useTranslations("auth");
   const router = useRouter();
   const [authError, setAuthError] = useState<string | undefined>();
   const { login, isLoggingIn } = useAuth({ noAutoFetchMe: true });
@@ -24,10 +24,14 @@ function LoginPage() {
     },
     validate: {
       email: (value) => {
-        const emailRequired = isEmail("Email is required")(value);
+        const emailRequired = isNotEmpty(
+          t("shared.emailInput.validationError.required")
+        )(value);
         if (emailRequired) return emailRequired;
 
-        const emailInvalid = isEmail("Email must be valid")(value);
+        const emailInvalid = isEmail(
+          t("shared.emailInput.validationError.invalid")
+        )(value);
         if (emailInvalid) return emailInvalid;
       },
       password: isNotEmpty("Password is required"),
@@ -75,24 +79,24 @@ function LoginPage() {
 
   return (
     <LoginRegisterForm
-      title={t("title")}
+      title={t("LoginPage.title")}
       form={form}
       onSubmit={handleLogin}
       onErrorClose={handleClose}
       errors={errors}
-      submitText={t("submitButton")}
+      submitText={t("LoginPage.submitButton")}
       textLink={{
-        text: t("textLink.text"),
-        linkText: t("textLink.linkText"),
+        text: t("LoginPage.textLink.text"),
+        linkText: t("LoginPage.textLink.linkText"),
         href: "/register",
         linkStyle: { textDecoration: "none" },
       }}
       loading={isLoggingIn}
     >
-      <Text>{t("description")}</Text>
+      <Text>{t("LoginPage.description")}</Text>
       <TextInput
-        label={t("emailInput.label")}
-        placeholder={t("emailInput.placeholder")}
+        label={t("shared.emailInput.label")}
+        placeholder={t("shared.emailInput.placeholder")}
         key={form.key("email")}
         required
         {...form.getInputProps("email")}
@@ -101,8 +105,8 @@ function LoginPage() {
         }}
       />
       <TextInput
-        label={t("passwordInput.label")}
-        placeholder={t("passwordInput.placeholder")}
+        label={t("shared.passwordInput.label")}
+        placeholder={t("shared.passwordInput.placeholder")}
         type="password"
         key={form.key("password")}
         required

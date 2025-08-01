@@ -11,10 +11,6 @@
       "resendEmailConfirmationIn": "Anda dapat mengirim ulang email konfirmasi dalam {waitingTime}.",
       "seconds": "detik",
       "minutes": "menit",
-      "emailInput": {
-        "label": "Email",
-        "placeholder": "Masukkan alamat email Anda"
-      },
       "submitButton": "Kirim Ulang Email Konfirmasi",
       "textLink": {
         "text": "Belum punya akun?",
@@ -24,14 +20,6 @@
     "LoginPage": {
       "title": "Selamat Datang Kembali",
       "description": "Masuk untuk melanjutkan menjelajahi tujuan wisata favorit Anda.",
-      "emailInput": {
-        "label": "Email",
-        "placeholder": "Masukkan alamat email Anda"
-      },
-      "passwordInput": {
-        "label": "Kata Sandi",
-        "placeholder": "Masukkan kata sandi Anda"
-      },
       "submitButton": "Masuk",
       "textLink": {
         "text": "Belum punya akun?",
@@ -41,24 +29,40 @@
     "RegisterPage": {
       "title": "Buat Akun Anda",
       "description": "Bergabunglah dengan komunitas kami untuk mulai menjelajahi dan berbagi pengalaman perjalanan.",
-      "emailInput": {
-        "label": "Email",
-        "placeholder": "Masukkan alamat email Anda"
-      },
-      "passwordInput": {
-        "label": "Kata Sandi",
-        "placeholder": "Buat kata sandi"
-      },
-      "confirmPasswordInput": {
-        "label": "Konfirmasi Kata Sandi",
-        "placeholder": "Masukkan ulang kata sandi Anda"
-      },
       "submitButton": "Daftar",
       "textLink": {
         "text": "Sudah punya akun?",
         "linkText": "Masuk di sini"
       },
       "termsAndConditions": "Dengan mendaftar, Anda setuju dengan <terms>Syarat Layanan</terms> dan <privacyPolicy>Kebijakan Privasi</privacyPolicy> kami."
+    },
+    "shared": {
+      "emailInput": {
+        "label": "Email",
+        "placeholder": "Masukkan alamat email Anda",
+        "validationError": {
+          "required": "Email wajib diisi",
+          "invalid": "Silakan masukkan alamat email yang valid"
+        }
+      },
+      "passwordInput": {
+        "label": "Kata Sandi",
+        "placeholder": "Buat kata sandi",
+        "validationError": {
+          "message": "Kata sandi harus {criteria}",
+          "minLength": "minimal 8 karakter",
+          "uppercase": "mengandung setidaknya satu huruf kapital",
+          "lowercase": "mengandung setidaknya satu huruf kecil",
+          "number": "mengandung setidaknya satu angka"
+        }
+      },
+      "confirmPasswordInput": {
+        "label": "Konfirmasi Kata Sandi",
+        "placeholder": "Masukkan ulang kata sandi Anda",
+        "validationError": {
+          "mismatch": "Kata sandi tidak cocok"
+        }
+      }
     }
   }
 }

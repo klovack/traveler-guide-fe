@@ -9,7 +9,7 @@ import { resendEmailConfirmationApiV1AuthResendEmailConfirmationPost } from "tg-
 import { useTranslations } from "next-intl";
 
 function EmailConfirmationPage() {
-  const t = useTranslations("auth.EmailConfirmationPage");
+  const t = useTranslations("auth");
   const RESEND_WAIT_SECONDS = 120; // 2 minutes
   const [timer, setTimer] = useState(RESEND_WAIT_SECONDS);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -70,8 +70,12 @@ function EmailConfirmationPage() {
     },
     validate: {
       email: (value) => {
-        const hasEmailError = isNotEmpty("Email is required")(value);
-        const isEmailValid = isEmail("Email must be valid")(value);
+        const hasEmailError = isNotEmpty(
+          t("shared.emailInput.validationError.required")
+        )(value);
+        const isEmailValid = isEmail(
+          t("shared.emailInput.validationError.invalid")
+        )(value);
 
         const errors = [hasEmailError, isEmailValid].filter(
           (val) => val !== undefined && val !== null
@@ -84,41 +88,41 @@ function EmailConfirmationPage() {
 
   return (
     <LoginRegisterForm
-      title={t("title")}
+      title={t("EmailConfirmationPage.title")}
       form={form}
       onSubmit={handleEmailConfirmation}
       onErrorClose={() => form.clearErrors()}
       errors={form.errors ? Object.values(form.errors) : []}
-      submitText={t("submitButton")}
+      submitText={t("EmailConfirmationPage.submitButton")}
       disabled={isDisabled}
       textLink={{
-        text: t("textLink.text"),
-        linkText: t("textLink.linkText"),
+        text: t("EmailConfirmationPage.textLink.text"),
+        linkText: t("EmailConfirmationPage.textLink.linkText"),
         href: "/register",
         linkStyle: { textDecoration: "none" },
       }}
       loading={isSendingConfirmation}
     >
-      <Text>{t("checkEmailAndSpam")}</Text>
+      <Text>{t("EmailConfirmationPage.checkEmailAndSpam")}</Text>
 
-      <Text>{t("resendEmailConfirmation")}</Text>
+      <Text>{t("EmailConfirmationPage.resendEmailConfirmation")}</Text>
 
       {isDisabled && (
         <Text c="red" size="sm">
-          {t("resendEmailConfirmationIn", {
+          {t("EmailConfirmationPage.resendEmailConfirmationIn", {
             waitingTime:
               timer > 60
                 ? `${Math.floor(timer / 60)}:${String(timer % 60).padStart(
                     2,
                     "0"
-                  )} ${t("minutes")}`
-                : `${timer} ${t("seconds")}`,
+                  )} ${t("EmailConfirmationPage.minutes")}`
+                : `${timer} ${t("EmailConfirmationPage.seconds")}`,
           })}
         </Text>
       )}
       <TextInput
-        label={t("emailInput.label")}
-        placeholder={t("emailInput.placeholder")}
+        label={t("shared.emailInput.label")}
+        placeholder={t("shared.emailInput.placeholder")}
         key={form.key("email")}
         required
         {...form.getInputProps("email")}

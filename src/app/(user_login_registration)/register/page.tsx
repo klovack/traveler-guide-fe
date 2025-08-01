@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
-import { useForm, isEmail, matchesField } from "@mantine/form";
+import { useForm, isEmail, matchesField, isNotEmpty } from "@mantine/form";
 import { TextInput, Text, Checkbox } from "@mantine/core";
 import { useMemo, useState } from "react";
 import { withoutAuthOnly } from "@/lib/withoutAuthOnly";
@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 function RegisterPage() {
-  const t = useTranslations("auth.RegisterPage");
+  const t = useTranslations("auth");
   const router = useRouter();
   const [authError, setAuthError] = useState<string | undefined>();
   const { register, isRegistering } = useAuth({ noAutoFetchMe: true });
@@ -25,26 +25,32 @@ function RegisterPage() {
     },
     validate: {
       email: (value) => {
-        const emailRequired = isEmail("Email is required")(value);
+        const emailRequired = isNotEmpty(
+          t("shared.emailInput.validationError.required")
+        )(value);
         if (emailRequired) return emailRequired;
 
-        const emailInvalid = isEmail("Email must be valid")(value);
+        const emailInvalid = isEmail(
+          t("shared.emailInput.validationError.invalid")
+        )(value);
         if (emailInvalid) return emailInvalid;
       },
       password: (value) => {
         const isLessThanMinLength =
-          value.length < 8 ? "be at least 8 characters long" : undefined;
+          value.length < 8
+            ? t("shared.passwordInput.validationError.minLength")
+            : undefined;
 
         const isMissingUppercase = !/[A-Z]/.test(value)
-          ? "contain at least one uppercase letter"
+          ? t("shared.passwordInput.validationError.uppercase")
           : undefined;
 
         const isMissingLowercase = !/[a-z]/.test(value)
-          ? "contain at least one lowercase letter"
+          ? t("shared.passwordInput.validationError.lowercase")
           : undefined;
 
         const isMissingNumber = !/\d/.test(value)
-          ? "contain at least one number"
+          ? t("shared.passwordInput.validationError.number")
           : undefined;
 
         const errors = [
@@ -55,10 +61,15 @@ function RegisterPage() {
         ].filter((val) => val !== undefined && val !== null);
 
         return errors.length > 0
-          ? `Password must ${errors.join(", ")}`
+          ? t("shared.passwordInput.validationError.message", {
+              criteria: errors.join(", "),
+            })
           : undefined;
       },
-      passwordConfirmation: matchesField("password", "Passwords do not match"),
+      passwordConfirmation: matchesField(
+        "password",
+        t("shared.confirmPasswordInput.validationError.mismatch")
+      ),
     },
   });
 
@@ -103,24 +114,24 @@ function RegisterPage() {
 
   return (
     <LoginRegisterForm
-      title={t("title")}
+      title={t("RegisterPage.title")}
       form={form}
       onSubmit={handleRegister}
       onErrorClose={handleClose}
       errors={errors}
-      submitText={t("submitButton")}
+      submitText={t("RegisterPage.submitButton")}
       textLink={{
-        text: t("textLink.text"),
-        linkText: t("textLink.linkText"),
+        text: t("RegisterPage.textLink.text"),
+        linkText: t("RegisterPage.textLink.linkText"),
         href: "/login",
         linkStyle: { textDecoration: "none" },
       }}
       loading={isRegistering}
     >
-      <Text>{t("description")}</Text>
+      <Text>{t("RegisterPage.description")}</Text>
       <TextInput
-        label={t("emailInput.label")}
-        placeholder={t("emailInput.placeholder")}
+        label={t("shared.emailInput.label")}
+        placeholder={t("shared.emailInput.placeholder")}
         key={form.key("email")}
         required
         {...form.getInputProps("email")}
@@ -129,8 +140,8 @@ function RegisterPage() {
         }}
       />
       <TextInput
-        label={t("passwordInput.label")}
-        placeholder={t("passwordInput.placeholder")}
+        label={t("shared.passwordInput.label")}
+        placeholder={t("shared.passwordInput.placeholder")}
         type="password"
         key={form.key("password")}
         required
@@ -141,8 +152,8 @@ function RegisterPage() {
         }}
       />
       <TextInput
-        label={t("confirmPasswordInput.label")}
-        placeholder={t("confirmPasswordInput.placeholder")}
+        label={t("shared.confirmPasswordInput.label")}
+        placeholder={t("shared.confirmPasswordInput.placeholder")}
         type="password"
         key={form.key("passwordConfirmation")}
         required
@@ -158,7 +169,7 @@ function RegisterPage() {
         {...form.getInputProps("termsOfService", {
           type: "checkbox",
         })}
-        label={t.rich("termsAndConditions", {
+        label={t.rich("RegisterPage.termsAndConditions", {
           terms: TermsLink,
           privacyPolicy: PrivacyPolicyLink,
         })}

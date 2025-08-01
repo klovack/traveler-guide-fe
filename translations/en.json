@@ -11,10 +11,6 @@
       "resendEmailConfirmationIn": "You can resend the confirmation email in {waitingTime}",
       "seconds": "seconds",
       "minutes": "minutes",
-      "emailInput": {
-        "label": "Email",
-        "placeholder": "Enter your email address"
-      },
       "submitButton": "Resend Confirmation Email",
       "textLink": {
         "text": "Don't have an account?",
@@ -24,14 +20,6 @@
     "LoginPage": {
       "title": "Welcome Back",
       "description": "Log in to continue exploring your favorite travel destinations.",
-      "emailInput": {
-        "label": "Email",
-        "placeholder": "Enter your email address"
-      },
-      "passwordInput": {
-        "label": "Password",
-        "placeholder": "Enter your password"
-      },
       "submitButton": "Log In",
       "textLink": {
         "text": "Don't have an account?",
@@ -41,24 +29,40 @@
     "RegisterPage": {
       "title": "Create Your Account",
       "description": "Join our community to start exploring and sharing travel experiences.",
-      "emailInput": {
-        "label": "Email",
-        "placeholder": "Enter your email address"
-      },
-      "passwordInput": {
-        "label": "Password",
-        "placeholder": "Create a password"
-      },
-      "confirmPasswordInput": {
-        "label": "Confirm Password",
-        "placeholder": "Re-enter your password"
-      },
       "submitButton": "Register",
       "textLink": {
         "text": "Already have an account?",
         "linkText": "Log in here"
       },
       "termsAndConditions": "By registering, you agree to our <terms>Terms of Service</terms> and <privacyPolicy>Privacy Policy</privacyPolicy>."
+    },
+    "shared": {
+      "emailInput": {
+        "label": "Email",
+        "placeholder": "Enter your email address",
+        "validationError": {
+          "required": "Email is required",
+          "invalid": "Please enter a valid email address"
+        }
+      },
+      "passwordInput": {
+        "label": "Password",
+        "placeholder": "Create a password",
+        "validationError": {
+          "message": "Password must {criteria}",
+          "minLength": "be at least 8 characters long",
+          "uppercase": "contain at least one uppercase letter",
+          "lowercase": "contain at least one lowercase letter",
+          "number": "contain at least one number"
+        }
+      },
+      "confirmPasswordInput": {
+        "label": "Confirm Password",
+        "placeholder": "Re-enter your password",
+        "validationError": {
+          "mismatch": "Passwords do not match"
+        }
+      }
     }
   }
 }
