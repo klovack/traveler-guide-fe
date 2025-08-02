@@ -13,6 +13,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import Navbar from "./_components/Navbar";
 import { getLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
+import QueryProvider from "@/components/QueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,20 +37,21 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider>
-          <AuthProvider>
-            <MantineProvider theme={theme}>
-              <AppShell
-                header={{
-                  height: 60,
-                }}
-                padding="md"
-              >
-                <Navbar />
-
-                <AppShellMain>{children}</AppShellMain>
-              </AppShell>
-            </MantineProvider>
-          </AuthProvider>
+          <QueryProvider>
+            <AuthProvider>
+              <MantineProvider theme={theme}>
+                <AppShell
+                  header={{
+                    height: 60,
+                  }}
+                  padding="md"
+                >
+                  <Navbar />
+                  <AppShellMain>{children}</AppShellMain>
+                </AppShell>
+              </MantineProvider>
+            </AuthProvider>
+          </QueryProvider>
         </NextIntlClientProvider>
       </body>
     </html>

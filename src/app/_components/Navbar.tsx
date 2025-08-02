@@ -3,30 +3,16 @@ import {
   Group,
   Avatar,
   Text,
-  Button,
   CSSProperties,
 } from "@mantine/core";
 import Link from "next/link";
-import LogoutButton from "./LogoutButton";
-import { requireUser } from "@/lib/auth.server";
+import Navlinks from "./Navlinks";
 import LocaleSwitcher from "./LocaleSwitcher";
 
-export default async function Navbar() {
-  const user = await requireUser({ shouldRedirect: false });
+export default function Navbar() {
   const noTextDecoration: CSSProperties = {
     textDecoration: "none",
   };
-
-  const navLinks = user
-    ? [<LogoutButton key={"nav-logout"} />]
-    : [
-        <Link key={"nav-login"} href={"/login"} style={noTextDecoration}>
-          <Button variant="subtle">Login</Button>
-        </Link>,
-        <Link key={"nav-register"} href={"/register"} style={noTextDecoration}>
-          <Button variant="subtle">Sign Up</Button>
-        </Link>,
-      ];
 
   return (
     <AppShellHeader>
@@ -42,7 +28,7 @@ export default async function Navbar() {
 
         <Group h="100%">
           <LocaleSwitcher />
-          {navLinks}
+          <Navlinks />
         </Group>
       </Group>
     </AppShellHeader>
