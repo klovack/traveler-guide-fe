@@ -7,8 +7,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import openStreetMapStyleSpec from "./openStreetMap.style.json";
-import { Container, Pill, Text } from "@mantine/core";
-import Link from "next/link";
+import { Pill, Text } from "@mantine/core";
 import MaplibreGeocoder, {
   CarmenGeojsonFeature,
   MaplibreGeocoderFeatureResults,
@@ -20,8 +19,11 @@ import {
   reverseSearch,
 } from "@/lib/map/nominatim";
 import { TripWizardFormValues } from "../_hooks/useTripWizard";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function DestinationMap() {
+  const t = useTranslations("TripWizardPage.preferences");
+  const locale = useLocale();
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const { setValue, getValues } = useFormContext<TripWizardFormValues>();
@@ -56,6 +58,7 @@ export default function DestinationMap() {
       attributionControl: {
         compact: true,
       },
+      locale: locale,
     });
 
     const geocoder = new MaplibreGeocoder(
@@ -91,6 +94,7 @@ export default function DestinationMap() {
         },
         showResultMarkers: false,
         showResultsWhileTyping: true,
+        placeholder: t("form.destination.searchPlaceholder"),
       }
     );
 
@@ -217,25 +221,16 @@ export default function DestinationMap() {
 
   return (
     <div className="mb-4">
+      <Text size="sm" fw={500} className="mb-2">
+        {t("form.destination.label")}
+      </Text>
       <div
         ref={mapContainerRef}
         style={{
           width: "100%",
           height: "500px",
         }}
-      >
-        <Container p={2} bg="#fff" className="absolute bottom-0 right-0">
-          <Text size="xs">
-            Map data from{" "}
-            <Link
-              href="https://www.openstreetmap.org/copyright"
-              target="_blank"
-            >
-              OpenStreetMap
-            </Link>
-          </Text>
-        </Container>
-      </div>
+      ></div>
 
       {Object.values(destinations)?.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2 text-sm text-gray-700">

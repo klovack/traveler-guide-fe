@@ -64,5 +64,101 @@
         }
       }
     }
+  },
+  "TripWizardPage": {
+    "preferences": {
+      "title": "Let's Plan Your Dream Trip",
+      "subtitle": "Tell us what you're imagining, we’ll bring it to life.",
+      "form": {
+        "destination": {
+          "label": "Where do you want to go?",
+          "searchPlaceholder": "Search for a destination"
+        },
+        "travelDates": {
+          "label": "When do you want to travel?"
+        },
+        "tripType": {
+          "label": "Trip type",
+          "options": {
+            "day": "One-Day",
+            "multiday": "Multi-Day",
+            "range": "Range"
+          }
+        },
+        "flexibleDates": {
+          "label": "My travel dates are flexible",
+          "description": "If you select this option, we will suggest the best dates based on your preferences.",
+          "flexibilityOptions": {
+            "one_day": "±1 Day",
+            "two_days": "±2 Days",
+            "three_days": "±3 Days",
+            "seven_days": "±7 Days"
+          }
+        },
+        "description": {
+          "label": "Tell us about your trip",
+          "placeholder": "We're a couple looking for a romantic getaway in Paris with a mix of sightseeing and relaxation. We love art, history, and trying local cuisine.",
+          "validationError": {
+            "required": "Please describe your trip preferences"
+          }
+        },
+        "groupSize": {
+          "label": "How many people are traveling?",
+          "solo": "Just me",
+          "family": "Family/small group",
+          "group": "Group"
+        },
+        "languages": {
+          "label": "Languages Spoken",
+          "placeholder": "Select your preferred language",
+          "options": {
+            "en": "English",
+            "german": "German",
+            "id": "Indonesian",
+            "jawa": "Javanese",
+            "sunda": "Sundanese",
+            "batak": "Bataknese",
+            "madura": "Madurese",
+            "bali": "Balinese",
+            "bugis": "Buginese",
+            "aceh": "Acehnese",
+            "banjar": "Banjarese",
+            "betawi": "Betawi",
+            "minangkabau": "Minangkabau",
+            "sasak": "Sasak",
+            "toraja": "Torajan",
+            "ambon": "Ambonese",
+            "papua": "Papuan",
+            "other": "Other"
+          }
+        },
+        "interests": {
+          "label": "Interests",
+          "placeholder": "Select your interests",
+          "options": {
+            "culture": "Culture & History",
+            "nature": "Nature & Adventure",
+            "food": "Food & Dining",
+            "shopping": "Shopping",
+            "nightlife": "Nightlife & Entertainment",
+            "wellness": "Wellness & Relaxation",
+            "family": "Family-Friendly Activities",
+            "romantic": "Romantic Experiences",
+            "sports": "Sports & Activities",
+            "art": "Art & Museums",
+            "local": "Local Experiences"
+          }
+        },
+        "submitButton": "Generate My Trip"
+      }
+    },
+    "itinerary": {
+      "title": "Your Personalized Trip Itinerary",
+      "subtitle": "Tailored to your preferences by our AI travel concierge."
+    },
+    "guide": {
+      "title": "Your Matched Guide",
+      "subtitle": "We’ve found the perfect local guide for your journey."
+    }
   }
 }

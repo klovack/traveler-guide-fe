@@ -64,5 +64,101 @@
         }
       }
     }
+  },
+  "TripWizardPage": {
+    "preferences": {
+      "title": "Mari Rencanakan Liburan Impianmu",
+      "subtitle": "Ceritakan apa yang kamu bayangkan, kami akan mewujudkannya.",
+      "form": {
+        "destination": {
+          "label": "Ke mana kamu ingin pergi?",
+          "searchPlaceholder": "Cari destinasi"
+        },
+        "travelDates": {
+          "label": "Kapan kamu ingin bepergian?"
+        },
+        "tripType": {
+          "label": "Tipe perjalanan",
+          "options": {
+            "day": "Satu Hari",
+            "multiday": "Beberapa Hari",
+            "range": "Rentang"
+          }
+        },
+        "flexibleDates": {
+          "label": "Tanggal perjalanan saya fleksibel",
+          "description": "Jika kamu memilih opsi ini, kami akan menyarankan tanggal terbaik sesuai preferensimu.",
+          "flexibilityOptions": {
+            "one_day": "±1 Hari",
+            "two_days": "±2 Hari",
+            "three_days": "±3 Hari",
+            "seven_days": "±7 Hari"
+          }
+        },
+        "description": {
+          "label": "Ceritakan tentang perjalananmu",
+          "placeholder": "Kami pasangan yang ingin liburan romantis di Paris dengan kombinasi wisata dan relaksasi. Kami suka seni, sejarah, dan mencoba kuliner lokal.",
+          "validationError": {
+            "required": "Silakan jelaskan preferensi perjalananmu"
+          }
+        },
+        "groupSize": {
+          "label": "Berapa orang yang bepergian?",
+          "solo": "Hanya saya",
+          "family": "Keluarga/kelompok kecil",
+          "group": "Grup"
+        },
+        "languages": {
+          "label": "Bahasa yang Digunakan",
+          "placeholder": "Pilih bahasa yang diinginkan",
+          "options": {
+            "en": "Inggris",
+            "german": "Jerman",
+            "id": "Indonesia",
+            "jawa": "Jawa",
+            "sunda": "Sunda",
+            "batak": "Batak",
+            "madura": "Madura",
+            "bali": "Bali",
+            "bugis": "Bugis",
+            "aceh": "Aceh",
+            "banjar": "Banjar",
+            "betawi": "Betawi",
+            "minangkabau": "Minangkabau",
+            "sasak": "Sasak",
+            "toraja": "Toraja",
+            "ambon": "Ambon",
+            "papua": "Papua",
+            "other": "Lainnya"
+          }
+        },
+        "interests": {
+          "label": "Minat",
+          "placeholder": "Pilih minatmu",
+          "options": {
+            "culture": "Budaya & Sejarah",
+            "nature": "Alam & Petualangan",
+            "food": "Kuliner & Makan",
+            "shopping": "Belanja",
+            "nightlife": "Hiburan Malam & Rekreasi",
+            "wellness": "Kesehatan & Relaksasi",
+            "family": "Aktivitas Ramah Keluarga",
+            "romantic": "Pengalaman Romantis",
+            "sports": "Olahraga & Aktivitas",
+            "art": "Seni & Museum",
+            "local": "Pengalaman Lokal"
+          }
+        },
+        "submitButton": "Buat Perjalananku"
+      }
+    },
+    "itinerary": {
+      "title": "Rencana Perjalanan Pribadimu",
+      "subtitle": "Disesuaikan dengan preferensimu oleh asisten perjalanan AI kami."
+    },
+    "guide": {
+      "title": "Pemandu yang Cocok untukmu",
+      "subtitle": "Kami telah menemukan pemandu lokal yang sempurna untuk perjalananmu."
+    }
   }
 }

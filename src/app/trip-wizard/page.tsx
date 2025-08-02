@@ -1,11 +1,6 @@
-import { Container, Title } from "@mantine/core";
-import TripWizardSteps from "./_components/TripWizardSteps";
+import { redirect } from "next/navigation";
+import { TRIP_WIZARD_STEPS } from "./constants";
 
 export default function TripWizardPage() {
-  return (
-    <Container>
-      <Title mb="md">Plan Your Trip</Title>
-      <TripWizardSteps />
-    </Container>
-  );
+  redirect(`/trip-wizard/${TRIP_WIZARD_STEPS[0]}`);
 }

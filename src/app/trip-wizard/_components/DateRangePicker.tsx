@@ -12,21 +12,23 @@ import {
   datesFlexibilityOptions,
   TripWizardFormValues,
 } from "../_hooks/useTripWizard";
+import { useTranslations } from "next-intl";
 
-type TripType = "Day Trip" | "Range Trip" | "Multiple Days Trip";
-const tripTypes: TripType[] = ["Day Trip", "Range Trip", "Multiple Days Trip"];
+type TripType = "day" | "multiday" | "range";
+const tripTypes: TripType[] = ["day", "multiday", "range"];
 
 const MAX_NUM_OF_MULTI_DAYS_TRIP =
   envVar.safeGet<number>("NEXT_MAX_NUM_OF_MULTI_DAYS_TRIP") ?? 5;
 
 export default function DateRangePicker() {
+  const t = useTranslations("TripWizardPage.preferences.form");
   const { watch, setValue } = useFormContext<TripWizardFormValues>();
   const [rangeDateValue, setRangeDateValue] = useState<
     [string | null, string | null]
   >([null, null]);
   const [singleDateValue, setSingleDateValue] = useState<string | null>(null);
   const [multiDateValue, setMultiDateValue] = useState<string[]>([]);
-  const [tripType, setTripType] = useState<TripType>("Day Trip");
+  const [tripType, setTripType] = useState<TripType>("day");
 
   const today = useMemo(() => dayjs(), []);
   const placeholderTexts = useMemo(() => {
@@ -36,9 +38,9 @@ export default function DateRangePicker() {
     const sevenDaysLater = today.add(7, "day").format(format);
 
     return {
-      "Day Trip": todayFormatted,
-      "Multiple Days Trip": `${todayFormatted}, ${twoDaysLater}, ${sevenDaysLater}`,
-      "Range Trip": `${todayFormatted} - ${sevenDaysLater}`,
+      day: todayFormatted,
+      multiday: `${todayFormatted}, ${twoDaysLater}, ${sevenDaysLater}`,
+      range: `${todayFormatted} - ${sevenDaysLater}`,
     } as Record<TripType, string>;
   }, [today]);
 
@@ -89,7 +91,7 @@ export default function DateRangePicker() {
   const getComponentByTripType = () => {
     const defaultAttributes: DatePickerInputProps = {
       className: "grow",
-      label: "When is your trip",
+      label: t("travelDates.label"),
       flex: "grow",
       highlightToday: true,
       minDate: today.toDate(),
@@ -101,11 +103,11 @@ export default function DateRangePicker() {
     };
 
     switch (tripType) {
-      case "Range Trip":
+      case "range":
         return (
           <DatePickerInput
             {...(defaultAttributes as unknown as DatePickerInputProps<"range">)}
-            placeholder={placeholderTexts["Range Trip"]}
+            placeholder={placeholderTexts.range}
             type="range"
             value={rangeDateValue}
             onChange={(val) => {
@@ -118,23 +120,23 @@ export default function DateRangePicker() {
             }}
           />
         );
-      case "Multiple Days Trip":
+      case "multiday":
         return (
           <DatePickerInput
             {...(defaultAttributes as unknown as DatePickerInputProps<"multiple">)}
-            placeholder={placeholderTexts["Multiple Days Trip"]}
+            placeholder={placeholderTexts.multiday}
             type="multiple"
             value={multiDateValue}
             onChange={handleMultiDateChange}
             valueFormatter={multiDateFormatter}
           />
         );
-      case "Day Trip":
+      case "day":
       default:
         return (
           <DatePickerInput
             {...defaultAttributes}
-            placeholder={placeholderTexts["Day Trip"]}
+            placeholder={placeholderTexts.day}
             type="default"
             value={singleDateValue}
             onChange={(val) => {
@@ -156,8 +158,11 @@ export default function DateRangePicker() {
       h="100%"
     >
       <Select
-        label="What kind of trip do you want?"
-        data={tripTypes}
+        label={t("tripType.label")}
+        data={tripTypes.map((type) => ({
+          value: type,
+          label: t(`tripType.options.${type}`),
+        }))}
         value={tripType}
         onChange={onTripChange}
       />

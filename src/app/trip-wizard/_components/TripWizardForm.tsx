@@ -1,12 +1,11 @@
 "use client";
 
-import { z } from "zod";
 import DestinationMap from "./DestinationMap";
 import PreferencesFields from "./PreferencesFields";
-import GeneratedResult from "./GeneratedResult";
 import { TripWizardFormValues, useTripWizard } from "../_hooks/useTripWizard";
 import { Button, Flex } from "@mantine/core";
 import DateRangePicker from "./DateRangePicker";
+import { useTranslations } from "next-intl";
 
 export type TripWizardFormProps = {
   onSubmit?: () => void;
@@ -16,6 +15,7 @@ export default function TripWizardForm({
   onSubmit,
 }: Readonly<TripWizardFormProps>) {
   const { form } = useTripWizard();
+  const t = useTranslations("TripWizardPage.preferences");
 
   const onSubmitForm = (data: TripWizardFormValues) => {
     // Later: call FastAPI /ai/trip-suggestions
@@ -35,9 +35,8 @@ export default function TripWizardForm({
       <DestinationMap />
       <PreferencesFields />
       <Flex justify="flex-end" align="center">
-        <Button type="submit">Generate Trip</Button>
+        <Button type="submit">{t("form.submitButton")}</Button>
       </Flex>
-      <GeneratedResult />
     </form>
   );
 }

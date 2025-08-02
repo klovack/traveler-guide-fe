@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "postinstall": "if [ ! -d \"public/flags\" ]; then react-flagpack; fi"
+    "update-country-flags": "if [ ! -d \"public/flags\" ]; then react-flugpack; fi"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",

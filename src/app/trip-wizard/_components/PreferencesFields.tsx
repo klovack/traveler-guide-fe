@@ -15,9 +15,12 @@ import {
   TripWizardFormValues,
 } from "../_hooks/useTripWizard";
 import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 
 export default function PreferencesFields() {
-  const { register, watch, setValue } = useFormContext<TripWizardFormValues>();
+  const t = useTranslations("TripWizardPage.preferences");
+  const { register, watch, setValue, getFieldState } =
+    useFormContext<TripWizardFormValues>();
 
   const groupSize = watch("groupSize");
   const groupSizeValue = useMemo<[number, number] | undefined>(() => {
@@ -26,26 +29,20 @@ export default function PreferencesFields() {
     return [groupSize.min, groupSize.max];
   }, [groupSize]);
 
-  const dailyBudget = watch("budget");
-  const dailyBudgetValue = useMemo<[number, number] | undefined>(() => {
-    if (!dailyBudget) return;
-
-    return [dailyBudget.min, dailyBudget.max];
-  }, [dailyBudget]);
-
   return (
     <div className="space-y-4">
       <Textarea
         {...register("tripDescription")}
-        label="Tell us more about your dream trip?"
-        placeholder="We’re a couple looking for a peaceful, nature-filled experience near the ocean. Avoid tourist traps."
+        label={t("form.description.label")}
+        placeholder={t("form.description.placeholder")}
         rows={4}
+        error={getFieldState("tripDescription").error?.message}
       />
 
       <Group w="100%" justify="center" grow gap="xl" className="mb-8">
         <Stack>
           <Text size="sm" fw={500}>
-            Group size
+            {t("form.groupSize.label")}
           </Text>
           <RangeSlider
             label={(value) => `${value} ${value > 1 ? "Persons" : "Person"}`}
@@ -61,42 +58,18 @@ export default function PreferencesFields() {
               })
             }
             marks={[
-              { value: 1, label: "Solo" },
-              { value: 5, label: "Small Group" },
-              { value: 10, label: "Group" },
+              { value: 1, label: t("form.groupSize.solo") },
+              { value: 5, label: t("form.groupSize.family") },
+              { value: 10, label: t("form.groupSize.group") },
             ]}
-          />
-        </Stack>
-
-        <Stack>
-          <Text size="sm" fw={500}>
-            Daily Budget
-          </Text>
-          <RangeSlider
-            label={(value) => `$ ${value}`}
-            step={10}
-            min={100}
-            max={1500}
-            marks={[
-              { value: 100, label: "$" },
-              { value: 750, label: "$$" },
-              { value: 1500, label: "$$$" },
-            ]}
-            value={dailyBudgetValue}
-            onChange={(val) =>
-              setValue("budget", {
-                min: val[0],
-                max: val[1],
-              })
-            }
           />
         </Stack>
       </Group>
 
-      <Group w="100%" justify="center" grow gap="xl" align="flex-start">
+      <Stack w="100%" justify="stretch" gap="md" align="stretch">
         <MultiSelect
-          label="Languages"
-          placeholder="Select languages"
+          label={t("form.languages.label")}
+          placeholder={t("form.languages.placeholder")}
           data={Object.values(languageOptions).map((val) => val)}
           value={watch("languages")}
           onChange={(value) => setValue("languages", value)}
@@ -105,15 +78,15 @@ export default function PreferencesFields() {
         />
 
         <MultiSelect
-          label="Interests"
-          placeholder="Select interests"
+          label={t("form.interests.label")}
+          placeholder={t("form.interests.placeholder")}
           data={Object.values(interestOptions).map((val) => val)}
           value={watch("interests")}
           onChange={(value) => setValue("interests", value)}
           searchable
           clearable
         />
-      </Group>
+      </Stack>
     </div>
   );
 }

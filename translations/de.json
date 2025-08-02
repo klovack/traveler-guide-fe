@@ -64,5 +64,101 @@
         }
       }
     }
+  },
+  "TripWizardPage": {
+    "preferences": {
+      "title": "Lass uns deine Traumreise planen",
+      "subtitle": "Erzähl uns, was du dir vorstellst, wir machen es möglich.",
+      "form": {
+        "destination": {
+          "label": "Wohin möchtest du reisen?",
+          "searchPlaceholder": "Nach einem Reiseziel suchen"
+        },
+        "travelDates": {
+          "label": "Wann möchtest du reisen?"
+        },
+        "tripType": {
+          "label": "Reiseart",
+          "options": {
+            "day": "Eintägig",
+            "multiday": "Mehrtagestour",
+            "range": "Zeitraum"
+          }
+        },
+        "flexibleDates": {
+          "label": "Meine Reisedaten sind flexibel",
+          "description": "Wenn du diese Option auswählst, schlagen wir dir die besten Termine basierend auf deinen Präferenzen vor.",
+          "flexibilityOptions": {
+            "one_day": "±1 Tag",
+            "two_days": "±2 Tage",
+            "three_days": "±3 Tage",
+            "seven_days": "±7 Tage"
+          }
+        },
+        "description": {
+          "label": "Erzähl uns von deiner Reise",
+          "placeholder": "Wir sind ein Paar und suchen einen romantischen Kurzurlaub in Paris mit einer Mischung aus Sightseeing und Entspannung. Wir lieben Kunst, Geschichte und lokale Küche.",
+          "validationError": {
+            "required": "Bitte beschreibe deine Reisepräferenzen"
+          }
+        },
+        "groupSize": {
+          "label": "Wie viele Personen reisen?",
+          "solo": "Nur ich",
+          "family": "Familie/kleine Gruppe",
+          "group": "Gruppe"
+        },
+        "languages": {
+          "label": "Gesprochene Sprachen",
+          "placeholder": "Bevorzugte Sprache auswählen",
+          "options": {
+            "en": "Englisch",
+            "german": "Deutsch",
+            "id": "Indonesisch",
+            "jawa": "Javanisch",
+            "sunda": "Sundanesisch",
+            "batak": "Batak",
+            "madura": "Maduresisch",
+            "bali": "Balinesisch",
+            "bugis": "Buginesisch",
+            "aceh": "Acehnesisch",
+            "banjar": "Banjaresisch",
+            "betawi": "Betawi",
+            "minangkabau": "Minangkabau",
+            "sasak": "Sasak",
+            "toraja": "Toraja",
+            "ambon": "Ambonesisch",
+            "papua": "Papuanisch",
+            "other": "Andere"
+          }
+        },
+        "interests": {
+          "label": "Interessen",
+          "placeholder": "Wähle deine Interessen aus",
+          "options": {
+            "culture": "Kultur & Geschichte",
+            "nature": "Natur & Abenteuer",
+            "food": "Essen & Gastronomie",
+            "shopping": "Shopping",
+            "nightlife": "Nachtleben & Unterhaltung",
+            "wellness": "Wellness & Entspannung",
+            "family": "Familienfreundliche Aktivitäten",
+            "romantic": "Romantische Erlebnisse",
+            "sports": "Sport & Aktivitäten",
+            "art": "Kunst & Museen",
+            "local": "Lokale Erlebnisse"
+          }
+        },
+        "submitButton": "Meine Reise erstellen"
+      }
+    },
+    "itinerary": {
+      "title": "Dein persönlicher Reiseplan",
+      "subtitle": "Individuell abgestimmt von unserem KI-Reiseassistenten."
+    },
+    "guide": {
+      "title": "Dein passender Guide",
+      "subtitle": "Wir haben den perfekten lokalen Guide für deine Reise gefunden."
+    }
   }
 }
