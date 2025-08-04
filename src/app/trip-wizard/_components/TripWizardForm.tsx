@@ -2,10 +2,11 @@
 
 import DestinationMap from "./DestinationMap";
 import PreferencesFields from "./PreferencesFields";
-import { TripWizardFormValues, useTripWizard } from "../_hooks/useTripWizard";
+import { useTripWizardForm } from "../_hooks/useTripWizardForm";
 import { Button, Flex } from "@mantine/core";
 import DateRangePicker from "./DateRangePicker";
 import { useTranslations } from "next-intl";
+import { TripWizardRequest } from "tg-sdk";
 
 export type TripWizardFormProps = {
   onSubmit?: () => void;
@@ -14,10 +15,10 @@ export type TripWizardFormProps = {
 export default function TripWizardForm({
   onSubmit,
 }: Readonly<TripWizardFormProps>) {
-  const { form } = useTripWizard();
+  const { form } = useTripWizardForm();
   const t = useTranslations("TripWizardPage.preferences");
 
-  const onSubmitForm = (data: TripWizardFormValues) => {
+  const onSubmitForm = (data: TripWizardRequest) => {
     // Later: call FastAPI /ai/trip-suggestions
     console.log("Trip preferences:", data);
     onSubmit?.();

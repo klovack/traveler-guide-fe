@@ -88,7 +88,8 @@
         "flexibleDates": {
           "label": "My travel dates are flexible",
           "description": "If you select this option, we will suggest the best dates based on your preferences.",
-          "flexibilityOptions": {
+          "options": {
+            "exact": "Exact Dates",
             "one_day": "±1 Day",
             "two_days": "±2 Days",
             "three_days": "±3 Days",
@@ -106,14 +107,15 @@
           "label": "How many people are traveling?",
           "solo": "Just me",
           "family": "Family/small group",
-          "group": "Group"
+          "group": "Group",
+          "person": "{count, plural, =0 {no person} =1 {1 person} other {# persons}}"
         },
         "languages": {
           "label": "Languages Spoken",
           "placeholder": "Select your preferred language",
           "options": {
             "en": "English",
-            "german": "German",
+            "de": "German",
             "id": "Indonesian",
             "jawa": "Javanese",
             "sunda": "Sundanese",

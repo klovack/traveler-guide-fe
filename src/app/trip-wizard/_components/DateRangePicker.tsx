@@ -1,4 +1,4 @@
-import { Group, Select } from "@mantine/core";
+import { ComboboxData, Group, Select } from "@mantine/core";
 import {
   DateFormatter,
   DatePickerInput,
@@ -8,27 +8,68 @@ import React, { useCallback, useMemo, useState } from "react";
 import dayjs from "dayjs";
 import { envVar } from "@/lib/utils/env";
 import { useFormContext } from "react-hook-form";
-import {
-  datesFlexibilityOptions,
-  TripWizardFormValues,
-} from "../_hooks/useTripWizard";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { TripWizardRequest } from "tg-sdk";
+import { datesFlexibilityOptions } from "../_hooks/useTripWizardForm";
 
 type TripType = "day" | "multiday" | "range";
 const tripTypes: TripType[] = ["day", "multiday", "range"];
+
+type TripWizardDateRangePicker =
+  | {
+      type: "day";
+      date?: string | null;
+    }
+  | {
+      type: "multiday";
+      date?: string[];
+    }
+  | {
+      type: "range";
+      date?: [string | null, string | null];
+    };
+
+function getTripTypeAndDatesFromValue(
+  value: TripWizardRequest["trip_dates"]
+): TripWizardDateRangePicker {
+  if (!value) {
+    return { type: "day", date: null };
+  }
+
+  if (Array.isArray(value)) {
+    return {
+      type: "multiday",
+      date: value,
+    };
+  } else if (typeof value === "string") {
+    return { type: "day", date: value };
+  }
+  return {
+    type: "range",
+    date: [value.start ?? null, value.end ?? null],
+  };
+}
 
 const MAX_NUM_OF_MULTI_DAYS_TRIP =
   envVar.safeGet<number>("NEXT_MAX_NUM_OF_MULTI_DAYS_TRIP") ?? 5;
 
 export default function DateRangePicker() {
   const t = useTranslations("TripWizardPage.preferences.form");
-  const { watch, setValue } = useFormContext<TripWizardFormValues>();
+  const locale = useLocale();
+  const { watch, setValue } = useFormContext<TripWizardRequest>();
+  const tripDates = watch("trip_dates");
+  const trip = getTripTypeAndDatesFromValue(tripDates);
+
   const [rangeDateValue, setRangeDateValue] = useState<
     [string | null, string | null]
-  >([null, null]);
-  const [singleDateValue, setSingleDateValue] = useState<string | null>(null);
-  const [multiDateValue, setMultiDateValue] = useState<string[]>([]);
-  const [tripType, setTripType] = useState<TripType>("day");
+  >(trip.type === "range" && trip.date ? trip.date : [null, null]);
+  const [singleDateValue, setSingleDateValue] = useState<string | null>(
+    trip.type === "day" && trip.date ? trip.date : null
+  );
+  const [multiDateValue, setMultiDateValue] = useState<string[]>(
+    trip.type === "multiday" && trip.date ? trip.date : []
+  );
+  const [tripType, setTripType] = useState<TripType>(trip.type);
 
   const today = useMemo(() => dayjs(), []);
   const placeholderTexts = useMemo(() => {
@@ -54,7 +95,7 @@ export default function DateRangePicker() {
   const handleMultiDateChange = (val: string[]) => {
     if (val.length <= MAX_NUM_OF_MULTI_DAYS_TRIP) {
       setMultiDateValue(val);
-      onDateChange(val as TripWizardFormValues["dates"]);
+      onDateChange(val as TripWizardRequest["trip_dates"]);
     }
 
     // TODO show error that the user can't select more than MAX_NUM_OF_MULTI_DAYS_TRIP
@@ -84,8 +125,8 @@ export default function DateRangePicker() {
     return "";
   };
 
-  const onDateChange = useCallback((value: TripWizardFormValues["dates"]) => {
-    setValue("dates", value);
+  const onDateChange = useCallback((value: TripWizardRequest["trip_dates"]) => {
+    setValue("trip_dates", value);
   }, []);
 
   const getComponentByTripType = () => {
@@ -141,12 +182,19 @@ export default function DateRangePicker() {
             value={singleDateValue}
             onChange={(val) => {
               setSingleDateValue(val);
-              onDateChange(val as TripWizardFormValues["dates"]);
+              onDateChange(val as TripWizardRequest["trip_dates"]);
             }}
           />
         );
     }
   };
+
+  const datesFlexibilities: ComboboxData = useMemo(() => {
+    return datesFlexibilityOptions.map((option) => ({
+      value: option,
+      label: t(`flexibleDates.options.${option}`),
+    }));
+  }, [datesFlexibilityOptions, t, locale]);
 
   return (
     <Group
@@ -171,16 +219,13 @@ export default function DateRangePicker() {
 
       <Select
         label="Flexibility"
-        data={Object.entries(datesFlexibilityOptions).map(([key, label]) => ({
-          value: key,
-          label,
-        }))}
-        value={watch("datesFlexibility")}
+        data={datesFlexibilities}
+        value={watch("dates_flexibility")}
         onChange={(value) => {
           if (!value) return;
           setValue(
-            "datesFlexibility",
-            value as keyof typeof datesFlexibilityOptions
+            "dates_flexibility",
+            value as TripWizardRequest["dates_flexibility"]
           );
         }}
         defaultValue="exact"

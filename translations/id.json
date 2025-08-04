@@ -88,7 +88,8 @@
         "flexibleDates": {
           "label": "Tanggal perjalanan saya fleksibel",
           "description": "Jika kamu memilih opsi ini, kami akan menyarankan tanggal terbaik sesuai preferensimu.",
-          "flexibilityOptions": {
+          "options": {
+            "exact": "Tanggal Tepat",
             "one_day": "±1 Hari",
             "two_days": "±2 Hari",
             "three_days": "±3 Hari",
@@ -106,14 +107,15 @@
           "label": "Berapa orang yang bepergian?",
           "solo": "Hanya saya",
           "family": "Keluarga/kelompok kecil",
-          "group": "Grup"
+          "group": "Grup",
+          "person": "{count} orang"
         },
         "languages": {
           "label": "Bahasa yang Digunakan",
           "placeholder": "Pilih bahasa yang diinginkan",
           "options": {
             "en": "Inggris",
-            "german": "Jerman",
+            "de": "Jerman",
             "id": "Indonesia",
             "jawa": "Jawa",
             "sunda": "Sunda",

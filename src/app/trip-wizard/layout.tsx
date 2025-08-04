@@ -1,9 +1,9 @@
-import { TripWizardProvider } from "@/app/trip-wizard/_hooks/useTripWizard";
+import { TripWizardFormProvider } from "@/app/trip-wizard/_hooks/useTripWizardForm";
 
 export default function TripWizardStepLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <TripWizardProvider>{children}</TripWizardProvider>;
+  return <TripWizardFormProvider>{children}</TripWizardFormProvider>;
 }

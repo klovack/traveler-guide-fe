@@ -14,37 +14,68 @@ import MaplibreGeocoder, {
 } from "@maplibre/maplibre-gl-geocoder";
 import {
   NominatimFeature,
-  NominatimFeatureSchema,
   querySearch,
   reverseSearch,
 } from "@/lib/map/nominatim";
-import { TripWizardFormValues } from "../_hooks/useTripWizard";
 import { useLocale, useTranslations } from "next-intl";
+import { Destination, TripWizardRequest } from "tg-sdk";
+import { isWithinDistance } from "@/lib/map/coordinates_helper";
 
 export default function DestinationMap() {
   const t = useTranslations("TripWizardPage.preferences");
   const locale = useLocale();
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
-  const { setValue, getValues } = useFormContext<TripWizardFormValues>();
-  const [destinations, setDestinations] = useState<
-    Record<number, NominatimFeature>
-  >({});
+  const { setValue, getValues } = useFormContext<TripWizardRequest>();
+  const [destinations, setDestinations] = useState<Destination[]>([]);
   const [markers, setMarkers] = useState<Marker[]>([]);
   const markersRef = useRef(markers);
 
   const fetchDestinationsFromForm = useCallback(() => {
-    const destinationsFormValues: NominatimFeature[] =
+    const destinationsFormValues: Destination[] =
       getValues<"destinations">("destinations");
-    const destinationsMap: Record<number, NominatimFeature> = {};
 
-    destinationsFormValues.forEach((destination) => {
-      const id = destination.properties.place_id;
-      destinationsMap[id] = destination;
-    });
-
-    setDestinations(destinationsMap);
+    setDestinations(destinationsFormValues);
   }, []);
+
+  const setDestinationsFromNominatim = useCallback(
+    (feature: NominatimFeature) => {
+      const newDestination: Destination = {
+        name: feature.properties.name,
+        country_code:
+          feature.properties.address?.country_code.toUpperCase() ?? "DE",
+        lat: feature.geometry.coordinates[1],
+        lon: feature.geometry.coordinates[0],
+      };
+
+      for (const dest of destinations) {
+        if (
+          dest.name === newDestination.name &&
+          dest.country_code === newDestination.country_code
+        ) {
+          // if the destination already exists, we compare the coordinates
+          if (
+            isWithinDistance(
+              dest.lat,
+              dest.lon,
+              newDestination.lat,
+              newDestination.lon,
+              5 // 5 km
+            )
+          ) {
+            // if the coordinates are within 5km, we return
+            return;
+          }
+        }
+      }
+
+      setDestinations((prevDestinations) => {
+        const newDestinations = [...prevDestinations, newDestination];
+        return newDestinations;
+      });
+    },
+    [destinations, setDestinations]
+  );
 
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
@@ -102,48 +133,17 @@ export default function DestinationMap() {
     mapRef.current.addControl(new NavigationControl(), "bottom-right");
 
     geocoder.on("result", (e: { result: NominatimFeature }) => {
-      const id = e.result.properties.place_id;
-      if (!id) return;
-
-      setDestinations((prevDestinations) => {
-        const newDestinations = {
-          ...prevDestinations,
-          [id]: e.result,
-        };
-        return newDestinations;
-      });
+      setDestinationsFromNominatim(e.result);
     });
 
     mapRef.current.on("click", async (e) => {
       const { lng, lat } = e.lngLat;
 
-      for (const marker of markersRef.current) {
-        const { lng: markerLng, lat: markerLat } = marker.getLngLat();
-
-        const lngDistance = Math.abs(markerLng - lng);
-        const latDistance = Math.abs(markerLat - lat);
-
-        // if user clicks the same city, we return because it's removed
-        if (lngDistance < 0.2 && latDistance < 0.2) {
-          return;
-        }
-      }
-
       const data = await reverseSearch({ lat, lng });
       if (data) {
-        setDestinations((prevDestinations) => {
-          const newDestinations: Record<number, NominatimFeature> = {};
-
-          for (const feature of data.features) {
-            const id = feature.properties.place_id;
-            newDestinations[id] = feature;
-          }
-
-          return {
-            ...prevDestinations,
-            ...newDestinations,
-          };
-        });
+        for (const feature of data.features) {
+          setDestinationsFromNominatim(feature);
+        }
       }
     });
 
@@ -152,37 +152,45 @@ export default function DestinationMap() {
 
   useEffect(() => {
     if (!mapRef.current) return;
-    markers.forEach((m) => m.remove());
-    setMarkers([]);
 
-    const newMarkers = [];
+    // Create a set of destination coordinates for quick lookup
+    const destinationCoords = new Set(
+      destinations.map((dest) => `${dest.lat},${dest.lon}`)
+    );
 
-    for (const dest of Object.values(destinations)) {
-      if (dest.geometry) {
-        let lat = 0;
-        let lng = 0;
-        switch (dest.geometry.type) {
-          case "Point":
-            lat = dest.geometry.coordinates[1];
-            lng = dest.geometry.coordinates[0];
-            break;
-          case "MultiPoint":
-          case "LineString":
-            lat = dest.geometry.coordinates[0][1];
-            lng = dest.geometry.coordinates[0][0];
-            break;
-          case "MultiLineString":
-          case "Polygon":
-            lat = dest.geometry.coordinates[0][0][1];
-            lng = dest.geometry.coordinates[0][0][0];
-            break;
-          case "MultiPolygon":
-          case "GeometryCollection":
-            continue;
-        }
+    // Filter out markers that no longer have a corresponding destination
+    const updatedMarkers = markers.filter((marker) => {
+      const { lat, lng } = marker.getLngLat();
+      return destinationCoords.has(`${lat},${lng}`);
+    });
 
-        const m = new Marker().setLngLat([lng, lat]).addTo(mapRef.current);
-        m.getElement().addEventListener("click", () => {
+    // Remove markers that are not in destinations
+    markers.forEach((marker) => {
+      const { lat, lng } = marker.getLngLat();
+      if (!destinationCoords.has(`${lat},${lng}`)) {
+        marker.remove();
+      }
+    });
+
+    // Add new markers for destinations that don't have a marker yet
+    const markerCoords = new Set(
+      updatedMarkers.map((marker) => {
+        const { lat, lng } = marker.getLngLat();
+        return `${lat},${lng}`;
+      })
+    );
+
+    const newMarkers = [...updatedMarkers];
+
+    for (const dest of destinations) {
+      const coordKey = `${dest.lat},${dest.lon}`;
+      if (!markerCoords.has(coordKey)) {
+        const m = new Marker()
+          .setLngLat([dest.lon, dest.lat])
+          .addTo(mapRef.current);
+        m.getElement().addEventListener("click", (e) => {
+          e.stopPropagation();
+          e.preventDefault();
           onRemoveDestinations(dest);
         });
         newMarkers.push(m);
@@ -193,15 +201,7 @@ export default function DestinationMap() {
 
     setValue(
       "destinations",
-      Object.values(destinations)
-        .map((destination) => {
-          try {
-            return NominatimFeatureSchema.parse(destination);
-          } catch (e) {
-            console.error("ERROR PARSING", e);
-          }
-        })
-        .filter((destination) => destination !== undefined)
+      destinations.filter((destination) => destination !== undefined)
     );
   }, [destinations, mapRef.current]);
 
@@ -209,14 +209,15 @@ export default function DestinationMap() {
     markersRef.current = markers;
   }, [markers]);
 
-  const onRemoveDestinations = (destination: NominatimFeature) => {
-    const id = destination.properties.place_id;
-    const newDestinations = {
-      ...destinations,
-    };
-    delete newDestinations[id];
-
-    setDestinations(newDestinations);
+  const onRemoveDestinations = (destination: Destination) => {
+    setDestinations((prevDestinations) => {
+      const newDestinations = prevDestinations.filter(
+        (d) =>
+          d.name !== destination.name ||
+          d.country_code !== destination.country_code
+      );
+      return newDestinations;
+    });
   };
 
   return (
@@ -232,15 +233,15 @@ export default function DestinationMap() {
         }}
       ></div>
 
-      {Object.values(destinations)?.length > 0 && (
+      {destinations.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2 text-sm text-gray-700">
-          {Object.values(destinations).map((d, i) => (
+          {destinations.map((d, i) => (
             <Pill
-              key={d.properties.place_id}
+              key={d.lat + d.lon}
               withRemoveButton
               onRemove={() => onRemoveDestinations(d)}
             >
-              {d.properties.name}
+              {d.name}
             </Pill>
           ))}
         </div>

@@ -7,36 +7,58 @@ import {
   Textarea,
   Text,
   MultiSelect,
+  RangeSliderValue,
 } from "@mantine/core";
 import { useFormContext } from "react-hook-form";
-import {
-  interestOptions,
-  languageOptions,
-  TripWizardFormValues,
-} from "../_hooks/useTripWizard";
+import { interestOptions, languageOptions } from "../_hooks/useTripWizardForm";
 import { useMemo } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { TripWizardRequest } from "tg-sdk";
 
 export default function PreferencesFields() {
   const t = useTranslations("TripWizardPage.preferences");
+  const locale = useLocale();
   const { register, watch, setValue, getFieldState } =
-    useFormContext<TripWizardFormValues>();
+    useFormContext<TripWizardRequest>();
 
-  const groupSize = watch("groupSize");
-  const groupSizeValue = useMemo<[number, number] | undefined>(() => {
-    if (!groupSize) return;
+  const groupSize = watch("group_size");
+  const groupSizeValue = useMemo((): RangeSliderValue | undefined => {
+    if (groupSize?.min == null || groupSize?.max == null) return;
 
     return [groupSize.min, groupSize.max];
   }, [groupSize]);
 
+  const languageSelectOptions = useMemo(() => {
+    return languageOptions
+      .map((value) => {
+        const hasTranslation = t.has(`form.languages.options.${value}`);
+        if (!hasTranslation) {
+          return null;
+        }
+
+        return {
+          value,
+          label: t(`form.languages.options.${value}`),
+        };
+      })
+      .filter((option) => option !== null);
+  }, [locale, t]);
+
+  const interestOptionsSelect = useMemo(() => {
+    return interestOptions.map((value) => ({
+      value,
+      label: t(`form.interests.options.${value}`),
+    }));
+  }, [locale, t]);
+
   return (
     <div className="space-y-4">
       <Textarea
-        {...register("tripDescription")}
+        {...register("trip_description")}
         label={t("form.description.label")}
         placeholder={t("form.description.placeholder")}
         rows={4}
-        error={getFieldState("tripDescription").error?.message}
+        error={getFieldState("trip_description").error?.message}
       />
 
       <Group w="100%" justify="center" grow gap="xl" className="mb-8">
@@ -45,14 +67,14 @@ export default function PreferencesFields() {
             {t("form.groupSize.label")}
           </Text>
           <RangeSlider
-            label={(value) => `${value} ${value > 1 ? "Persons" : "Person"}`}
+            label={(count) => t("form.groupSize.person", { count })}
             min={1}
             max={10}
             minRange={0}
             maxRange={10}
             value={groupSizeValue}
             onChange={(val) =>
-              setValue("groupSize", {
+              setValue("group_size", {
                 min: val[0],
                 max: val[1],
               })
@@ -70,9 +92,11 @@ export default function PreferencesFields() {
         <MultiSelect
           label={t("form.languages.label")}
           placeholder={t("form.languages.placeholder")}
-          data={Object.values(languageOptions).map((val) => val)}
-          value={watch("languages")}
-          onChange={(value) => setValue("languages", value)}
+          data={languageSelectOptions}
+          value={watch("languages") ?? undefined}
+          onChange={(value) =>
+            setValue("languages", value as TripWizardRequest["languages"])
+          }
           searchable
           clearable
         />
@@ -80,8 +104,8 @@ export default function PreferencesFields() {
         <MultiSelect
           label={t("form.interests.label")}
           placeholder={t("form.interests.placeholder")}
-          data={Object.values(interestOptions).map((val) => val)}
-          value={watch("interests")}
+          data={interestOptionsSelect}
+          value={watch("interests") ?? undefined}
           onChange={(value) => setValue("interests", value)}
           searchable
           clearable
