@@ -50,7 +50,7 @@ export const reverseSearch = async ({
 }: SearchArgs): Promise<NominatimFeatureCollection | undefined> => {
   try {
     const res = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${lat}&lon=${lng}&zoom=10&addressdetails=0`
+      `https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${lat}&lon=${lng}&zoom=10&addressdetails=1`
     );
     const data: NominatimFeatureCollection = await res.json();
     if (!data || data.type !== "FeatureCollection") {
@@ -65,7 +65,7 @@ export const reverseSearch = async ({
 
 export const querySearch = async (query?: string | number[]): Promise<NominatimFeatureCollection | undefined> => {
   try {
-    const request = `https://nominatim.openstreetmap.org/search?q=${query}&format=geojson&addressdetails=0`;
+    const request = `https://nominatim.openstreetmap.org/search?q=${query}&format=geojson&addressdetails=1`;
     const response = await fetch(request);
     const geojson: NominatimFeatureCollection = await response.json();
     const validData = NominatimFeatureCollectionSchema.parse(geojson);
