@@ -4,13 +4,15 @@ import {
   DatePickerInput,
   DatePickerInputProps,
 } from "@mantine/dates";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 import { envVar } from "@/lib/utils/env";
 import { useFormContext } from "react-hook-form";
 import { useLocale, useTranslations } from "next-intl";
 import { TripWizardRequest } from "tg-sdk";
 import { datesFlexibilityOptions } from "../_hooks/useTripWizardForm";
+import { useMediaQuery } from "@mantine/hooks";
+import { BREAKPOINTS } from "@/constants/breakpoints";
 
 type TripType = "day" | "multiday" | "range";
 const tripTypes: TripType[] = ["day", "multiday", "range"];
@@ -53,12 +55,21 @@ function getTripTypeAndDatesFromValue(
 const MAX_NUM_OF_MULTI_DAYS_TRIP =
   envVar.safeGet<number>("NEXT_MAX_NUM_OF_MULTI_DAYS_TRIP") ?? 5;
 
-export default function DateRangePicker() {
+export type DateRangePickerProps = {
+  onDateSelected?: (
+    value: Exclude<TripWizardRequest["trip_dates"], null | undefined>
+  ) => void;
+};
+
+export default function DateRangePicker({
+  onDateSelected,
+}: Readonly<DateRangePickerProps>) {
   const t = useTranslations("TripWizardPage.preferences.form");
   const locale = useLocale();
   const { watch, setValue } = useFormContext<TripWizardRequest>();
   const tripDates = watch("trip_dates");
   const trip = getTripTypeAndDatesFromValue(tripDates);
+  const isMobile = useMediaQuery(`(max-width: ${BREAKPOINTS.md})`);
 
   const [rangeDateValue, setRangeDateValue] = useState<
     [string | null, string | null]
@@ -129,6 +140,12 @@ export default function DateRangePicker() {
     setValue("trip_dates", value);
   }, []);
 
+  // notify the parent if the trip dates is selected when mounting
+  useEffect(() => {
+    if (!tripDates) return;
+    onDateSelected?.(tripDates);
+  }, []);
+
   const getComponentByTripType = () => {
     const defaultAttributes: DatePickerInputProps = {
       className: "grow",
@@ -140,7 +157,11 @@ export default function DateRangePicker() {
       hideOutsideDates: true,
       clearable: true,
       maxLevel: "month",
-      numberOfColumns: 2,
+      numberOfColumns: isMobile ? 1 : 2,
+      onDropdownClose: () => {
+        if (!tripDates) return;
+        onDateSelected?.(tripDates);
+      },
     };
 
     switch (tripType) {
@@ -213,6 +234,8 @@ export default function DateRangePicker() {
         }))}
         value={tripType}
         onChange={onTripChange}
+        allowDeselect={false}
+        className={isMobile ? "w-full" : undefined}
       />
 
       {getComponentByTripType()}
@@ -230,6 +253,7 @@ export default function DateRangePicker() {
         }}
         defaultValue="exact"
         allowDeselect={false}
+        className={isMobile ? "w-full" : undefined}
       />
     </Group>
   );

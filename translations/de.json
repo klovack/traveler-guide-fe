@@ -103,6 +103,9 @@
             "required": "Bitte beschreibe deine Reisepräferenzen"
           }
         },
+        "addDetails": {
+          "label": "Füge weitere Details zur Reise hinzu"
+        },
         "groupSize": {
           "label": "Wie viele Personen reisen?",
           "solo": "Nur ich",

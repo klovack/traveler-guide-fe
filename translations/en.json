@@ -103,6 +103,9 @@
             "required": "Please describe your trip preferences"
           }
         },
+        "addDetails": {
+          "label": "Add more details about the trip"
+        },
         "groupSize": {
           "label": "How many people are traveling?",
           "solo": "Just me",

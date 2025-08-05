@@ -103,6 +103,9 @@
             "required": "Silakan jelaskan preferensi perjalananmu"
           }
         },
+        "addDetails": {
+          "label": "Tambahkan detail trip"
+        },
         "groupSize": {
           "label": "Berapa orang yang bepergian?",
           "solo": "Hanya saya",

@@ -15,7 +15,11 @@ export default function TripWizardSteps({
   const nextStep = () => goToStep(active + 1);
 
   return (
-    <Stepper active={active} onStepClick={goToStep} allowNextStepsSelect={true}>
+    <Stepper
+      active={active}
+      onStepClick={goToStep}
+      allowNextStepsSelect={false}
+    >
       <Stepper.Step>
         <TripWizardForm onSubmit={nextStep} />
       </Stepper.Step>

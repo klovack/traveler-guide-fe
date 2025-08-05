@@ -21,7 +21,13 @@ import { useLocale, useTranslations } from "next-intl";
 import { Destination, TripWizardRequest } from "tg-sdk";
 import { isWithinDistance } from "@/lib/map/coordinates_helper";
 
-export default function DestinationMap() {
+export type DestinationMapProps = {
+  onDestinationSelected?: (destinations: Destination[]) => void;
+};
+
+export default function DestinationMap({
+  onDestinationSelected,
+}: Readonly<DestinationMapProps>) {
   const t = useTranslations("TripWizardPage.preferences");
   const locale = useLocale();
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
@@ -219,6 +225,12 @@ export default function DestinationMap() {
       return newDestinations;
     });
   };
+
+  useEffect(() => {
+    if (!destinations || destinations.length === 0) return;
+
+    onDestinationSelected?.(destinations);
+  }, [destinations]);
 
   return (
     <div className="mb-4">
