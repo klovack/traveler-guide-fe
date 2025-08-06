@@ -72,7 +72,8 @@
       "form": {
         "destination": {
           "label": "Ke mana kamu ingin pergi?",
-          "searchPlaceholder": "Cari destinasi"
+          "searchPlaceholder": "Cari destinasi",
+          "roundTrip": "Pulang Pergi"
         },
         "travelDates": {
           "label": "Kapan kamu ingin bepergian?"

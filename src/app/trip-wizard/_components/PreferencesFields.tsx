@@ -12,8 +12,12 @@ import { useDisclosure } from "@mantine/hooks";
 export default function PreferencesFields() {
   const t = useTranslations("TripWizardPage.preferences");
   const locale = useLocale();
-  const { register, watch, setValue, getFieldState } =
-    useFormContext<TripWizardRequest>();
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useFormContext<TripWizardRequest>();
   const [optionalPreferenceOpened, { toggle: toggleOptionalPreference }] =
     useDisclosure();
 
@@ -55,7 +59,7 @@ export default function PreferencesFields() {
         label={t("form.description.label")}
         placeholder={t("form.description.placeholder")}
         rows={4}
-        error={getFieldState("trip_description").error?.message}
+        error={errors.trip_description?.message}
       />
 
       <Switch

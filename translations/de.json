@@ -72,7 +72,8 @@
       "form": {
         "destination": {
           "label": "Wohin möchtest du reisen?",
-          "searchPlaceholder": "Nach einem Reiseziel suchen"
+          "searchPlaceholder": "Nach einem Reiseziel suchen",
+          "roundTrip": "Hin- und Rückreise"
         },
         "travelDates": {
           "label": "Wann möchtest du reisen?"

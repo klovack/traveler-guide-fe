@@ -6,7 +6,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { Pill, Text } from "@mantine/core";
+import { Group, Pill, Stack, Switch, Text } from "@mantine/core";
 import MaplibreGeocoder, {
   CarmenGeojsonFeature,
   MaplibreGeocoderFeatureResults,
@@ -32,7 +32,7 @@ export default function DestinationMap({
   const locale = useLocale();
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
-  const { setValue, getValues } = useFormContext<TripWizardRequest>();
+  const { setValue, getValues, watch } = useFormContext<TripWizardRequest>();
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [markers, setMarkers] = useState<Marker[]>([]);
   const markersRef = useRef(markers);
@@ -107,8 +107,8 @@ export default function DestinationMap({
               features.push({
                 ...feature,
                 id: String(feature.properties.place_id),
-                text: feature.properties.display_name,
-                place_name: feature.properties.name,
+                text: feature.properties.name,
+                place_name: feature.properties.display_name,
                 place_type: [feature.properties.addresstype],
                 geometry: feature.geometry, // Explicitly set geometry
               });
@@ -129,6 +129,7 @@ export default function DestinationMap({
         },
         showResultMarkers: false,
         showResultsWhileTyping: true,
+        debounceSearch: 1000,
         placeholder: t("form.destination.searchPlaceholder"),
       }
     );
@@ -191,7 +192,18 @@ export default function DestinationMap({
       if (!markerCoords.has(coordKey)) {
         const m = new Marker()
           .setLngLat([dest.lon, dest.lat])
+          .setPopup(
+            new maplibregl.Popup({
+              closeButton: false,
+            }).setHTML(`<Text>${dest.name}</Text>`)
+          )
           .addTo(mapRef.current);
+        m.getElement().addEventListener("mouseenter", () => {
+          m.togglePopup();
+        });
+        m.getElement().addEventListener("mouseleave", () => {
+          m.togglePopup();
+        });
         m.getElement().addEventListener("click", (e) => {
           e.stopPropagation();
           e.preventDefault();
@@ -227,35 +239,59 @@ export default function DestinationMap({
   useEffect(() => {
     if (!destinations || destinations.length === 0) return;
 
+    if (destinations.length < 2) {
+      setValue("is_round_trip", false);
+    }
+
     onDestinationSelected?.(destinations);
   }, [destinations]);
 
   return (
-    <div className="mb-4">
-      <Text size="sm" fw={500} className="mb-2">
-        {t("form.destination.label")}
-      </Text>
+    <Stack className="mb-4">
+      <Group align="center" gap="md">
+        <Text size="sm" fw={500}>
+          {t("form.destination.label")}
+        </Text>
+
+        {destinations.length >= 2 && (
+          <Switch
+            size="sm"
+            checked={watch("is_round_trip")}
+            onChange={(value) => {
+              setValue("is_round_trip", value.currentTarget.checked);
+            }}
+            label={t("form.destination.roundTrip")}
+          />
+        )}
+      </Group>
       <div
         ref={mapContainerRef}
-        style={{
-          width: "100%",
-          height: "500px",
-        }}
+        className="w-full h-[500px] rounded-xl overflow-hidden"
       ></div>
 
       {destinations.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2 text-sm text-gray-700">
           {destinations.map((d, i) => (
             <Pill
-              key={d.lat + d.lon}
+              key={d.lat + d.lon + i}
               withRemoveButton
               onRemove={() => onRemoveDestinations(d)}
             >
-              {d.name}
+              {i + 1}. {d.name}
             </Pill>
           ))}
+
+          {getValues("is_round_trip") && (
+            <Pill
+              key={`round-trip-${destinations.length}`}
+              withRemoveButton
+              onRemove={() => setValue("is_round_trip", false)}
+            >
+              {destinations.length}. {destinations[0].name} (Round Trip)
+            </Pill>
+          )}
         </div>
       )}
-    </div>
+    </Stack>
   );
 }

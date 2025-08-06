@@ -10,10 +10,12 @@ import { DEFAULT_MAP_OPTIONS } from "@/lib/map/default";
 
 export type ItineraryMapProps = {
   locations: Destination[];
+  isRoundTrip?: boolean;
 };
 
 export default function ItineraryMap({
   locations,
+  isRoundTrip = false,
 }: Readonly<ItineraryMapProps>) {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
@@ -51,6 +53,9 @@ export default function ItineraryMap({
     if (locations.length > 1) {
       const drawLine = () => {
         const coords = locations.map((loc) => [loc.lon, loc.lat]);
+        if (isRoundTrip) {
+          coords.push(coords[0]); // Close the loop for round trips
+        }
         const line = turf.lineString(coords);
         if (mapRef.current!.getSource("itinerary-line")) {
           (
@@ -95,12 +100,7 @@ export default function ItineraryMap({
     <Group>
       <div
         ref={mapContainerRef}
-        style={{
-          width: "100%",
-          height: "350px",
-          borderRadius: 12,
-          overflow: "hidden",
-        }}
+        className="w-full h-[350px] rounded-xl overflow-hidden"
       ></div>
     </Group>
   );

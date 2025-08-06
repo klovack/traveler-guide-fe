@@ -72,7 +72,8 @@
       "form": {
         "destination": {
           "label": "Where do you want to go?",
-          "searchPlaceholder": "Search for a destination"
+          "searchPlaceholder": "Search for a destination",
+          "roundTrip": "Round Trip"
         },
         "travelDates": {
           "label": "When do you want to travel?"

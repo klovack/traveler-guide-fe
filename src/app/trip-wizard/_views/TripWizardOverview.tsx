@@ -19,10 +19,14 @@ export default function TripWizardOverview() {
 
   const hasTripWizard = !isLoading && !isError && tripWizard;
 
+  if (isError && !isLoading && !tripWizard) {
+    redirect("/trip-wizard");
+  }
+
   return (
     <>
       {hasTripWizard && (
-        <Stack gap="xl" maw={800} mx="auto" py="xl">
+        <Stack gap="xl" mx="auto" py="xl" className="w-full md:max-w-9/10">
           <Title order={3} ta="center">
             {tripWizard.title}
           </Title>
@@ -30,7 +34,10 @@ export default function TripWizardOverview() {
             summary={tripWizard.mood_board_text}
             // tags={["⛰️ Nature", "🌄 Adventure", "🏛️ Museum"]}
           />
-          <ItineraryMap locations={tripWizard.location_details} />
+          <ItineraryMap
+            locations={tripWizard.location_details}
+            isRoundTrip={tripWizard.is_round_trip}
+          />
           <OverviewTimeline days={tripWizard.suggested_itinerary} />
           <OverviewControls />
           <Button size="xl" color="blue" radius="xl">
