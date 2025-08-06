@@ -17,7 +17,7 @@ export function OptionalPreferencesFields({
   groupSizeValue,
   setValue,
   watch,
-}: OptionalPreferencesFieldsProps) {
+}: Readonly<OptionalPreferencesFieldsProps>) {
   const t = useTranslations("TripWizardPage.preferences");
 
   return (

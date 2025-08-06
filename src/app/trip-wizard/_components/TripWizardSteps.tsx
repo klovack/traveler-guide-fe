@@ -1,31 +1,36 @@
 "use client";
 
-import { Stepper, Text } from "@mantine/core";
+import { Stepper } from "@mantine/core";
 import TripWizardForm from "./TripWizardForm";
+import TripWizardOverview from "../_views/TripWizardOverview";
 
-type TripWizardStepsProps = {
+export type TripWizardStepRouterOptions = {
+  tripWizardId?: string;
+};
+
+export type TripWizardStepsProps = {
   active: number;
-  goToStep: (idx: number) => void;
+  goToStep: (idx: number, options?: TripWizardStepRouterOptions) => void;
 };
 
 export default function TripWizardSteps({
   active,
   goToStep,
 }: Readonly<TripWizardStepsProps>) {
-  const nextStep = () => goToStep(active + 1);
+  const handleTripGenerationFinished = (tripWizardId: string) => {
+    goToStep(active + 1, {
+      tripWizardId,
+    });
+  };
 
   return (
-    <Stepper
-      active={active}
-      onStepClick={goToStep}
-      allowNextStepsSelect={false}
-    >
+    <Stepper active={active} onStepClick={goToStep} allowNextStepsSelect={true}>
       <Stepper.Step>
-        <TripWizardForm onSubmit={nextStep} />
+        <TripWizardForm onSubmit={handleTripGenerationFinished} />
       </Stepper.Step>
 
       <Stepper.Step>
-        <Text>Step 2 Confirm this is your dream trip</Text>
+        <TripWizardOverview />
       </Stepper.Step>
 
       <Stepper.Step>Step 3 Share or book a guide</Stepper.Step>

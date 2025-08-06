@@ -6,7 +6,6 @@ import "maplibre-gl/dist/maplibre-gl.css";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import openStreetMapStyleSpec from "./openStreetMap.style.json";
 import { Pill, Text } from "@mantine/core";
 import MaplibreGeocoder, {
   CarmenGeojsonFeature,
@@ -20,6 +19,7 @@ import {
 import { useLocale, useTranslations } from "next-intl";
 import { Destination, TripWizardRequest } from "tg-sdk";
 import { isWithinDistance } from "@/lib/map/coordinates_helper";
+import { DEFAULT_MAP_OPTIONS } from "@/lib/map/default";
 
 export type DestinationMapProps = {
   onDestinationSelected?: (destinations: Destination[]) => void;
@@ -47,7 +47,11 @@ export default function DestinationMap({
   const setDestinationsFromNominatim = useCallback(
     (feature: NominatimFeature) => {
       const newDestination: Destination = {
-        name: feature.properties.name,
+        name:
+          feature.properties.address?.city ??
+          feature.properties.address?.town ??
+          feature.properties.address?.municipality ??
+          feature.properties.name,
         country_code:
           feature.properties.address?.country_code.toUpperCase() ?? "DE",
         lat: feature.geometry.coordinates[1],
@@ -87,14 +91,8 @@ export default function DestinationMap({
     if (!mapContainerRef.current || mapRef.current) return;
 
     mapRef.current = new maplibregl.Map({
+      ...DEFAULT_MAP_OPTIONS,
       container: mapContainerRef.current,
-      style: openStreetMapStyleSpec as maplibregl.StyleSpecification,
-      center: [13.398625344283687, 52.657292288329046], // Berlin
-      zoom: 5,
-      canvasContextAttributes: { antialias: true },
-      attributionControl: {
-        compact: true,
-      },
       locale: locale,
     });
 

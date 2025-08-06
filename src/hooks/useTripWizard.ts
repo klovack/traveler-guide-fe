@@ -1,3 +1,4 @@
+import { exampleTrip } from '@/app/trip-wizard/example_trip';
 import { useMutation, useQuery, UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
 import { getTripWizardByIdApiV1TripWizardTripWizardIdGet, generateTripWizardApiV1TripWizardPost } from 'tg-sdk';
 import type { TripWizardResponse, TripWizardRequest } from 'tg-sdk';
@@ -22,6 +23,10 @@ export function useTripWizard(
   return useQuery<TripWizardResponse, TripWizardError>({
     queryKey: ['tripWizard', tripWizardId],
     queryFn: async () => {
+      if (tripWizardId === 'debug') {
+        return exampleTrip;
+      }
+
       try {
         const result = await getTripWizardByIdApiV1TripWizardTripWizardIdGet({ path: { trip_wizard_id: tripWizardId } });
         if (result.error) {

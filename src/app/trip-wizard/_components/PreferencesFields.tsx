@@ -51,6 +51,7 @@ export default function PreferencesFields() {
     <div className="space-y-4">
       <Textarea
         {...register("trip_description")}
+        required
         label={t("form.description.label")}
         placeholder={t("form.description.placeholder")}
         rows={4}

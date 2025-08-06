@@ -14,6 +14,9 @@ export const NominatimPropertiesSchema = z.object({
   display_name: z.string(),
   address: z.object({
     city: z.string().optional(),
+    town: z.string().optional(),
+    municipality: z.string().optional(),
+    village: z.string().optional(),
     "ISO3166-2-lvl4": z.string().optional(),
     country: z.string(),
     country_code: z.string(),

@@ -5,12 +5,13 @@ import PreferencesFields from "./PreferencesFields";
 import { useTripWizardForm } from "../_hooks/useTripWizardForm";
 import { Button, Collapse, Flex } from "@mantine/core";
 import DateRangePicker from "./DateRangePicker";
-import { useTranslations } from "next-intl";
-import { TripWizardRequest } from "tg-sdk";
+import { useLocale, useTranslations } from "next-intl";
+import { LanguagesEnum, TripWizardRequest } from "tg-sdk";
 import { useDisclosure } from "@mantine/hooks";
+import { useGenerateTripWizard } from "@/hooks/useTripWizard";
 
 export type TripWizardFormProps = {
-  onSubmit?: () => void;
+  onSubmit?: (tripWizardId: string) => void;
 };
 
 export default function TripWizardForm({
@@ -18,13 +19,30 @@ export default function TripWizardForm({
 }: Readonly<TripWizardFormProps>) {
   const { form } = useTripWizardForm();
   const t = useTranslations("TripWizardPage.preferences");
+  const locale = useLocale();
   const [mapOpened, { open: openMap }] = useDisclosure();
   const [preferenceOpened, { open: openPreference }] = useDisclosure();
+  const { mutate, isPending } = useGenerateTripWizard();
 
   const onSubmitForm = (data: TripWizardRequest) => {
     // Later: call FastAPI /ai/trip-suggestions
-    console.log("Trip preferences:", data);
-    onSubmit?.();
+    if (isPending) return;
+
+    mutate(
+      {
+        ...data,
+        options: {
+          response_language:
+            data.options?.response_language ?? (locale as LanguagesEnum),
+          ...data.options,
+        },
+      },
+      {
+        onSuccess(tripWizard) {
+          onSubmit?.(tripWizard.id);
+        },
+      }
+    );
   };
 
   return (
@@ -44,7 +62,13 @@ export default function TripWizardForm({
       <Collapse in={preferenceOpened}>
         <PreferencesFields />
         <Flex mt="xl" justify="flex-end" align="center">
-          <Button type="submit">{t("form.submitButton")}</Button>
+          <Button
+            loading={isPending}
+            loaderProps={{ type: "dots" }}
+            type="submit"
+          >
+            {t("form.submitButton")}
+          </Button>
         </Flex>
       </Collapse>
     </form>
