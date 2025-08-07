@@ -2,7 +2,7 @@
 
 import { Stepper } from "@mantine/core";
 import TripWizardForm from "./TripWizardForm";
-import TripWizardOverview from "../_views/TripWizardOverview";
+import TripWizardOverview from "./TripWizardOverview";
 
 export type TripWizardStepRouterOptions = {
   tripWizardId?: string;

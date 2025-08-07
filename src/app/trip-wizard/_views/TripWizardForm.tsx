@@ -1,10 +1,10 @@
 "use client";
 
-import DestinationMap from "./DestinationMap";
-import PreferencesFields from "./PreferencesFields";
+import DestinationMap from "../_components/DestinationMap";
+import PreferencesFields from "../_components/PreferencesFields";
 import { useTripWizardForm } from "../_hooks/useTripWizardForm";
 import { Button, Collapse, Flex } from "@mantine/core";
-import DateRangePicker from "./DateRangePicker";
+import DateRangePicker from "../_components/DateRangePicker";
 import { useLocale, useTranslations } from "next-intl";
 import { LanguagesEnum, TripWizardRequest } from "tg-sdk";
 import { useDisclosure } from "@mantine/hooks";
@@ -25,7 +25,6 @@ export default function TripWizardForm({
   const { mutate, isPending } = useGenerateTripWizard();
 
   const onSubmitForm = (data: TripWizardRequest) => {
-    // Later: call FastAPI /ai/trip-suggestions
     if (isPending) return;
 
     mutate(
@@ -48,6 +47,7 @@ export default function TripWizardForm({
   return (
     <form
       onSubmit={form.handleSubmit(onSubmitForm, (er) => {
+        // TODO: handle error with toast notification
         console.log("FORM", form.getValues());
         console.log("ERROR", er);
       })}

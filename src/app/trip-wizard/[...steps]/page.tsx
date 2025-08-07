@@ -4,7 +4,7 @@ import { useRouter, useParams } from "next/navigation";
 import { Container, Title, Text, Stack } from "@mantine/core";
 import TripWizardSteps, {
   TripWizardStepsProps,
-} from "../_components/TripWizardSteps";
+} from "../_views/TripWizardSteps";
 import { TRIP_WIZARD_STEP, TRIP_WIZARD_STEPS } from "../constants";
 import { useTranslations } from "next-intl";
 
