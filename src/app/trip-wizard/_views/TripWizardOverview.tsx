@@ -32,7 +32,7 @@ export default function TripWizardOverview() {
           </Title>
           <OverviewMoodboard
             summary={tripWizard.mood_board_text}
-            // tags={["⛰️ Nature", "🌄 Adventure", "🏛️ Museum"]}
+            tags={tripWizard.interests ?? []}
           />
           <ItineraryMap
             locations={tripWizard.location_details}

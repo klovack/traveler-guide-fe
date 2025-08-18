@@ -1,12 +1,7 @@
 import { ComboboxData, Group, Select } from "@mantine/core";
-import {
-  DateFormatter,
-  DatePickerInput,
-  DatePickerInputProps,
-} from "@mantine/dates";
+import { DatePickerInput, DatePickerInputProps } from "@mantine/dates";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
-import { envVar } from "@/lib/utils/env";
 import { useFormContext } from "react-hook-form";
 import { useLocale, useTranslations } from "next-intl";
 import { TripWizardRequest } from "tg-sdk";
@@ -14,8 +9,8 @@ import { datesFlexibilityOptions } from "../_hooks/useTripWizardForm";
 import { useMediaQuery } from "@mantine/hooks";
 import { BREAKPOINTS } from "@/constants/breakpoints";
 
-type TripType = "day" | "multiday" | "range";
-const tripTypes: TripType[] = ["day", "multiday", "range"];
+type TripType = "day" | "range";
+const tripTypes: TripType[] = ["day", "range"];
 
 type TripWizardDateRangePicker =
   | {
@@ -23,42 +18,33 @@ type TripWizardDateRangePicker =
       date?: string | null;
     }
   | {
-      type: "multiday";
-      date?: string[];
-    }
-  | {
       type: "range";
       date?: [string | null, string | null];
     };
 
 function getTripTypeAndDatesFromValue(
-  value: TripWizardRequest["trip_dates"]
+  startDate: TripWizardRequest["start_date"],
+  endDate: TripWizardRequest["end_date"]
 ): TripWizardDateRangePicker {
-  if (!value) {
+  if (!startDate) {
     return { type: "day", date: null };
   }
 
-  if (Array.isArray(value)) {
-    return {
-      type: "multiday",
-      date: value,
-    };
-  } else if (typeof value === "string") {
-    return { type: "day", date: value };
+  if (!endDate || dayjs(startDate).isSame(endDate, "day")) {
+    return { type: "day", date: startDate };
   }
+
   return {
     type: "range",
-    date: [value.start ?? null, value.end ?? null],
+    date: [startDate, endDate],
   };
 }
 
-const MAX_NUM_OF_MULTI_DAYS_TRIP =
-  envVar.safeGet<number>("NEXT_MAX_NUM_OF_MULTI_DAYS_TRIP") ?? 5;
-
 export type DateRangePickerProps = {
-  onDateSelected?: (
-    value: Exclude<TripWizardRequest["trip_dates"], null | undefined>
-  ) => void;
+  onDateSelected?: (value: {
+    start: string | null;
+    end: string | null;
+  }) => void;
 };
 
 export default function DateRangePicker({
@@ -67,8 +53,9 @@ export default function DateRangePicker({
   const t = useTranslations("TripWizardPage.preferences.form");
   const locale = useLocale();
   const { watch, setValue } = useFormContext<TripWizardRequest>();
-  const tripDates = watch("trip_dates");
-  const trip = getTripTypeAndDatesFromValue(tripDates);
+  const startDate = watch("start_date");
+  const endDate = watch("end_date");
+  const trip = getTripTypeAndDatesFromValue(startDate, endDate);
   const isMobile = useMediaQuery(`(max-width: ${BREAKPOINTS.md})`);
 
   const [rangeDateValue, setRangeDateValue] = useState<
@@ -76,9 +63,6 @@ export default function DateRangePicker({
   >(trip.type === "range" && trip.date ? trip.date : [null, null]);
   const [singleDateValue, setSingleDateValue] = useState<string | null>(
     trip.type === "day" && trip.date ? trip.date : null
-  );
-  const [multiDateValue, setMultiDateValue] = useState<string[]>(
-    trip.type === "multiday" && trip.date ? trip.date : []
   );
   const [tripType, setTripType] = useState<TripType>(trip.type);
 
@@ -103,47 +87,32 @@ export default function DateRangePicker({
     setTripType(val as TripType);
   };
 
-  const handleMultiDateChange = (val: string[]) => {
-    if (val.length <= MAX_NUM_OF_MULTI_DAYS_TRIP) {
-      setMultiDateValue(val);
-      onDateChange(val as TripWizardRequest["trip_dates"]);
-    }
-
-    // TODO show error that the user can't select more than MAX_NUM_OF_MULTI_DAYS_TRIP
-  };
-
-  const multiDateFormatter: DateFormatter = ({
-    type,
-    date,
-    locale,
-    format,
-  }) => {
-    if (type === "multiple" && Array.isArray(date)) {
-      if (date.length <= 3) {
-        return date
-          .map((d) => dayjs(d).locale(locale).format(format))
-          .join(", ");
+  const onDateChange = useCallback(
+    ({ start, end }: { start?: string | null; end?: string | null }) => {
+      if (start) {
+        const startDateTime = dayjs(start);
+        setValue("start_date", startDateTime.toISOString());
       }
 
-      if (date.length > 3) {
-        const firstDate = dayjs(date[0]).locale(locale).format(format);
-        return `${firstDate} and ${date.length - 1} other dates selected`;
+      if (end) {
+        const endDateTime = dayjs(end);
+        setValue("end_date", endDateTime.toISOString());
       }
+    },
+    []
+  );
 
-      return "";
-    }
-
-    return "";
+  const notifyParent = () => {
+    if (!startDate || !endDate) return;
+    onDateSelected?.({
+      start: startDate,
+      end: endDate,
+    });
   };
-
-  const onDateChange = useCallback((value: TripWizardRequest["trip_dates"]) => {
-    setValue("trip_dates", value);
-  }, []);
 
   // notify the parent if the trip dates is selected when mounting
   useEffect(() => {
-    if (!tripDates) return;
-    onDateSelected?.(tripDates);
+    notifyParent();
   }, []);
 
   const getComponentByTripType = () => {
@@ -158,10 +127,7 @@ export default function DateRangePicker({
       clearable: true,
       maxLevel: "month",
       numberOfColumns: isMobile ? 1 : 2,
-      onDropdownClose: () => {
-        if (!tripDates) return;
-        onDateSelected?.(tripDates);
-      },
+      onDropdownClose: notifyParent,
     };
 
     switch (tripType) {
@@ -182,17 +148,6 @@ export default function DateRangePicker({
             }}
           />
         );
-      case "multiday":
-        return (
-          <DatePickerInput
-            {...(defaultAttributes as unknown as DatePickerInputProps<"multiple">)}
-            placeholder={placeholderTexts.multiday}
-            type="multiple"
-            value={multiDateValue}
-            onChange={handleMultiDateChange}
-            valueFormatter={multiDateFormatter}
-          />
-        );
       case "day":
       default:
         return (
@@ -203,7 +158,7 @@ export default function DateRangePicker({
             value={singleDateValue}
             onChange={(val) => {
               setSingleDateValue(val);
-              onDateChange(val as TripWizardRequest["trip_dates"]);
+              onDateChange({ start: val, end: val });
             }}
           />
         );
