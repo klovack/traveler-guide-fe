@@ -2,6 +2,9 @@ import type { TripWizardResponse } from "tg-sdk"; // Adjust import path if neede
 
 export const exampleTrip: TripWizardResponse = {
   title: "European Family Escape: Culture & Comfort in Paris and Rome",
+  is_round_trip: true,
+  start_date: "2024-07-01",
+  end_date: "2024-07-02",
   suggested_itinerary: [
     {
       itinerary_time: {

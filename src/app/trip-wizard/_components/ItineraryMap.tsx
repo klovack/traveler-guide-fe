@@ -57,7 +57,33 @@ export default function ItineraryMap({
           coords.push(coords[0]); // Close the loop for round trips
         }
 
-        const line = turf.lineString(coords);
+        // Insert midpoints between each pair of locations and slightly offset them
+        const enhancedCoords: number[][] = [];
+        for (let i = 0; i < coords.length - 1; i++) {
+          enhancedCoords.push(coords[i]);
+          const from = turf.point(coords[i]);
+          const to = turf.point(coords[i + 1]);
+          let midpoint = turf.midpoint(from, to);
+          // Move midpoint by 3km perpendicular to the segment
+          const bearing = turf.bearing(from, to);
+          const perpendicular = bearing + 90;
+          const distance = turf.distance(from, to, { units: "kilometers" });
+          midpoint = turf.transformTranslate(
+            midpoint,
+            distance / 10,
+            perpendicular,
+            {
+              units: "kilometers",
+            }
+          );
+          enhancedCoords.push(
+            midpoint.geometry.coordinates as [number, number]
+          );
+        }
+        enhancedCoords.push(coords[coords.length - 1]);
+        const coordsWithMidpoints = enhancedCoords;
+
+        const line = turf.lineString(coordsWithMidpoints);
         const curvedLine = turf.bezierSpline(line);
         if (mapRef.current!.getSource("itinerary-line")) {
           (
