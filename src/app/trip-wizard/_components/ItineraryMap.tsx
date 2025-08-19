@@ -56,25 +56,32 @@ export default function ItineraryMap({
         if (isRoundTrip) {
           coords.push(coords[0]); // Close the loop for round trips
         }
+
         const line = turf.lineString(coords);
+        const curvedLine = turf.bezierSpline(line);
         if (mapRef.current!.getSource("itinerary-line")) {
           (
             mapRef.current!.getSource(
               "itinerary-line"
             ) as maplibregl.GeoJSONSource
-          ).setData(line);
+          ).setData(curvedLine);
         } else {
           mapRef.current!.addSource("itinerary-line", {
             type: "geojson",
-            data: line,
+            data: curvedLine,
           });
           mapRef.current!.addLayer({
             id: "itinerary-line-layer",
             type: "line",
             source: "itinerary-line",
+            layout: {
+              "line-cap": "round",
+              "line-join": "round",
+            },
             paint: {
-              "line-color": "#2563eb",
-              "line-width": 4,
+              "line-color": "#2c76feff",
+              "line-width": 3,
+              "line-dasharray": [2, 2],
             },
           });
         }
