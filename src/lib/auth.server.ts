@@ -8,24 +8,24 @@ const REDIRECT_PATH = "/login";
 
 export type RequireUserOptions = {
   allowedRoles?: AppRoles[];
-  shouldRedirect?: boolean;
+  redirectTo?: string;
 }
 
 const defaultRequireUserOptions = {
-  shouldRedirect: true
+  redirectTo: REDIRECT_PATH,
 }
 
 export async function requireUser({
   allowedRoles,
-  shouldRedirect,
+  redirectTo,
 }: RequireUserOptions = defaultRequireUserOptions
 ): Promise<AuthUserInfo | undefined> {
   const theCookies = await cookies()
   const token = theCookies.get("access_token")?.value;
   const rToken = theCookies.get("'refresh_token'")?.value;
   if (!token) {
-    if (shouldRedirect)
-      redirect(REDIRECT_PATH);
+    if (redirectTo)
+      redirect(redirectTo);
 
     return;
   }
@@ -45,8 +45,8 @@ export async function requireUser({
     const user = res.data;
 
     if (allowedRoles && !allowedRoles.includes(user.role)) {
-      if (shouldRedirect)
-        redirect("/not-found");
+      if (redirectTo)
+        redirect(redirectTo);
 
       return;
     }
@@ -55,8 +55,8 @@ export async function requireUser({
   } catch (err) {
     console.warn("User tries to get to protected pages unauthenticated", err)
 
-    if (shouldRedirect) {
-      redirect(REDIRECT_PATH)
+    if (redirectTo) {
+      redirect(redirectTo);
     }
   }
 }
