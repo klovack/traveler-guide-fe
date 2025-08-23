@@ -166,5 +166,65 @@
       "title": "Your Matched Guide",
       "subtitle": "We’ve found the perfect local guide for your journey."
     }
+  },
+  "GuideOnboardingPage": {
+    "title": "Guide Onboarding",
+    "previewProfile": "View Public Profile",
+    "steps": {
+      "1": {
+        "label": "Welcome",
+        "title": "Let's Get Started",
+        "description": "Thank you for your interest in becoming a guide on our platform. We're excited to have you on board! This onboarding process will help you set up your profile and get ready to share your knowledge and passion for travel with others.",
+        "whatNeeded": "What You'll Need",
+        "whatNeededItems": {
+          "photo": "Headshot photo",
+          "id": "Government-issued ID",
+          "address": "Address and phone number",
+          "bank": "Bank account details",
+          "cert": "Certifications (if applicable)",
+          "courage": "A lot of courages, and",
+          "adventure": "Sense of adventure"
+        },
+        "guidelines": "Guide Community Guidelines",
+        "exit": "Exit",
+        "start": "Start"
+      },
+      "2": {
+        "label": "Basics",
+        "title": "Profile Information",
+        "description": "Tell us about yourself to help us match you with the right travelers."
+      },
+      "3": {
+        "label": "Expertise",
+        "title": "Your Expertise",
+        "description": "What are your areas of expertise? Share your skills and knowledge to attract the right travelers."
+      },
+      "4": {
+        "label": "Pricing",
+        "title": "Your Rates",
+        "description": "Set your pricing for guiding services. Be transparent about your rates to attract more travelers."
+      },
+      "5": {
+        "label": "Availability",
+        "title": "Availability",
+        "description": "Let travelers know when you're available to guide them. This helps in scheduling and planning."
+      },
+      "6": {
+        "label": "Media",
+        "title": "Media Upload",
+        "description": "Upload photos and videos that showcase your guiding style and the experiences you offer. This will help travelers get to know you better."
+      },
+      "7": {
+        "label": "Identity",
+        "title": "Identity Verification",
+        "description": "Verify your identity to build trust with travelers. This step is crucial for ensuring a safe and secure experience."
+      },
+      "8": {
+        "label": "Review",
+        "title": "Review Your Profile",
+        "description": "Take a moment to review your profile and ensure all information is accurate and complete. This is your chance to make a great first impression."
+      }
+    },
+    "submitButton": "Complete Onboarding"
   }
 }

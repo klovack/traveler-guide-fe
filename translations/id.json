@@ -166,5 +166,65 @@
       "title": "Pemandu yang Cocok untukmu",
       "subtitle": "Kami telah menemukan pemandu lokal yang sempurna untuk perjalananmu."
     }
+  },
+  "GuideOnboardingPage": {
+    "title": "Onboarding Pemandu",
+    "previewProfile": "Lihat Profil Publik",
+    "steps": {
+      "1": {
+        "label": "Selamat Datang",
+        "title": "Ayo Mulai",
+        "description": "Terima kasih atas minat Anda untuk menjadi pemandu di platform kami. Kami sangat senang menyambut Anda! Proses onboarding ini akan membantu Anda menyiapkan profil dan siap berbagi pengetahuan serta semangat perjalanan dengan orang lain.",
+        "whatNeeded": "Yang Anda Butuhkan",
+        "whatNeededItems": {
+          "photo": "Foto close-up wajah",
+          "id": "Identitas resmi pemerintah",
+          "address": "Alamat dan nomor telepon",
+          "bank": "Detail rekening bank",
+          "cert": "Sertifikat (jika ada)",
+          "courage": "Banyak keberanian, dan",
+          "adventure": "Semangat petualangan"
+        },
+        "guidelines": "Pedoman Komunitas Pemandu",
+        "exit": "Keluar",
+        "start": "Mulai"
+      },
+      "2": {
+        "label": "Dasar",
+        "title": "Informasi Profil",
+        "description": "Ceritakan tentang diri Anda agar kami dapat mencocokkan Anda dengan traveler yang tepat."
+      },
+      "3": {
+        "label": "Keahlian",
+        "title": "Keahlian Anda",
+        "description": "Apa saja bidang keahlian Anda? Bagikan keterampilan dan pengetahuan Anda untuk menarik traveler yang sesuai."
+      },
+      "4": {
+        "label": "Harga",
+        "title": "Tarif Anda",
+        "description": "Atur harga layanan pemanduan Anda. Bersikaplah transparan tentang tarif untuk menarik lebih banyak traveler."
+      },
+      "5": {
+        "label": "Ketersediaan",
+        "title": "Ketersediaan",
+        "description": "Beritahu traveler kapan Anda tersedia untuk memandu mereka. Ini membantu dalam penjadwalan dan perencanaan."
+      },
+      "6": {
+        "label": "Media",
+        "title": "Unggah Media",
+        "description": "Unggah foto dan video yang menunjukkan gaya pemanduan dan pengalaman yang Anda tawarkan. Ini akan membantu traveler mengenal Anda lebih baik."
+      },
+      "7": {
+        "label": "Identitas",
+        "title": "Verifikasi Identitas",
+        "description": "Verifikasi identitas Anda untuk membangun kepercayaan dengan traveler. Langkah ini penting untuk memastikan pengalaman yang aman dan terpercaya."
+      },
+      "8": {
+        "label": "Tinjau",
+        "title": "Tinjau Profil Anda",
+        "description": "Luangkan waktu untuk meninjau profil Anda dan pastikan semua informasi sudah benar dan lengkap. Ini kesempatan Anda untuk memberikan kesan pertama yang baik."
+      }
+    },
+    "submitButton": "Selesaikan Onboarding"
   }
 }

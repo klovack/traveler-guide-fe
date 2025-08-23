@@ -166,5 +166,65 @@
       "title": "Dein passender Guide",
       "subtitle": "Wir haben den perfekten lokalen Guide für deine Reise gefunden."
     }
+  },
+  "GuideOnboardingPage": {
+    "title": "Guide-Onboarding",
+    "previewProfile": "Öffentliches Profil anzeigen",
+    "steps": {
+      "1": {
+        "label": "Willkommen",
+        "title": "Lass uns anfangen",
+        "description": "Vielen Dank für dein Interesse, Guide auf unserer Plattform zu werden. Wir freuen uns, dich an Bord zu haben! Dieser Onboarding-Prozess hilft dir, dein Profil einzurichten und dich darauf vorzubereiten, dein Wissen und deine Leidenschaft für das Reisen mit anderen zu teilen.",
+        "whatNeeded": "Was du benötigst",
+        "whatNeededItems": {
+          "photo": "Porträtfoto",
+          "id": "Amtlicher Ausweis",
+          "address": "Adresse und Telefonnummer",
+          "bank": "Bankverbindung",
+          "cert": "Zertifikate (falls zutreffend)",
+          "courage": "Eine Menge Mut und",
+          "adventure": "Abenteuerlust"
+        },
+        "guidelines": "Community-Richtlinien für Guides",
+        "exit": "Beenden",
+        "start": "Starten"
+      },
+      "2": {
+        "label": "Grundlagen",
+        "title": "Profilinformationen",
+        "description": "Erzähl uns etwas über dich, damit wir dich mit den passenden Reisenden zusammenbringen können."
+      },
+      "3": {
+        "label": "Expertise",
+        "title": "Deine Expertise",
+        "description": "Was sind deine Fachgebiete? Teile deine Fähigkeiten und dein Wissen, um die richtigen Reisenden anzuziehen."
+      },
+      "4": {
+        "label": "Preisgestaltung",
+        "title": "Deine Preise",
+        "description": "Lege deine Preise für Guiding-Services fest. Sei transparent mit deinen Preisen, um mehr Reisende anzusprechen."
+      },
+      "5": {
+        "label": "Verfügbarkeit",
+        "title": "Verfügbarkeit",
+        "description": "Teile Reisenden mit, wann du verfügbar bist. Das hilft bei der Planung und Terminvereinbarung."
+      },
+      "6": {
+        "label": "Medien",
+        "title": "Medien-Upload",
+        "description": "Lade Fotos und Videos hoch, die deinen Guiding-Stil und die von dir angebotenen Erlebnisse zeigen. So können dich Reisende besser kennenlernen."
+      },
+      "7": {
+        "label": "Identität",
+        "title": "Identitätsprüfung",
+        "description": "Bestätige deine Identität, um Vertrauen bei den Reisenden aufzubauen. Dieser Schritt ist wichtig für eine sichere und vertrauensvolle Erfahrung."
+      },
+      "8": {
+        "label": "Überprüfung",
+        "title": "Profil überprüfen",
+        "description": "Nimm dir einen Moment Zeit, um dein Profil zu überprüfen und sicherzustellen, dass alle Angaben korrekt und vollständig sind. Dies ist deine Chance, einen guten ersten Eindruck zu hinterlassen."
+      }
+    },
+    "submitButton": "Onboarding abschließen"
   }
 }

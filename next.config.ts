@@ -10,7 +10,10 @@ const nextConfig: NextConfig = {
         destination: "http://localhost:8000/api/:path*", // Proxy to API server
       },
     ];
-  }
+  },
+  experimental: {
+    optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();
