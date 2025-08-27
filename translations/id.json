@@ -170,6 +170,10 @@
   "GuideOnboardingPage": {
     "title": "Onboarding Pemandu",
     "previewProfile": "Lihat Profil Publik",
+    "metadata": {
+      "title": "Jadi Pemandu - {step} | Mihape",
+      "description": "Bergabunglah dengan komunitas pemandu lokal kami dan bagikan semangat perjalanan Anda. Selesaikan proses onboarding untuk mulai membimbing traveler dan menciptakan pengalaman tak terlupakan."
+    },
     "steps": {
       "1": {
         "label": "Selamat Datang",

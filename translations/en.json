@@ -170,6 +170,10 @@
   "GuideOnboardingPage": {
     "title": "Guide Onboarding",
     "previewProfile": "View Public Profile",
+    "metadata": {
+      "title": "Become Guide - {step} | Mihape",
+      "description": "Join our community of local guides and share your passion for travel. Complete the onboarding process to start guiding travelers and creating unforgettable experiences."
+    },
     "steps": {
       "1": {
         "label": "Welcome",

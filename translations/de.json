@@ -170,6 +170,10 @@
   "GuideOnboardingPage": {
     "title": "Guide-Onboarding",
     "previewProfile": "Öffentliches Profil anzeigen",
+    "metadata": {
+      "title": "Guide werden - {step} | Mihape",
+      "description": "Tritt unserer Community lokaler Guides bei und teile deine Leidenschaft fürs Reisen. Schließe den Onboarding-Prozess ab, um Reisende zu begleiten und unvergessliche Erlebnisse zu schaffen."
+    },
     "steps": {
       "1": {
         "label": "Willkommen",

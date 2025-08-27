@@ -10,12 +10,27 @@ import {
   Title,
 } from "@mantine/core";
 import { IconCircle } from "@tabler/icons-react";
+import { Metadata } from "next";
 import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Become Guide - Step 1 | Mihape",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const { locale } = params;
+  const t = await getTranslations({
+    locale,
+    namespace: "GuideOnboardingPage",
+  });
+
+  return {
+    title: t("metadata.title", { step: t("steps.1.title") }),
+    description: t("metadata.description"),
+  };
+}
 
 export default function OnboardingStep1Page() {
   const t = useTranslations("GuideOnboardingPage.steps.1");
