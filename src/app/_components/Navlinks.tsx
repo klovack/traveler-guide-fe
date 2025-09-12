@@ -8,9 +8,9 @@ import React from "react";
 const noTextDecoration = { textDecoration: "none" };
 
 export default function Navlinks() {
-  const { user } = useAuth();
+  const { isLoggedIn } = useAuth();
 
-  if (user) {
+  if (isLoggedIn()) {
     return <LogoutButton key="nav-logout" />;
   }
 

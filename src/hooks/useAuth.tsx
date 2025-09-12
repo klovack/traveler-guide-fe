@@ -1,5 +1,6 @@
 "use client";
 import { AppAuthError, AppError } from "@/errors";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import {
   AuthUserInfo,
@@ -10,6 +11,8 @@ import {
   AppAuthErrorHttpResponse,
   RegisterInput,
   registerUserApiV1AuthRegisterPost,
+  BaseAuthOutput,
+  RegisterOutput,
 } from "tg-sdk";
 
 type AuthContextType = {
@@ -17,8 +20,8 @@ type AuthContextType = {
   isLoggingIn: boolean;
   isFetchingMe: boolean;
   isRegistering: boolean;
-  register: (credentials: RegisterInput) => Promise<void>;
-  login: (credentials: LoginInput) => Promise<AuthUserInfo | undefined>;
+  register: (credentials: RegisterInput) => Promise<RegisterOutput | undefined>;
+  login: (credentials: LoginInput) => Promise<BaseAuthOutput | undefined>;
   isLoggedIn: () => boolean;
   fetchMe: (shouldThrow: boolean) => Promise<AuthUserInfo | undefined>;
   logout: () => Promise<void>;
@@ -36,121 +39,151 @@ export type UseAuthOptions = {
 const AuthContext = React.createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = React.useState<AuthUserInfo | undefined>();
-  const [isLoggingIn, setIsLoggingIn] = React.useState(false);
-  const [isFetchingMe, setIsFetchingMe] = React.useState(false);
-  const [isRegistering, setIsRegistering] = React.useState(false);
+  const useFetchMe = () =>
+    useQuery<AuthUserInfo, AppError>({
+      queryKey: ["me"],
+      queryFn: async () => {
+        const res = await getCurrentUserApiV1AuthMeGet();
+        if (res.error) {
+          const errAny = res.error as any;
+          const msg =
+            typeof errAny === "string"
+              ? errAny
+              : errAny?.detail || JSON.stringify(errAny) || "API error";
+          throw new AppAuthError(msg, "api");
+        }
+        if (!res.data) throw new AppAuthError("No data returned", "api");
+        return res.data;
+      },
+      enabled: false,
+      retry: false,
+    });
 
-  const handleError = (error: unknown) => {
-    if ((error as AppAuthErrorHttpResponse)?.code) {
-      const err = error as AppAuthErrorHttpResponse;
-      return new AppAuthError(err.detail, err.code);
-    }
-    return new AppError(
-      `${"An unexpected error during authentication occurred."}`
-    );
+  const useLogin = () => {
+    return useMutation<BaseAuthOutput, AppAuthError, LoginInput>({
+      mutationFn: async (credentials: LoginInput) => {
+        const res = await loginUserApiV1AuthLoginPost({ body: credentials });
+        if (res.error) {
+          const errAny = res.error as any;
+          const msg =
+            typeof errAny === "string"
+              ? errAny
+              : errAny?.detail || JSON.stringify(errAny) || "API error";
+          const type = (errAny as AppAuthErrorHttpResponse)?.code || "api";
+          throw new AppAuthError(msg, type);
+        }
+        if (!res.data) throw new AppAuthError("No data returned", "api");
+        return res.data;
+      },
+      retry: false,
+    });
   };
 
-  const fetchMe = async (shouldThrow = false) => {
-    setIsFetchingMe(true);
+  const useRegister = () =>
+    useMutation<RegisterOutput, AppAuthError, RegisterInput>({
+      mutationFn: async (credentials: RegisterInput) => {
+        const res = await registerUserApiV1AuthRegisterPost({
+          body: credentials,
+        });
+        if (res.error) {
+          const errAny = res.error as any;
+          const msg =
+            typeof errAny === "string"
+              ? errAny
+              : errAny?.detail || JSON.stringify(errAny) || "API error";
+          const type = (errAny as AppAuthErrorHttpResponse)?.code || "api";
+          throw new AppAuthError(msg, type);
+        }
+        if (!res.data) throw new AppAuthError("No data returned", "api");
+        return res.data;
+      },
+      retry: false,
+    });
 
+  const useLogout = () => {
+    return useMutation<void, AppError>({
+      mutationFn: async () => {
+        const res = await logoutUserApiV1AuthLogoutPost();
+        if (res.error) {
+          const errAny = res.error as any;
+          const msg =
+            typeof errAny === "string"
+              ? errAny
+              : errAny?.detail || JSON.stringify(errAny) || "API error";
+          throw new AppError(msg);
+        }
+      },
+      retry: false,
+    });
+  };
+
+  const fetchMeQuery = useFetchMe();
+  const loginMutation = useLogin();
+  const registerMutation = useRegister();
+  const logoutMutation = useLogout();
+
+  const logout = async () => {
+    return new Promise<void>((resolve, reject) => {
+      logoutMutation.mutate(undefined, {
+        onSuccess: () => resolve(),
+        onError: (err) => reject(err),
+      });
+    });
+  };
+
+  const fetchMe = async (shouldThrow: boolean) => {
     try {
-      const response = await getCurrentUserApiV1AuthMeGet({});
-      if (!response.data) {
-        throw new Error("No user data found");
-      }
-
-      setUser(response.data);
-      return response.data;
-    } catch (error) {
-      setUser(undefined);
-      if (shouldThrow) {
-        throw handleError(error);
-      }
-    } finally {
-      setIsFetchingMe(false);
+      const data = await fetchMeQuery.refetch();
+      if (data.error && shouldThrow) throw data.error;
+      return data.data;
+    } catch (err) {
+      if (shouldThrow) throw err;
+      return undefined;
     }
   };
 
   const login = async (credentials: LoginInput) => {
-    setIsLoggingIn(true);
-
-    try {
-      const response = await loginUserApiV1AuthLoginPost({
-        body: credentials,
+    return new Promise<BaseAuthOutput | undefined>((resolve, reject) => {
+      loginMutation.mutate(credentials, {
+        onSuccess: (data) => resolve(data),
+        onError: (err) => reject(err),
       });
-
-      if (!response.data && response.error) {
-        throw response.error;
-      }
-
-      return await fetchMe(true);
-    } catch (error) {
-      setUser(undefined);
-      throw handleError(error);
-    } finally {
-      setIsLoggingIn(false);
-    }
-  };
-
-  const logout = async () => {
-    try {
-      const response = await logoutUserApiV1AuthLogoutPost({
-        credentials: "include",
-      });
-
-      if (response.response.status === 200) {
-        setUser(undefined);
-      }
-    } catch (error) {
-      console.error("Failed to logout:", error);
-    }
+    });
   };
 
   const register = async (credentials: RegisterInput) => {
-    setIsRegistering(true);
-
-    try {
-      const response = await registerUserApiV1AuthRegisterPost({
-        body: credentials,
+    return new Promise<RegisterOutput | undefined>((resolve, reject) => {
+      registerMutation.mutate(credentials, {
+        onSuccess: (data) => resolve(data),
+        onError: (err) => reject(err),
       });
-
-      if (!response.data && response.error) {
-        throw response.error;
-      }
-    } catch (error) {
-      setUser(undefined);
-      handleError(error);
-    } finally {
-      setIsRegistering(false);
-    }
+    });
   };
 
-  useEffect(() => {
-    fetchMe().catch();
-  }, []);
-
-  const providerValue: AuthContextType = React.useMemo(
+  const providerValue = React.useMemo<AuthContextType>(
     () => ({
-      user,
-      isLoggingIn,
-      isFetchingMe,
-      isRegistering,
+      user: fetchMeQuery.data,
+      isLoggingIn: loginMutation.isPending,
+      isFetchingMe: fetchMeQuery.isLoading,
+      isRegistering: registerMutation.isPending,
       fetchMe,
       logout,
       login,
       register,
-      isLoggedIn: () => !!user && !!user.id && !!user.role,
+      isLoggedIn: () =>
+        !!fetchMeQuery.data &&
+        !!fetchMeQuery.data.id &&
+        !!fetchMeQuery.data.role,
     }),
     [
-      user,
-      isLoggingIn,
-      fetchMe,
-      logout,
-      login,
-      register,
-      isFetchingMe,
-      isRegistering,
+      fetchMeQuery.data,
+      fetchMeQuery.isLoading,
+      loginMutation.isPending,
+      registerMutation.isPending,
+      fetchMeQuery.refetch,
+      logoutMutation.mutate,
+      loginMutation.mutate,
+      registerMutation.mutate,
     ]
   );
 
