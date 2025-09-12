@@ -1,4 +1,40 @@
 {
+  "common": {
+    "languages": {
+      "label": "Gesprochene Sprachen",
+      "placeholder": "Bevorzugte Sprache auswählen",
+      "options": {
+        "en": "Englisch",
+        "de": "Deutsch",
+        "id": "Indonesisch",
+        "jawa": "Javanisch",
+        "sunda": "Sundanesisch",
+        "batak": "Batak",
+        "madura": "Maduresisch",
+        "bali": "Balinesisch",
+        "bugis": "Buginesisch",
+        "aceh": "Acehnesisch",
+        "banjar": "Banjaresisch",
+        "betawi": "Betawi",
+        "minangkabau": "Minangkabau",
+        "sasak": "Sasak",
+        "toraja": "Toraja",
+        "ambon": "Ambonesisch",
+        "papua": "Papuanisch",
+        "other": "Andere"
+      },
+      "fluency": {
+        "label": "Sprachniveau",
+        "placeholder": "Wähle dein Sprachniveau aus",
+        "options": {
+          "native": "Muttersprachler",
+          "fluent": "Fließend",
+          "conversational": "Konversationssicher",
+          "basic": "Grundkenntnisse"
+        }
+      }
+    }
+  },
   "HomePage": {
     "title": "Entdecken Sie erstaunliche Reiseziele",
     "description": "Erkunden Sie kuratierte Reiseführer aus der ganzen Welt. Finden Sie versteckte Schätze, lokale Empfehlungen und unvergessliche Erlebnisse."

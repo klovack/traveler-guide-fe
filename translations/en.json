@@ -1,4 +1,40 @@
 {
+  "common": {
+    "languages": {
+      "label": "Languages Spoken",
+      "placeholder": "Select your preferred language",
+      "options": {
+        "en": "English",
+        "de": "German",
+        "id": "Indonesian",
+        "jawa": "Javanese",
+        "sunda": "Sundanese",
+        "batak": "Bataknese",
+        "madura": "Madurese",
+        "bali": "Balinese",
+        "bugis": "Buginese",
+        "aceh": "Acehnese",
+        "banjar": "Banjarese",
+        "betawi": "Betawi",
+        "minangkabau": "Minangkabau",
+        "sasak": "Sasak",
+        "toraja": "Torajan",
+        "ambon": "Ambonese",
+        "papua": "Papuan",
+        "other": "Other"
+      },
+      "fluency": {
+        "label": "Fluency Level",
+        "placeholder": "Select your fluency level",
+        "options": {
+          "native": "Native",
+          "fluent": "Fluent",
+          "conversational": "Conversational",
+          "basic": "Basic"
+        }
+      }
+    }
+  },
   "HomePage": {
     "title": "Discover Amazing Travel Destinations",
     "description": "Explore curated travel guides from around the world. Find hidden gems, local recommendations, and unforgettable experiences."

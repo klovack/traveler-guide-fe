@@ -1,4 +1,40 @@
 {
+  "common": {
+    "languages": {
+      "label": "Bahasa yang Digunakan",
+      "placeholder": "Pilih bahasa yang diinginkan",
+      "options": {
+        "en": "Inggris",
+        "de": "Jerman",
+        "id": "Indonesia",
+        "jawa": "Jawa",
+        "sunda": "Sunda",
+        "batak": "Batak",
+        "madura": "Madura",
+        "bali": "Bali",
+        "bugis": "Bugis",
+        "aceh": "Aceh",
+        "banjar": "Banjar",
+        "betawi": "Betawi",
+        "minangkabau": "Minangkabau",
+        "sasak": "Sasak",
+        "toraja": "Toraja",
+        "ambon": "Ambon",
+        "papua": "Papua",
+        "other": "Lainnya"
+      },
+      "fluency": {
+        "label": "Tingkat Kemahiran",
+        "placeholder": "Pilih tingkat kemahiran Anda",
+        "options": {
+          "native": "Penutur Asli",
+          "fluent": "Fasih",
+          "conversational": "Percakapan",
+          "basic": "Dasar"
+        }
+      }
+    }
+  },
   "HomePage": {
     "title": "Temui Tujuan Wisata yang Menakjubkan",
     "description": "Jelajahi panduan perjalanan terkurasi dari seluruh dunia. Temukan tempat-tempat tersembunyi, rekomendasi lokal, dan pengalaman tak terlupakan.."

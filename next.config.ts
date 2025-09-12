@@ -14,6 +14,20 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
   },
+  redirects: async () => {
+    return [
+      {
+        source: "/guide/onboarding",
+        destination: "/guide/onboarding/step-1",
+        permanent: true,
+      },
+      {
+        source: "/guide/preview",
+        destination: "/guide/preview/me",
+        permanent: false,
+      }
+    ];
+  }
 };
 
 const withNextIntl = createNextIntlPlugin();
