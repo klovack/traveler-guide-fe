@@ -6,6 +6,7 @@ import { LanguageFluency, SupportedLanguages } from "@/constants/languages";
 import { SelectFluency, SelectFluencyProps } from "./SelectFluency";
 import { useTranslations } from "next-intl";
 import { IconX } from "@tabler/icons-react";
+import { useDebouncedCallback } from "@mantine/hooks";
 
 export type SelectLanguageWithFluencyProps = {
   value?: LanguageWithFluency[] | null;
@@ -42,13 +43,7 @@ export function SelectLanguageWithFluency(
       });
       return newFluencies;
     });
-    handleOnChange();
-  };
-
-  const handleOnChange = () => {
-    props.onChange?.(
-      langs.map((code) => ({ code, fluency: fluencies[code] || "" }))
-    );
+    handleOnChangeDebounced();
   };
 
   const handleDeleteLanguage: (language: SupportedLanguages) => void = (
@@ -66,7 +61,7 @@ export function SelectLanguageWithFluency(
       });
       return newFluencies;
     });
-    handleOnChange();
+    handleOnChangeDebounced();
   };
 
   useEffect(() => {
@@ -78,6 +73,14 @@ export function SelectLanguageWithFluency(
     );
   }, [props.value]);
 
+  const handleOnChangeDebounced = useDebouncedCallback(() => {
+    if (props.onChange) {
+      props.onChange(
+        langs.map((lang) => ({ code: lang, fluency: fluencies[lang] }))
+      );
+    }
+  }, 300);
+
   return (
     <>
       <SelectLanguage
@@ -85,6 +88,7 @@ export function SelectLanguageWithFluency(
         onChange={handleLanguageChange}
         label={t("common.languages.label")}
         placeholder={t("common.languages.placeholder")}
+        onRemove={(value) => handleDeleteLanguage(value as SupportedLanguages)}
         {...props.selectLanguageProps}
       />
 
@@ -103,7 +107,7 @@ export function SelectLanguageWithFluency(
                     [lang]: value as LanguageFluency,
                   };
                 });
-                handleOnChange();
+                handleOnChangeDebounced();
               }}
               {...props.selectFluencyProps}
             />

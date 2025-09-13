@@ -46,7 +46,9 @@ export function GuideBasicForm() {
 
       <SelectLanguageWithFluency
         value={form.getValues("languages")}
-        onChange={(v) => form.setValue("languages", v)}
+        onChange={(v) => {
+          form.setValue("languages", v);
+        }}
       />
 
       <Group justify="space-between" mt="lg">
