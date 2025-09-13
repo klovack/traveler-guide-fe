@@ -1,9 +1,10 @@
 import { LngLatLike } from "maplibre-gl";
 import { envVar } from "../utils/env";
 import openStreetMapStyleSpec from "./openStreetMap.style.json";
+import { DEFAULT_LOCATION } from "@/constants/common";
 
 const getDefaultCenter = (): LngLatLike => {
-  const defaultIfEmpty: LngLatLike = [4.529, 48.856]; // Default center coordinates near Paris, France
+  const defaultIfEmpty: LngLatLike = DEFAULT_LOCATION; // Default center coordinates near Paris, France
   const fromEnv = envVar.safeGet<string>("NEXT_DEFAULT_MAP_CENTER");
 
   if (!fromEnv) return defaultIfEmpty;

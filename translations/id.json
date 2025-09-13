@@ -1,5 +1,9 @@
 {
   "common": {
+    "city": {
+      "label": "Kota",
+      "placeholder": "Pilih kota tinggalmu"
+    },
     "languages": {
       "label": "Bahasa yang Digunakan",
       "placeholder": "Pilih bahasa yang diinginkan",
@@ -232,7 +236,17 @@
       "2": {
         "label": "Dasar",
         "title": "Informasi Profil",
-        "description": "Ceritakan tentang diri Anda agar kami dapat mencocokkan Anda dengan traveler yang tepat."
+        "description": "Ceritakan tentang diri Anda agar kami dapat mencocokkan Anda dengan traveler yang tepat.",
+        "form": {
+          "baseCity": {
+            "label": "Kota Domisili",
+            "placeholder": "Di mana Anda saat ini berada"
+          },
+          "operatingRegions": {
+            "label": "Wilayah Operasi",
+            "placeholder": "Wilayah yang dapat Anda pandu"
+          }
+        }
       },
       "3": {
         "label": "Keahlian",

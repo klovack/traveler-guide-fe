@@ -1,3 +1,5 @@
+import { PREDEFINED_ROLES } from "@/constants/auth";
+import { withRole } from "@/lib/withRole.server";
 import {
   Anchor,
   Button,
@@ -14,6 +16,7 @@ import { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
+import { StartOnboardingButton } from "./_components/StartOnboardingButton";
 
 export async function generateMetadata({
   params,
@@ -32,9 +35,8 @@ export async function generateMetadata({
   };
 }
 
-export default function OnboardingStep1Page() {
+function OnboardingStep1Page() {
   const t = useTranslations("GuideOnboardingPage.steps.1");
-
   return (
     <>
       <Title order={2} size="lg">
@@ -78,10 +80,12 @@ export default function OnboardingStep1Page() {
         <Button variant="default" component={Link} href="/guide/dashboard">
           {t("exit")}
         </Button>
-        <Button component={Link} href="/guide/onboarding/step-2">
-          {t("start")}
-        </Button>
+        <StartOnboardingButton />
       </Group>
     </>
   );
 }
+
+export default withRole(OnboardingStep1Page, PREDEFINED_ROLES.GUIDE_ONLY, {
+  redirectTo: "/",
+});

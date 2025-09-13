@@ -1,5 +1,9 @@
 {
   "common": {
+    "city": {
+      "label": "Stadt",
+      "placeholder": "Wähle deine Stadt aus"
+    },
     "languages": {
       "label": "Gesprochene Sprachen",
       "placeholder": "Bevorzugte Sprache auswählen",
@@ -232,7 +236,17 @@
       "2": {
         "label": "Grundlagen",
         "title": "Profilinformationen",
-        "description": "Erzähl uns etwas über dich, damit wir dich mit den passenden Reisenden zusammenbringen können."
+        "description": "Erzähl uns etwas über dich, damit wir dich mit den passenden Reisenden zusammenbringen können.",
+        "form": {
+          "baseCity": {
+            "label": "Standortstadt",
+            "placeholder": "Wo du derzeit wohnst"
+          },
+          "operatingRegions": {
+            "label": "Einsatzgebiete",
+            "placeholder": "Wo du Reisende führen kannst"
+          }
+        }
       },
       "3": {
         "label": "Expertise",

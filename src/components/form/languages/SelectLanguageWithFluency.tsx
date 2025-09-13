@@ -1,6 +1,6 @@
 import { LanguageWithFluency } from "tg-sdk";
 import { SelectLanguage, SelectLanguageProps } from "./SelectLanguage";
-import { Grid, ActionIcon, Text, Group } from "@mantine/core";
+import { ActionIcon, Group, Stack } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { LanguageFluency, SupportedLanguages } from "@/constants/languages";
 import { SelectFluency, SelectFluencyProps } from "./SelectFluency";
@@ -51,7 +51,9 @@ export function SelectLanguageWithFluency(
     );
   };
 
-  const handleDeleteLanguage = (language: SupportedLanguages) => {
+  const handleDeleteLanguage: (language: SupportedLanguages) => void = (
+    language
+  ) => {
     const newLangs = langs.filter((l) => l !== language);
     setLangs(newLangs);
     setFluencies((prevFluency) => {
@@ -81,42 +83,45 @@ export function SelectLanguageWithFluency(
       <SelectLanguage
         value={langs}
         onChange={handleLanguageChange}
+        label={t("common.languages.label")}
+        placeholder={t("common.languages.placeholder")}
         {...props.selectLanguageProps}
       />
 
-      <Grid w="100%" mt="sm" align="center">
+      <Stack w="100%" mt="sm">
         {langs.map((lang) => (
-          <>
-            <Grid.Col span={3}>
-              <Group gap="xs">
-                <ActionIcon
-                  variant="transparent"
-                  color="gray"
-                  onClick={() => handleDeleteLanguage(lang)}
-                >
-                  <IconX style={{ width: "70%", height: "70%" }} />
-                </ActionIcon>
-                <Text>{t(`common.languages.options.${lang}`)}</Text>
-              </Group>
-            </Grid.Col>
-            <Grid.Col span={9}>
-              <SelectFluency
-                value={fluencies[lang] || undefined}
-                onChange={(value) => {
-                  setFluencies((prevFluency) => {
-                    return {
-                      ...prevFluency,
-                      [lang]: value as LanguageFluency,
-                    };
-                  });
-                  handleOnChange();
-                }}
-                {...props.selectFluencyProps}
-              />
-            </Grid.Col>
-          </>
+          <Group w="100%" gap="xs" key={lang} align="flex-end">
+            <SelectFluency
+              style={{ flexGrow: 1 }}
+              label={t(`common.languages.options.${lang}`)}
+              placeholder={t("common.languages.fluency.placeholder")}
+              value={fluencies[lang] || undefined}
+              onChange={(value) => {
+                setFluencies((prevFluency) => {
+                  return {
+                    ...prevFluency,
+                    [lang]: value as LanguageFluency,
+                  };
+                });
+                handleOnChange();
+              }}
+              {...props.selectFluencyProps}
+            />
+
+            <ActionIcon
+              style={{
+                position: "relative",
+                top: "-0.5rem",
+              }}
+              variant="transparent"
+              color="gray"
+              onClick={() => handleDeleteLanguage(lang)}
+            >
+              <IconX style={{ width: "70%", height: "70%" }} />
+            </ActionIcon>
+          </Group>
         ))}
-      </Grid>
+      </Stack>
     </>
   );
 }

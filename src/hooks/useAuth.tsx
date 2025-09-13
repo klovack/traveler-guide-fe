@@ -164,7 +164,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     () => ({
       user: fetchMeQuery.data,
       isLoggingIn: loginMutation.isPending,
-      isFetchingMe: fetchMeQuery.isLoading,
+      isFetchingMe: fetchMeQuery.isLoading || fetchMeQuery.isRefetching,
       isRegistering: registerMutation.isPending,
       fetchMe,
       logout,
@@ -178,6 +178,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     [
       fetchMeQuery.data,
       fetchMeQuery.isLoading,
+      fetchMeQuery.isRefetching,
       loginMutation.isPending,
       registerMutation.isPending,
       fetchMeQuery.refetch,
@@ -201,8 +202,16 @@ export const useAuth = ({ noAutoFetchMe = false }: UseAuthOptions = {}) => {
   }
 
   useEffect(() => {
+    const fetchTheUser = async () => {
+      try {
+        await context.fetchMe(false);
+      } catch (err) {
+        // Log the error, as we don't want to throw on mount
+        console.error("Failed to fetch user on mount:", err);
+      }
+    };
     if (!noAutoFetchMe && !context.isFetchingMe && !context.isLoggedIn()) {
-      context.fetchMe(false).catch();
+      fetchTheUser();
     }
   }, []);
 

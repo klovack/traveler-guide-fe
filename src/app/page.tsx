@@ -14,7 +14,7 @@ import { IconMapPin, IconCategory, IconArrowRight } from "@tabler/icons-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getGuidesApiV1GuidesGet, Guide } from "tg-sdk";
+import { Guide } from "tg-sdk";
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
@@ -23,21 +23,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchGuides = async () => {
-      try {
-        const { data } = await getGuidesApiV1GuidesGet();
-
-        if (!data || !Array.isArray(data)) {
-          throw new Error("Invalid data format received from API");
-        }
-
-        setGuides(data);
-      } catch (error) {
-        console.error("Failed to fetch guides:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const fetchGuides = async () => {};
 
     fetchGuides();
   }, []);

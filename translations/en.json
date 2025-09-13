@@ -1,5 +1,9 @@
 {
   "common": {
+    "city": {
+      "label": "City",
+      "placeholder": "Select your city"
+    },
     "languages": {
       "label": "Languages Spoken",
       "placeholder": "Select your preferred language",
@@ -232,7 +236,17 @@
       "2": {
         "label": "Basics",
         "title": "Profile Information",
-        "description": "Tell us about yourself to help us match you with the right travelers."
+        "description": "Tell us about yourself to help us match you with the right travelers.",
+        "form": {
+          "baseCity": {
+            "label": "Base City",
+            "placeholder": "Where you are now located"
+          },
+          "operatingRegions": {
+            "label": "Operating Regions",
+            "placeholder": "Where you can guide travelers"
+          }
+        }
       },
       "3": {
         "label": "Expertise",
