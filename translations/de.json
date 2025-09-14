@@ -37,6 +37,11 @@
           "basic": "Grundkenntnisse"
         }
       }
+    },
+    "errors": {
+      "required": "Dieses Feld ist erforderlich",
+      "min": "Bitte wähle mindestens {min} Optionen aus",
+      "max": "Bitte wähle nicht mehr als {max} Optionen aus"
     }
   },
   "HomePage": {
@@ -251,7 +256,36 @@
       "3": {
         "label": "Expertise",
         "title": "Deine Expertise",
-        "description": "Was sind deine Fachgebiete? Teile deine Fähigkeiten und dein Wissen, um die richtigen Reisenden anzuziehen."
+        "description": "Was sind deine Fachgebiete? Teile deine Fähigkeiten und dein Wissen, um die richtigen Reisenden anzuziehen.",
+        "form": {
+          "personality": {
+            "label": "Persönlichkeit",
+            "description": "Wähle bis zu {max} Persönlichkeitsmerkmale aus, die deinen Guiding-Stil am besten beschreiben.",
+            "validationError": {
+              "required": "Bitte wähle mindestens {min} Persönlichkeitsmerkmal aus",
+              "min": "Bitte wähle mindestens {min} Persönlichkeitsmerkmale aus",
+              "max": "Bitte wähle nicht mehr als {max} Persönlichkeitsmerkmale aus"
+            }
+          },
+          "interest": {
+            "label": "Interessen",
+            "description": "Wähle bis zu {max} Interessen aus, für die du dich begeisterst und die du mit Reisenden teilen kannst.",
+            "validationError": {
+              "required": "Bitte wähle mindestens {min} Interesse aus",
+              "min": "Bitte wähle mindestens {min} Interessen aus",
+              "max": "Bitte wähle nicht mehr als {max} Interessen aus"
+            }
+          },
+          "specialization": {
+            "label": "Spezialisierung",
+            "description": "Auf welche Art von Touren oder Erlebnissen bist du spezialisiert? Wähle bis zu {max} Spezialisierungen aus.",
+            "validationError": {
+              "required": "Bitte wähle mindestens {min} Spezialisierung aus",
+              "min": "Bitte wähle mindestens {min} Spezialisierungen aus",
+              "max": "Bitte wähle nicht mehr als {max} Spezialisierungen aus"
+            }
+          }
+        }
       },
       "4": {
         "label": "Preisgestaltung",

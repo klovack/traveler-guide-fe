@@ -7,13 +7,14 @@ import { useTranslations } from "next-intl";
 import { SelectLanguageWithFluency } from "@/components/form/languages/SelectLanguageWithFluency";
 import { SelectCity } from "@/components/form/cities/SelectCity";
 import { MultiSelectCity } from "@/components/form/cities/MultiSelectCity";
+import { OnboardingSkeleton } from "../../_components/OnboardingSkeleton";
 
 export function GuideBasicForm() {
   const t = useTranslations("GuideOnboardingPage.steps.2");
-  const { form } = useOnboardingForm();
+  const { form, isLoading } = useOnboardingForm();
 
-  if (!form) {
-    return <div>Loading...</div>;
+  if (!form || isLoading) {
+    return <OnboardingSkeleton numberOfFields={4} />;
   }
 
   const {

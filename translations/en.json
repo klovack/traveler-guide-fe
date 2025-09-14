@@ -37,6 +37,11 @@
           "basic": "Basic"
         }
       }
+    },
+    "errors": {
+      "required": "This field is required",
+      "min": "Please select at least {min} options",
+      "max": "Please select no more than {max} options"
     }
   },
   "HomePage": {
@@ -251,7 +256,36 @@
       "3": {
         "label": "Expertise",
         "title": "Your Expertise",
-        "description": "What are your areas of expertise? Share your skills and knowledge to attract the right travelers."
+        "description": "What are your areas of expertise? Share your skills and knowledge to attract the right travelers.",
+        "form": {
+          "personality": {
+            "label": "Personality",
+            "description": "Select up to {max} personality traits that best describe your guiding style.",
+            "validationError": {
+              "required": "Please select at least {min} personality trait",
+              "min": "Please select at least {min} personality traits",
+              "max": "Please select no more than {max} personality traits"
+            }
+          },
+          "interest": {
+            "label": "Interests",
+            "description": "Select up to {max} interests that you are passionate about and can share with travelers.",
+            "validationError": {
+              "required": "Please select at least {min} interest",
+              "min": "Please select at least {min} interests",
+              "max": "Please select no more than {max} interests"
+            }
+          },
+          "specialization": {
+            "label": "Specialization",
+            "description": "What type of tours or experiences do you specialize in? Choose up to {max} specializations.",
+            "validationError": {
+              "required": "Please select at least {min} specialization",
+              "min": "Please select at least {min} specializations",
+              "max": "Please select no more than {max} specializations"
+            }
+          }
+        }
       },
       "4": {
         "label": "Pricing",

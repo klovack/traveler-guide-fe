@@ -37,6 +37,11 @@
           "basic": "Dasar"
         }
       }
+    },
+    "errors": {
+      "required": "Kolom ini wajib diisi",
+      "min": "Silakan pilih minimal {min} opsi",
+      "max": "Silakan pilih tidak lebih dari {max} opsi"
     }
   },
   "HomePage": {
@@ -251,7 +256,36 @@
       "3": {
         "label": "Keahlian",
         "title": "Keahlian Anda",
-        "description": "Apa saja bidang keahlian Anda? Bagikan keterampilan dan pengetahuan Anda untuk menarik traveler yang sesuai."
+        "description": "Apa saja bidang keahlian Anda? Bagikan keterampilan dan pengetahuan Anda untuk menarik traveler yang sesuai.",
+        "form": {
+          "personality": {
+            "label": "Kepribadian",
+            "description": "Pilih hingga {max} sifat kepribadian yang paling menggambarkan gaya pemanduan Anda.",
+            "validationError": {
+              "required": "Silakan pilih minimal {min} sifat kepribadian",
+              "min": "Silakan pilih minimal {min} sifat kepribadian",
+              "max": "Silakan pilih tidak lebih dari {max} sifat kepribadian"
+            }
+          },
+          "interest": {
+            "label": "Minat",
+            "description": "Pilih hingga {max} minat yang Anda sukai dan dapat Anda bagikan kepada traveler.",
+            "validationError": {
+              "required": "Silakan pilih minimal {min} minat",
+              "min": "Silakan pilih minimal {min} minat",
+              "max": "Silakan pilih tidak lebih dari {max} minat"
+            }
+          },
+          "specialization": {
+            "label": "Spesialisasi",
+            "description": "Jenis tur atau pengalaman apa yang Anda kuasai? Pilih hingga {max} spesialisasi.",
+            "validationError": {
+              "required": "Silakan pilih minimal {min} spesialisasi",
+              "min": "Silakan pilih minimal {min} spesialisasi",
+              "max": "Silakan pilih tidak lebih dari {max} spesialisasi"
+            }
+          }
+        }
       },
       "4": {
         "label": "Harga",
