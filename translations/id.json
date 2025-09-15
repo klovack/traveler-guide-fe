@@ -291,6 +291,15 @@
               "min": "Silakan pilih minimal {min} spesialisasi",
               "max": "Silakan pilih tidak lebih dari {max} spesialisasi"
             }
+          },
+          "bio": {
+            "label": "Über Sie",
+            "description": "Erzählen Sie Reisenden etwas über sich, Ihren Hintergrund und warum Sie gerne Guide sind. (Maximal {max} Zeichen)",
+            "placeholder": "Ich bin ein leidenschaftlicher lokaler Guide mit über 5 Jahren Erfahrung und zeige Reisenden die versteckten Schätze meiner Stadt.",
+            "validationError": {
+              "required": "Bitte schreiben Sie eine kurze Biografie über sich selbst",
+              "maxLength": "Die Biografie darf maximal {max} Zeichen enthalten"
+            }
           }
         }
       },

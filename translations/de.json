@@ -291,6 +291,15 @@
               "min": "Bitte wähle mindestens {min} Spezialisierungen aus",
               "max": "Bitte wähle nicht mehr als {max} Spezialisierungen aus"
             }
+          },
+          "bio": {
+            "label": "Tentang Anda",
+            "description": "Ceritakan sedikit tentang diri Anda, latar belakang Anda, dan mengapa Anda senang menjadi pemandu. (Maks {max} karakter)",
+            "placeholder": "Saya adalah pemandu lokal yang bersemangat dengan pengalaman lebih dari 5 tahun menunjukkan permata tersembunyi kota saya kepada para traveler.",
+            "validationError": {
+              "required": "Silakan tulis bio singkat tentang diri Anda",
+              "maxLength": "Bio tidak boleh lebih dari {max} karakter"
+            }
           }
         }
       },

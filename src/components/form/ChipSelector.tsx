@@ -57,12 +57,12 @@ export function ChipSelector(props: Readonly<ChipSelectorProps>) {
   return (
     <Stack>
       <Stack gap={0}>
-        <Text fw="bold">
+        <Text fw="500" size="sm">
           {props.label}
           {isRequired && <span style={{ color: "red" }}> *</span>}
         </Text>
         {props.description && (
-          <Text c="dimmed" size="sm">
+          <Text c="dimmed" size="xs">
             {props.description}
           </Text>
         )}

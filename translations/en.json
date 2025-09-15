@@ -291,6 +291,15 @@
               "min": "Please select at least {min} specializations",
               "max": "Please select no more than {max} specializations"
             }
+          },
+          "bio": {
+            "label": "About you",
+            "description": "Tell travelers a bit about yourself, your background, and why you love being a guide. (Max {max} characters)",
+            "placeholder": "I'm a passionate local guide with over 5 years of experience showing travelers around the hidden gems of my city.",
+            "validationError": {
+              "required": "Please write a brief bio about yourself",
+              "maxLength": "Bio must be no more than {max} characters"
+            }
           }
         }
       },

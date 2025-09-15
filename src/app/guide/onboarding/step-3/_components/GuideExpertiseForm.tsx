@@ -5,7 +5,7 @@ import { OnboardingSkeleton } from "../../_components/OnboardingSkeleton";
 import { useOnboardingForm } from "../../_hooks/useOnboardingForm";
 import { SelectPersonality } from "@/components/form/expertise/SelectPersonality";
 import { SelectInterest } from "@/components/form/expertise/SelectInterest";
-import { Space } from "@mantine/core";
+import { Space, Textarea, Text } from "@mantine/core";
 
 export function GuideExpertiseForm() {
   const t = useTranslations("GuideOnboardingPage.steps.3");
@@ -62,6 +62,23 @@ export function GuideExpertiseForm() {
         max={5}
         min={1}
       />
+
+      <Space h="lg" />
+
+      <Textarea
+        label={t("form.bio.label")}
+        description={t("form.bio.description", { max: 500 })}
+        placeholder={t("form.bio.placeholder")}
+        required
+        maxLength={500}
+        autosize
+        minRows={5}
+        resize="vertical"
+        {...form.register("bio")}
+      />
+      <Text c="dimmed" size="xs">
+        {form.watch("bio")?.length ?? 0}/500
+      </Text>
     </form>
   );
 }

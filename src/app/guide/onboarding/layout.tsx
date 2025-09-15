@@ -97,7 +97,7 @@ export default function OnboardingLayout({
                 {t("common.buttons.exit")}
               </Button>
             )}
-            {currentStep < steps.length - 1 && (
+            {currentStep < steps.length && (
               <Button
                 component={Link}
                 href={`/guide/onboarding/step-${currentStep + 1}`}
