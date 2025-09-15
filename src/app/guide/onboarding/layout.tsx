@@ -27,7 +27,7 @@ export default function OnboardingLayout({
 }>) {
   const pathname = usePathname();
   const router = useRouter();
-  const t = useTranslations("GuideOnboardingPage");
+  const t = useTranslations();
   const locale = useLocale();
   const isMobile = useMediaQuery(`(max-width: ${BREAKPOINTS.md})`, true);
 
@@ -35,21 +35,22 @@ export default function OnboardingLayout({
     const match = stepRegex.exec(pathname);
     return match ? Number(match[1]) - 1 : 0;
   }, [pathname]);
+  const currentStep = active + 1;
 
   const go = (n: number) => router.push(`./step-${n}`);
 
   const steps = useMemo(() => {
-    return createSteps(t);
+    return createSteps(t, "GuideOnboardingPage");
   }, [t, locale]);
 
   return (
     <Container size="md">
       <Group justify="space-between" mb="sm">
         <Title order={2} size={isMobile ? "md" : undefined}>
-          {t("title")}
+          {t("GuideOnboardingPage.title")}
         </Title>
         <Button variant="subtle" component={Link} href="/guide/preview/me">
-          {t("previewProfile")}
+          {t("GuideOnboardingPage.previewProfile")}
         </Button>
       </Group>
 
@@ -75,6 +76,38 @@ export default function OnboardingLayout({
         </Stepper>
         <Paper withBorder radius="md" p="lg" className="grow">
           {children}
+          <Group justify="space-between" mt="lg">
+            {currentStep > 1 && (
+              <Button
+                variant="default"
+                component={Link}
+                href={`/guide/onboarding/step-${currentStep - 1}`}
+              >
+                {t.has("GuideOnboardingPage.buttons.back")
+                  ? t("GuideOnboardingPage.buttons.back")
+                  : t("common.buttons.back")}
+              </Button>
+            )}
+            {currentStep === 1 && (
+              <Button
+                variant="default"
+                component={Link}
+                href={`/guide/dashboard`}
+              >
+                {t("common.buttons.exit")}
+              </Button>
+            )}
+            {currentStep < steps.length - 1 && (
+              <Button
+                component={Link}
+                href={`/guide/onboarding/step-${currentStep + 1}`}
+              >
+                {t.has(`GuideOnboardingPage.steps.${currentStep}.buttons.next`)
+                  ? t(`GuideOnboardingPage.steps.${currentStep}.buttons.next`)
+                  : t("common.buttons.next")}
+              </Button>
+            )}
+          </Group>
         </Paper>
       </Group>
     </Container>

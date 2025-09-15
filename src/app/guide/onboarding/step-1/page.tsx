@@ -16,7 +16,7 @@ import { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import { StartOnboardingButton } from "./_components/StartOnboardingButton";
+import { StartOnboardingForm } from "./_components/StartOnboardingForm";
 
 export async function generateMetadata({
   params,
@@ -76,12 +76,7 @@ function OnboardingStep1Page() {
         </Anchor>
       </Text>
 
-      <Group justify="space-between" mt="md">
-        <Button variant="default" component={Link} href="/guide/dashboard">
-          {t("exit")}
-        </Button>
-        <StartOnboardingButton />
-      </Group>
+      <StartOnboardingForm />
     </>
   );
 }

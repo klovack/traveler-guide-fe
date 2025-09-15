@@ -42,6 +42,12 @@
       "required": "This field is required",
       "min": "Please select at least {min} options",
       "max": "Please select no more than {max} options"
+    },
+    "buttons": {
+      "next": "Next",
+      "back": "Back",
+      "submit": "Submit",
+      "exit": "Exit"
     }
   },
   "HomePage": {
@@ -235,8 +241,9 @@
           "adventure": "Sense of adventure"
         },
         "guidelines": "Guide Community Guidelines",
-        "exit": "Exit",
-        "start": "Start"
+        "buttons": {
+          "next": "Start"
+        }
       },
       "2": {
         "label": "Basics",

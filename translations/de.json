@@ -42,6 +42,12 @@
       "required": "Dieses Feld ist erforderlich",
       "min": "Bitte wähle mindestens {min} Optionen aus",
       "max": "Bitte wähle nicht mehr als {max} Optionen aus"
+    },
+    "buttons": {
+      "next": "Weiter",
+      "back": "Zurück",
+      "submit": "Absenden",
+      "exit": "Beenden"
     }
   },
   "HomePage": {
@@ -235,8 +241,9 @@
           "adventure": "Abenteuerlust"
         },
         "guidelines": "Community-Richtlinien für Guides",
-        "exit": "Beenden",
-        "start": "Starten"
+        "buttons": {
+          "next": "Starten"
+        }
       },
       "2": {
         "label": "Grundlagen",

@@ -42,6 +42,12 @@
       "required": "Kolom ini wajib diisi",
       "min": "Silakan pilih minimal {min} opsi",
       "max": "Silakan pilih tidak lebih dari {max} opsi"
+    },
+    "buttons": {
+      "next": "Berikutnya",
+      "back": "Kembali",
+      "submit": "Kirim",
+      "exit": "Keluar"
     }
   },
   "HomePage": {
@@ -235,8 +241,9 @@
           "adventure": "Semangat petualangan"
         },
         "guidelines": "Pedoman Komunitas Pemandu",
-        "exit": "Keluar",
-        "start": "Mulai"
+        "buttons": {
+          "next": "Mulai"
+        }
       },
       "2": {
         "label": "Dasar",

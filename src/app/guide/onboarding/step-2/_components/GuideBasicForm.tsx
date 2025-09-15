@@ -1,7 +1,5 @@
 "use client";
 
-import { Group, Button } from "@mantine/core";
-import Link from "next/link";
 import { useOnboardingForm } from "../../_hooks/useOnboardingForm";
 import { useTranslations } from "next-intl";
 import { SelectLanguageWithFluency } from "@/components/form/languages/SelectLanguageWithFluency";
@@ -51,19 +49,6 @@ export function GuideBasicForm() {
           form.setValue("languages", v);
         }}
       />
-
-      <Group justify="space-between" mt="lg">
-        <Button
-          variant="default"
-          component={Link}
-          href="/guide/onboarding/step-1"
-        >
-          Back
-        </Button>
-        <Button component={Link} href="/guide/onboarding/step-3">
-          Next
-        </Button>
-      </Group>
     </form>
   );
 }

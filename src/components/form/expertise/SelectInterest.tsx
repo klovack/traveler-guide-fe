@@ -1,11 +1,8 @@
 import { useMemo } from "react";
-import {
-  useCreatePersonalityMutation,
-  usePersonality,
-} from "@/hooks/usePersonality";
+import { useCreateInterestMutation, useInterest } from "@/hooks/useInterest";
 import { ChipSelector, ChipSelectorError } from "../ChipSelector";
 
-export type SelectPersonalityProps = {
+export type SelectInterestProps = {
   label: string;
   description?: string;
   error?: ChipSelectorError;
@@ -17,39 +14,39 @@ export type SelectPersonalityProps = {
   disabled?: boolean;
 };
 
-export function SelectPersonality(props: Readonly<SelectPersonalityProps>) {
-  const { data: personalities } = usePersonality();
-  const { mutate: addNewPersonality } = useCreatePersonalityMutation();
+export function SelectInterest(props: Readonly<SelectInterestProps>) {
+  const { data: interests } = useInterest();
+  const { mutate: addNewInterest } = useCreateInterestMutation();
 
   const normalizedValues = useMemo(() => {
     return new Set(props.value);
   }, [props.value]);
 
-  const dataPersonalities = useMemo(() => {
-    if (!personalities) return [];
+  const dataInterests = useMemo(() => {
+    if (!interests) return [];
 
-    return personalities.items.map((personality) => ({
-      ...personality,
-      checked: normalizedValues.has(personality.id),
+    return interests.items.map((interest) => ({
+      ...interest,
+      checked: normalizedValues.has(interest.id),
     }));
-  }, [personalities, normalizedValues]);
+  }, [interests, normalizedValues]);
 
-  const handleAddNewPersonality = async (name: string) => {
+  const handleAddNewInterest = async (name: string) => {
     if (!name.trim()) return;
 
-    // Check if personality exists
-    const exists = personalities?.items.find(
+    // Check if interest exists
+    const exists = interests?.items.find(
       (p) => p.name.toLowerCase().trim() === name.toLowerCase().trim()
     );
     if (exists) {
-      // Select the existing personality
+      // Select the existing interest
       props.onChange?.([
         ...(props.value || []).filter((v) => v !== exists.id),
         exists.id,
       ]);
     } else {
-      // Add new personality to database
-      addNewPersonality(name.toLowerCase().trim(), {
+      // Add new interest to database
+      addNewInterest(name, {
         onSuccess: (data) => {
           props.onChange?.([...(props.value ?? []), data.id]);
         },
@@ -67,10 +64,10 @@ export function SelectPersonality(props: Readonly<SelectPersonalityProps>) {
       onChange={props.onChange}
       min={props.min}
       max={props.max}
-      items={dataPersonalities}
-      onAddNew={handleAddNewPersonality}
+      items={dataInterests}
+      onAddNew={handleAddNewInterest}
       addNewLabel="Add more"
-      addNewPlaceholder="Personality name"
+      addNewPlaceholder="interest name"
       disabled={props.disabled}
     />
   );
