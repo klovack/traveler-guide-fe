@@ -1,3 +1,4 @@
+import { createRedirectUrl } from "@/lib/redirectUrl";
 import { withRole } from "@/lib/withRole.server";
 import { Text } from "@mantine/core";
 
@@ -10,5 +11,5 @@ function GuideDashboardPage() {
 }
 
 export default withRole(GuideDashboardPage, ["guide", "user_manager"], {
-  redirectTo: "/",
+  redirectUnauthenticatedTo: createRedirectUrl("/guide/dashboard", "/login"),
 });

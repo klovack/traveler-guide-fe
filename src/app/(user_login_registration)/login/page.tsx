@@ -8,12 +8,15 @@ import { withoutAuthOnly } from "@/lib/withoutAuthOnly";
 import LoginRegisterForm from "../_components/loginRegisterForm";
 import { AppAuthError } from "@/errors";
 import { useTranslations } from "next-intl";
+import { createRedirectUrl } from "@/lib/redirectUrl";
+import { usePostAuthRedirectUrl } from "@/hooks/usePostRedirectUrl";
 
 function LoginPage() {
   const t = useTranslations("auth");
   const router = useRouter();
   const [authError, setAuthError] = useState<string | undefined>();
   const { login, isLoggingIn } = useAuth({ noAutoFetchMe: true });
+  const redirectTo = usePostAuthRedirectUrl();
 
   const form = useForm({
     mode: "uncontrolled",
@@ -46,16 +49,18 @@ function LoginPage() {
       });
 
       if (userData) {
-        // Redirect to home page after successful login
-        router.replace("/dashboard");
+        router.replace(redirectTo ?? "/dashboard");
       }
     } catch (error) {
       if (
         error instanceof AppAuthError &&
         error.code === "email_not_confirmed"
       ) {
-        // Redirect to email confirmation page if email is not confirmed
-        router.replace("/email-confirmation");
+        // Redirect to email confirmation page if email is not confirmed, preserving redirectTo
+        const emailConfirmationUrl = redirectTo
+          ? createRedirectUrl(redirectTo, "/email-confirmation" as any)
+          : "/email-confirmation";
+        router.replace(emailConfirmationUrl);
         return;
       }
       // Handle authentication error
@@ -88,7 +93,9 @@ function LoginPage() {
       textLink={{
         text: t("LoginPage.textLink.text"),
         linkText: t("LoginPage.textLink.linkText"),
-        href: "/register",
+        href: redirectTo
+          ? createRedirectUrl(redirectTo, "/register")
+          : "/register",
         linkStyle: { textDecoration: "none" },
       }}
       loading={isLoggingIn}

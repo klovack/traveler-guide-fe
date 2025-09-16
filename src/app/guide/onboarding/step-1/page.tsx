@@ -2,9 +2,7 @@ import { PREDEFINED_ROLES } from "@/constants/auth";
 import { withRole } from "@/lib/withRole.server";
 import {
   Anchor,
-  Button,
   Divider,
-  Group,
   List,
   ListItem,
   Text,
@@ -15,8 +13,8 @@ import { IconCircle } from "@tabler/icons-react";
 import { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
 import { StartOnboardingForm } from "./_components/StartOnboardingForm";
+import { createRedirectUrl } from "@/lib/redirectUrl";
 
 export async function generateMetadata({
   params,
@@ -82,5 +80,6 @@ function OnboardingStep1Page() {
 }
 
 export default withRole(OnboardingStep1Page, PREDEFINED_ROLES.GUIDE_ONLY, {
-  redirectTo: "/",
+  redirectInsufficientRoleTo: "/dashboard",
+  redirectUnauthenticatedTo: createRedirectUrl("/guide/onboarding/step-1"),
 });

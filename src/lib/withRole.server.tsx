@@ -3,7 +3,8 @@ import { AppRoles, getCurrentUserApiV1AuthMeGet } from "tg-sdk";
 import { requireUser } from "./auth.server";
 
 type withRoleOptions<P> = {
-  redirectTo?: string;
+  redirectInsufficientRoleTo?: string;
+  redirectUnauthenticatedTo?: string;
 };
 
 export function withRole<P extends object>(
@@ -12,7 +13,11 @@ export function withRole<P extends object>(
   options?: withRoleOptions<P>
 ) {
   const RoleProtectedComponent = async (props: P) => {
-    await requireUser({ allowedRoles, redirectTo: options?.redirectTo });
+    await requireUser({
+      allowedRoles,
+      redirectInsufficientRoleTo: options?.redirectInsufficientRoleTo,
+      redirectUnauthenticatedTo: options?.redirectUnauthenticatedTo,
+    });
 
     return <Component {...props} />;
   };

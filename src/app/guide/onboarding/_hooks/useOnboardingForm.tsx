@@ -3,7 +3,7 @@
 import { useAuth } from "@/hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 import {
   getDraftApiV1GuideOnboardingDraftGet,
@@ -11,7 +11,7 @@ import {
   zGuideOnboardingDraftInput,
   saveDraftApiV1GuideOnboardingDraftPost,
 } from "tg-sdk";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useDebouncedCallback } from "@mantine/hooks";
 
 const DRAFT_QUERY_KEY = "onboarding_draft";
@@ -46,20 +46,7 @@ const saveDraftFn = async (data: GuideOnboardingDraftInput) => {
 };
 
 export function useOnboardingForm() {
-  const { user, isFetchingMe, isLoggingIn } = useAuth();
-  const router = useRouter();
-  const didInitialCheck = useRef(false);
-
-  useEffect(() => {
-    if (!didInitialCheck.current) {
-      didInitialCheck.current = true;
-      return;
-    }
-
-    if (user === undefined && isFetchingMe === false && isLoggingIn === false) {
-      router.replace("/login");
-    }
-  }, [user, isFetchingMe, isLoggingIn, router]);
+  const { user } = useAuth();
 
   const {
     data: draft,
@@ -115,8 +102,8 @@ export function useOnboardingForm() {
 
   return {
     isError: isError,
-    isLoading: isFetchingMe || isLoggingIn || isLoading,
-    form: isFetchingMe || isLoggingIn ? null : form,
+    isLoading: isLoading,
+    form: form,
     saving: saveDraft.isPending,
     save: saveDraft.mutate,
   };

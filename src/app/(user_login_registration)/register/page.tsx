@@ -8,12 +8,15 @@ import { withoutAuthOnly } from "@/lib/withoutAuthOnly";
 import LoginRegisterForm from "../_components/loginRegisterForm";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { createRedirectUrl } from "@/lib/redirectUrl";
+import { usePostAuthRedirectUrl } from "@/hooks/usePostRedirectUrl";
 
 function RegisterPage() {
   const t = useTranslations("auth");
   const router = useRouter();
   const [authError, setAuthError] = useState<string | undefined>();
   const { register, isRegistering } = useAuth({ noAutoFetchMe: true });
+  const redirectTo = usePostAuthRedirectUrl();
   const form = useForm({
     mode: "uncontrolled",
     validateInputOnBlur: true,
@@ -81,8 +84,11 @@ function RegisterPage() {
         password_confirmation: form.values.passwordConfirmation,
       });
 
-      // Redirect to home page after successful registration
-      router.replace("/email-confirmation");
+      // Redirect to email confirmation page after successful registration, preserving redirectTo
+      const emailConfirmationUrl = redirectTo
+        ? createRedirectUrl(redirectTo, "/email-confirmation")
+        : "/email-confirmation";
+      router.replace(emailConfirmationUrl);
     } catch (error) {
       // Handle authentication error
       if (error instanceof Error) {
@@ -123,7 +129,7 @@ function RegisterPage() {
       textLink={{
         text: t("RegisterPage.textLink.text"),
         linkText: t("RegisterPage.textLink.linkText"),
-        href: "/login",
+        href: redirectTo ? createRedirectUrl(redirectTo, "/login") : "/login",
         linkStyle: { textDecoration: "none" },
       }}
       loading={isRegistering}

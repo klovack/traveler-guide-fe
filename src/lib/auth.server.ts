@@ -1,31 +1,47 @@
 import { AppAuthError } from "@/errors";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { AppRoles, AuthUserInfo, getCurrentUserApiV1AuthMeGet } from "tg-sdk";
 import { envVar } from "./utils/env";
 
-const REDIRECT_PATH = "/login";
+const REDIRECT_LOGIN_PATH = "/login";
+const REDIRECT_HOME_PATH = "/";
 
 export type RequireUserOptions = {
   allowedRoles?: AppRoles[];
-  redirectTo?: string;
+  redirectInsufficientRoleTo?: string;
+  redirectUnauthenticatedTo?: string;
 }
 
-const defaultRequireUserOptions = {
-  redirectTo: REDIRECT_PATH,
+const defaultRequireUserOptions: RequireUserOptions = {
+  redirectInsufficientRoleTo: REDIRECT_HOME_PATH,
+  redirectUnauthenticatedTo: REDIRECT_LOGIN_PATH,
 }
 
 export async function requireUser({
   allowedRoles,
-  redirectTo,
+  redirectInsufficientRoleTo,
+  redirectUnauthenticatedTo,
 }: RequireUserOptions = defaultRequireUserOptions
 ): Promise<AuthUserInfo | undefined> {
   const theCookies = await cookies()
+  const headersList = await headers();
   const token = theCookies.get("access_token")?.value;
   const rToken = theCookies.get("'refresh_token'")?.value;
   if (!token) {
-    if (redirectTo)
-      redirect(redirectTo);
+    if (redirectUnauthenticatedTo) {
+      // Get the current URL to redirect back after login
+      const forwardedHost = headersList.get("x-forwarded-host");
+      const forwardedProto = headersList.get("x-forwarded-proto");
+      const pathname = headersList.get("x-pathname") || headersList.get("referer");
+
+      if (pathname && !pathname.includes("/login") && !pathname.includes("/register") && !pathname.includes("/email-confirmation")) {
+        const redirectUrl = `${redirectUnauthenticatedTo}?redirectTo=${encodeURIComponent(pathname)}`;
+        redirect(redirectUrl);
+      } else {
+        redirect(redirectUnauthenticatedTo);
+      }
+    }
 
     return;
   }
@@ -45,8 +61,9 @@ export async function requireUser({
     const user = res.data;
 
     if (allowedRoles && !allowedRoles.includes(user.role)) {
-      if (redirectTo)
-        redirect(redirectTo);
+      if (redirectInsufficientRoleTo) {
+        redirect(redirectInsufficientRoleTo);
+      }
 
       return;
     }
@@ -55,8 +72,8 @@ export async function requireUser({
   } catch (err) {
     console.warn("User tries to get to protected pages unauthenticated", err)
 
-    if (redirectTo) {
-      redirect(redirectTo);
+    if (redirectUnauthenticatedTo) {
+      redirect(redirectUnauthenticatedTo);
     }
   }
 }

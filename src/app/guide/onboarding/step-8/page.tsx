@@ -2,6 +2,9 @@ import { Title, Text, Divider } from "@mantine/core";
 import { useTranslations } from "next-intl";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { PREDEFINED_ROLES } from "@/constants/auth";
+import { createRedirectUrl } from "@/lib/redirectUrl";
+import { withRole } from "@/lib/withRole.server";
 
 export async function generateMetadata({
   params,
@@ -20,7 +23,7 @@ export async function generateMetadata({
   };
 }
 
-export default function Step8() {
+function Step8() {
   const t = useTranslations("GuideOnboardingPage.steps.8");
 
   return (
@@ -36,3 +39,8 @@ export default function Step8() {
     </>
   );
 }
+
+export default withRole(Step8, PREDEFINED_ROLES.GUIDE_ONLY, {
+  redirectInsufficientRoleTo: "/dashboard",
+  redirectUnauthenticatedTo: createRedirectUrl("/guide/onboarding/step-8"),
+});
