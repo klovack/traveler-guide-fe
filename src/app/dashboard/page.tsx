@@ -1,8 +1,13 @@
 import { PREDEFINED_ROLES } from "@/constants/auth";
 import { requireUser } from "@/lib/auth.server";
+import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
-  await requireUser({ allowedRoles: PREDEFINED_ROLES.ALL });
+  const user = await requireUser({ allowedRoles: PREDEFINED_ROLES.ALL });
+
+  if (user?.role === "guide") {
+    redirect("/guide/dashboard");
+  }
 
   return (
     <div>

@@ -1,6 +1,6 @@
 "use client";
 import { AppAuthError, AppError } from "@/errors";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import {
   AuthUserInfo,
@@ -37,11 +37,16 @@ export type UseAuthOptions = {
 };
 
 const AuthContext = React.createContext<AuthContextType | undefined>(undefined);
+const QUERY_ME_KEY = ["me"];
+const MUTATION_LOGIN_KEY = ["login"];
+const MUTATION_REGISTER_KEY = ["register"];
+const MUTATION_LOGOUT_KEY = ["logout"];
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const queryClient = useQueryClient();
   const useFetchMe = () =>
     useQuery<AuthUserInfo, AppError>({
-      queryKey: ["me"],
+      queryKey: [QUERY_ME_KEY],
       queryFn: async () => {
         const res = await getCurrentUserApiV1AuthMeGet();
         if (res.error) {
@@ -75,7 +80,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         if (!res.data) throw new AppAuthError("No data returned", "api");
         return res.data;
       },
+      mutationKey: [MUTATION_LOGIN_KEY],
       retry: false,
+      onSuccess: () => fetchMeQuery.refetch(),
     });
   };
 
@@ -98,6 +105,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         return res.data;
       },
       retry: false,
+      mutationKey: [MUTATION_REGISTER_KEY],
+      onSuccess: () => fetchMeQuery.refetch(),
     });
 
   const useLogout = () => {
@@ -105,6 +114,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       mutationFn: async () => {
         const res = await logoutUserApiV1AuthLogoutPost();
         if (res.error) {
+          console.log("Logout error response:", res.error);
           const errAny = res.error as any;
           const msg =
             typeof errAny === "string"
@@ -114,6 +124,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
       },
       retry: false,
+      mutationKey: [MUTATION_LOGOUT_KEY],
+      onSuccess: () => {
+        queryClient.resetQueries({ queryKey: QUERY_ME_KEY });
+      },
     });
   };
 
