@@ -1,5 +1,8 @@
 {
   "common": {
+    "unit": {
+      "km": "km"
+    },
     "city": {
       "label": "City",
       "placeholder": "Select your city"
@@ -11,6 +14,15 @@
         "en": "English",
         "de": "German",
         "id": "Indonesian",
+        "fr": "French",
+        "es": "Spanish",
+        "nl": "Dutch",
+        "it": "Italian",
+        "pt": "Portuguese",
+        "ru": "Russian",
+        "zh": "Chinese",
+        "ja": "Japanese",
+        "ko": "Korean",
         "jawa": "Javanese",
         "sunda": "Sundanese",
         "batak": "Bataknese",
@@ -257,6 +269,10 @@
           "operatingRegions": {
             "label": "Operating Regions",
             "placeholder": "Where you can guide travelers"
+          },
+          "travelRadius": {
+            "label": "Travel Radius",
+            "placeholder": "How far you are willing to travel from each of the cities"
           }
         }
       },

@@ -1,5 +1,8 @@
 {
   "common": {
+    "unit": {
+      "km": "km"
+    },
     "city": {
       "label": "Stadt",
       "placeholder": "Wähle deine Stadt aus"
@@ -11,6 +14,15 @@
         "en": "Englisch",
         "de": "Deutsch",
         "id": "Indonesisch",
+        "fr": "Französisch",
+        "es": "Spanisch",
+        "nl": "Niederländisch",
+        "it": "Italienisch",
+        "pt": "Portugiesisch",
+        "ru": "Russisch",
+        "zh": "Chinesisch",
+        "ja": "Japanisch",
+        "ko": "Koreanisch",
         "jawa": "Javanisch",
         "sunda": "Sundanesisch",
         "batak": "Batak",
@@ -257,6 +269,10 @@
           "operatingRegions": {
             "label": "Einsatzgebiete",
             "placeholder": "Wo du Reisende führen kannst"
+          },
+          "travelRadius": {
+            "label": "Reiseradius",
+            "placeholder": "Wie weit bist du bereit, von jeder deiner Städte zu reisen"
           }
         }
       },

@@ -1,5 +1,8 @@
 {
   "common": {
+    "unit": {
+      "km": "km"
+    },
     "city": {
       "label": "Kota",
       "placeholder": "Pilih kota tinggalmu"
@@ -11,6 +14,15 @@
         "en": "Inggris",
         "de": "Jerman",
         "id": "Indonesia",
+        "fr": "Perancis",
+        "es": "Spanyol",
+        "nl": "Belanda",
+        "it": "Italia",
+        "pt": "Portugis",
+        "ru": "Rusia",
+        "zh": "Mandarin",
+        "ja": "Jepang",
+        "ko": "Korea",
         "jawa": "Jawa",
         "sunda": "Sunda",
         "batak": "Batak",
@@ -257,6 +269,10 @@
           "operatingRegions": {
             "label": "Wilayah Operasi",
             "placeholder": "Wilayah yang dapat Anda pandu"
+          },
+          "travelRadius": {
+            "label": "Radius Perjalanan",
+            "placeholder": "Seberapa jauh Anda bersedia bepergian dari masing-masing kota"
           }
         }
       },

@@ -6,9 +6,11 @@ import { SelectLanguageWithFluency } from "@/components/form/languages/SelectLan
 import { SelectCity } from "@/components/form/cities/SelectCity";
 import { MultiSelectCity } from "@/components/form/cities/MultiSelectCity";
 import { OnboardingSkeleton } from "../../_components/OnboardingSkeleton";
+import { NumberInput } from "@mantine/core";
 
 export function GuideBasicForm() {
   const t = useTranslations("GuideOnboardingPage.steps.2");
+  const t_common = useTranslations("common");
   const { form, isLoading } = useOnboardingForm();
 
   if (!form || isLoading) {
@@ -39,6 +41,24 @@ export function GuideBasicForm() {
           form.setValue("operating_regions", v);
         }}
         error={errors.operating_regions?.message}
+        required
+        mb="md"
+      />
+
+      <NumberInput
+        label={t("form.travelRadius.label")}
+        placeholder={t("form.travelRadius.placeholder")}
+        hideControls
+        value={form.watch("travel_radius_km") ?? undefined}
+        onChange={(v) =>
+          form.setValue("travel_radius_km", v as number | undefined)
+        }
+        rightSection={
+          <span style={{ marginRight: 20 }} className="text-sm text-gray-500">
+            {t_common("unit.km")}
+          </span>
+        }
+        error={errors.travel_radius_km?.message}
         required
         mb="md"
       />
