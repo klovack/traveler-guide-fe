@@ -105,6 +105,8 @@ function LoginPage() {
         label={t("shared.emailInput.label")}
         placeholder={t("shared.emailInput.placeholder")}
         key={form.key("email")}
+        type="email"
+        id="email"
         required
         {...form.getInputProps("email")}
         errorProps={{
@@ -116,6 +118,7 @@ function LoginPage() {
         placeholder={t("shared.passwordInput.placeholder")}
         type="password"
         key={form.key("password")}
+        id="password"
         required
         className="mt-4"
         {...form.getInputProps("password")}

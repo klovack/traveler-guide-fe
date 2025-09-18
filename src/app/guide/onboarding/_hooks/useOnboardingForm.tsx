@@ -3,7 +3,6 @@
 import { useAuth } from "@/hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 import {
   getDraftApiV1GuideOnboardingDraftGet,
@@ -13,6 +12,7 @@ import {
 } from "tg-sdk";
 import { useEffect } from "react";
 import { useDebouncedCallback } from "@mantine/hooks";
+import { OnboardingError } from "@/errors/onboarding.error";
 
 const DRAFT_QUERY_KEY = "onboarding_draft";
 const DRAFT_STORAGE_KEY = "guide_onboarding_draft";
@@ -24,7 +24,10 @@ const fetchDraft = () => {
     const response = await getDraftApiV1GuideOnboardingDraftGet();
     if (response.error) {
       if (response.response.status === 409) {
-        redirect("/dashboard");
+        throw new OnboardingError(
+          "Onboarding already completed",
+          "already_completed"
+        );
       }
 
       throw response.error;
@@ -95,6 +98,7 @@ export function useOnboardingForm() {
           form.reset(validated);
         } catch (e) {
           console.error("Failed to parse local draft", e);
+          localStorage.removeItem(DRAFT_STORAGE_KEY);
         }
       }
     }

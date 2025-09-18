@@ -3,21 +3,12 @@ import Link from "next/link";
 import { Button } from "@mantine/core";
 import LogoutButton from "./LogoutButton";
 import { useAuth } from "@/hooks/useAuth";
-import React, { useEffect } from "react";
+import React from "react";
 
 const noTextDecoration = { textDecoration: "none" };
 
 export default function Navlinks() {
-  const { user, isFetchingMe, isLoggingIn, isLoggedIn } = useAuth();
-
-  useEffect(() => {
-    console.log("Navlinks - Auth state changed:", {
-      user,
-      isFetchingMe,
-      isLoggingIn,
-      isLoggedIn: isLoggedIn(),
-    });
-  }, [isFetchingMe, isLoggingIn, isLoggedIn, user]);
+  const { user } = useAuth();
 
   if (user) {
     return <LogoutButton key="nav-logout" />;

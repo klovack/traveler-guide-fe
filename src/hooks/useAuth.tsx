@@ -113,6 +113,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return useMutation<void, AppError>({
       mutationFn: async () => {
         const res = await logoutUserApiV1AuthLogoutPost();
+        queryClient.resetQueries({ queryKey: [QUERY_ME_KEY] });
+
         if (res.error) {
           console.log("Logout error response:", res.error);
           const errAny = res.error as any;
@@ -125,9 +127,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       },
       retry: false,
       mutationKey: [MUTATION_LOGOUT_KEY],
-      onSuccess: () => {
-        queryClient.resetQueries({ queryKey: QUERY_ME_KEY });
-      },
     });
   };
 
