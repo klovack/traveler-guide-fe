@@ -1,7 +1,9 @@
 {
   "common": {
     "unit": {
-      "km": "km"
+      "km": "km",
+      "hour": "hour",
+      "day": "day"
     },
     "city": {
       "label": "City",
@@ -60,6 +62,14 @@
       "back": "Back",
       "submit": "Submit",
       "exit": "Exit"
+    },
+    "currencies": {
+      "symbol": {
+        "USD": "$",
+        "EUR": "€",
+        "GBP": "£",
+        "IDR": "Rp."
+      }
     }
   },
   "HomePage": {
@@ -322,7 +332,36 @@
       "4": {
         "label": "Pricing",
         "title": "Your Rates",
-        "description": "Set your pricing for guiding services. Be transparent about your rates to attract more travelers."
+        "description": "Set your pricing for guiding services. Be transparent about your rates to attract more travelers.",
+        "form": {
+          "baseRateHour": {
+            "label": "Base Rate per Hour",
+            "placeholder": "Enter your hourly rate",
+            "validationError": {
+              "required": "Please enter your base rate per hour",
+              "min": "Rate must be at least {min}",
+              "max": "Rate must be no more than {max}"
+            }
+          },
+          "baseRateDay": {
+            "label": "Base Rate per Day",
+            "placeholder": "Enter your daily rate",
+            "validationError": {
+              "required": "Please enter your base rate per day",
+              "min": "Rate must be at least {min}",
+              "max": "Rate must be no more than {max}"
+            }
+          },
+          "maxGroupSize": {
+            "label": "Maximum Group Size",
+            "description": "Set the maximum number of travelers you can accommodate in a single tour or experience.",
+            "validationError": {
+              "required": "Please enter your maximum group size",
+              "min": "Group size must be at least {min}",
+              "max": "Group size must be no more than {max}"
+            }
+          }
+        }
       },
       "5": {
         "label": "Availability",

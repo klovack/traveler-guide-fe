@@ -1,7 +1,9 @@
 {
   "common": {
     "unit": {
-      "km": "km"
+      "km": "km",
+      "hour": "Stunde",
+      "day": "Tag"
     },
     "city": {
       "label": "Stadt",
@@ -60,6 +62,14 @@
       "back": "Zurück",
       "submit": "Absenden",
       "exit": "Beenden"
+    },
+    "currencies": {
+      "symbol": {
+        "USD": "$",
+        "EUR": "€",
+        "GBP": "£",
+        "IDR": "Rp."
+      }
     }
   },
   "HomePage": {
@@ -322,7 +332,36 @@
       "4": {
         "label": "Preisgestaltung",
         "title": "Deine Preise",
-        "description": "Lege deine Preise für Guiding-Services fest. Sei transparent mit deinen Preisen, um mehr Reisende anzusprechen."
+        "description": "Lege deine Preise für Guiding-Services fest. Sei transparent mit deinen Preisen, um mehr Reisende anzusprechen.",
+        "form": {
+          "baseRateHour": {
+            "label": "Grundpreis pro Stunde",
+            "placeholder": "Gib deinen Stundensatz ein",
+            "validationError": {
+              "required": "Bitte gib deinen Grundpreis pro Stunde ein",
+              "min": "Der Preis muss mindestens {min} betragen",
+              "max": "Der Preis darf höchstens {max} betragen"
+            }
+          },
+          "baseRateDay": {
+            "label": "Grundpreis pro Tag",
+            "placeholder": "Gib deinen Tagessatz ein",
+            "validationError": {
+              "required": "Bitte gib deinen Grundpreis pro Tag ein",
+              "min": "Der Preis muss mindestens {min} betragen",
+              "max": "Der Preis darf höchstens {max} betragen"
+            }
+          },
+          "maxGroupSize": {
+            "label": "Maximale Gruppengröße",
+            "description": "Lege die maximale Anzahl an Reisenden fest, die du in einer Tour oder einem Erlebnis begleiten kannst.",
+            "validationError": {
+              "required": "Bitte gib deine maximale Gruppengröße ein",
+              "min": "Die Gruppengröße muss mindestens {min} betragen",
+              "max": "Die Gruppengröße darf höchstens {max} betragen"
+            }
+          }
+        }
       },
       "5": {
         "label": "Verfügbarkeit",

@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { PREDEFINED_ROLES } from "@/constants/auth";
 import { createRedirectUrl } from "@/lib/redirectUrl";
 import { withRole } from "@/lib/withRole.server";
+import { GuideRateForm } from "./_components/GuideRateForm";
 
 export async function generateMetadata({
   params,
@@ -36,6 +37,8 @@ function Step4() {
       </Text>
 
       <Divider my="md" />
+
+      <GuideRateForm />
     </>
   );
 }

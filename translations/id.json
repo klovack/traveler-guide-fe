@@ -1,7 +1,9 @@
 {
   "common": {
     "unit": {
-      "km": "km"
+      "km": "km",
+      "hour": "jam",
+      "day": "hari"
     },
     "city": {
       "label": "Kota",
@@ -60,6 +62,14 @@
       "back": "Kembali",
       "submit": "Kirim",
       "exit": "Keluar"
+    },
+    "currencies": {
+      "symbol": {
+        "USD": "$",
+        "EUR": "€",
+        "GBP": "£",
+        "IDR": "Rp."
+      }
     }
   },
   "HomePage": {
@@ -322,7 +332,36 @@
       "4": {
         "label": "Harga",
         "title": "Tarif Anda",
-        "description": "Atur harga layanan pemanduan Anda. Bersikaplah transparan tentang tarif untuk menarik lebih banyak traveler."
+        "description": "Atur harga layanan pemanduan Anda. Bersikaplah transparan tentang tarif untuk menarik lebih banyak traveler.",
+        "form": {
+          "baseRateHour": {
+            "label": "Tarif Dasar per Jam",
+            "placeholder": "Masukkan tarif per jam Anda",
+            "validationError": {
+              "required": "Silakan masukkan tarif dasar per jam Anda",
+              "min": "Tarif minimal adalah {min}",
+              "max": "Tarif maksimal adalah {max}"
+            }
+          },
+          "baseRateDay": {
+            "label": "Tarif Dasar per Hari",
+            "placeholder": "Masukkan tarif per hari Anda",
+            "validationError": {
+              "required": "Silakan masukkan tarif dasar per hari Anda",
+              "min": "Tarif minimal adalah {min}",
+              "max": "Tarif maksimal adalah {max}"
+            }
+          },
+          "maxGroupSize": {
+            "label": "Jumlah Maksimal Grup",
+            "description": "Tentukan jumlah maksimal traveler yang dapat Anda layani dalam satu tur atau pengalaman.",
+            "validationError": {
+              "required": "Silakan masukkan jumlah maksimal grup Anda",
+              "min": "Jumlah grup minimal adalah {min}",
+              "max": "Jumlah grup maksimal adalah {max}"
+            }
+          }
+        }
       },
       "5": {
         "label": "Ketersediaan",
