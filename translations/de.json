@@ -73,8 +73,15 @@
     }
   },
   "HomePage": {
-    "title": "Entdecken Sie erstaunliche Reiseziele",
-    "description": "Erkunden Sie kuratierte Reiseführer aus der ganzen Welt. Finden Sie versteckte Schätze, lokale Empfehlungen und unvergessliche Erlebnisse."
+    "HeroSection": {
+      "title": "Reisen ist nicht nur, wohin du gehst. Es ist, wer dich begleitet.",
+      "subtitle": "Mihape verbindet dich mit vertrauenswürdigen lokalen Guides, die dich von Anfang bis Ende begleiten – über Städte, Länder und Kulturen hinweg.",
+      "actions": {
+        "findGuideButton": "Meinen Reiseguide finden",
+        "becomeGuideButton": "Guide werden"
+      },
+      "earlyAccess": "Early Access: Trage dich jetzt in die Warteliste ein und sei einer der Ersten, die Mihape entdecken."
+    }
   },
   "auth": {
     "EmailConfirmationPage": {

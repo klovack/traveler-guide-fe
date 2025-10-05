@@ -3,7 +3,11 @@ export const envVar = {
     const result = process.env[envVarName];
     if (!result) throw new Error(`${envVarName} not defined`);
 
-    return result as unknown as T
+    try {
+      return JSON.parse(result) as T;
+    } catch {
+      return result as unknown as T;
+    }
   },
 
   safeGet<T>(envVarName: string): T | undefined {

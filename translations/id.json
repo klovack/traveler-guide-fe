@@ -73,8 +73,15 @@
     }
   },
   "HomePage": {
-    "title": "Temui Tujuan Wisata yang Menakjubkan",
-    "description": "Jelajahi panduan perjalanan terkurasi dari seluruh dunia. Temukan tempat-tempat tersembunyi, rekomendasi lokal, dan pengalaman tak terlupakan.."
+    "HeroSection": {
+      "title": "Perjalanan bukan hanya tentang ke mana kamu pergi. Tapi siapa yang mendampingimu ke sana.",
+      "subtitle": "Mihape menghubungkanmu dengan pendamping lokal terpercaya yang menemanimu dari awal hingga akhir — lintas kota, negara, dan budaya.",
+      "actions": {
+        "findGuideButton": "Cari Pemandu Perjalanan",
+        "becomeGuideButton": "Jadi Pemandu"
+      },
+      "earlyAccess": "Early Access: Daftar sekarang dan jadilah yang pertama menjelajah bersama Mihape."
+    }
   },
   "auth": {
     "EmailConfirmationPage": {

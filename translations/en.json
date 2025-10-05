@@ -73,8 +73,15 @@
     }
   },
   "HomePage": {
-    "title": "Discover Amazing Travel Destinations",
-    "description": "Explore curated travel guides from around the world. Find hidden gems, local recommendations, and unforgettable experiences."
+    "HeroSection": {
+      "title": "Travel isn't just where you go. It's who guides you there.",
+      "subtitle": "Mihape connects you with trusted local companions who accompany you from start to finish — across cities, across countries, across cultures.",
+      "actions": {
+        "findGuideButton": "Find My Travel Guide",
+        "becomeGuideButton": "Become a Guide"
+      },
+      "earlyAccess": "Early access: Join the waiting list now and be among the first to explore with Mihape."
+    }
   },
   "auth": {
     "EmailConfirmationPage": {
