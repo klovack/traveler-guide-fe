@@ -81,6 +81,24 @@
         "becomeGuideButton": "Guide werden"
       },
       "earlyAccess": "Early Access: Trage dich jetzt in die Warteliste ein und sei einer der Ersten, die Mihape entdecken."
+    },
+    "StorySection": {
+      "title": "Sorgenfreiheit für dich.<br></br>Freiheit für sie.<br></br>Verbindung für alle.",
+      "description": "Ob deine Eltern Europa erkunden, ein Alleinreisender neue Wege geht oder Freunde tiefere lokale Erlebnisse suchen,<br></br><br></br>Mihape bringt jeden Reisenden mit einem vertrauenswürdigen Begleiter-Guide zusammen, der von Anfang bis Ende an ihrer Seite bleibt.",
+      "stories": {
+        "caring": {
+          "title": "Fürsorgliche Begleitung für deine Liebsten",
+          "description": "Deine Liebsten möchten die Welt entdecken, auch wenn du sie nicht begleiten kannst. Mihape findet einen fürsorglichen, geprüften Begleiter, der sie auf jedem Schritt der Reise begleitet."
+        },
+        "safety": {
+          "title": "Sichere Reisen für Solo-Abenteurer",
+          "description": "Allein zu reisen heißt nicht, allein zu sein. Mit Mihape erkundest du sicher – mit jemandem, der deine Sprache spricht und deine Neugier teilt."
+        },
+        "culture": {
+          "title": "Tiefere Verbindungen durch Kultur",
+          "description": "Gehe über die Checkliste hinaus. Entdecke Essen, Natur und Geschichten mit Begleitern, die sie leben – statt mit vorgefertigten Touren."
+        }
+      }
     }
   },
   "auth": {

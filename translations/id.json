@@ -74,13 +74,31 @@
   },
   "HomePage": {
     "HeroSection": {
-      "title": "Perjalanan bukan hanya tentang ke mana kamu pergi. Tapi siapa yang mendampingimu ke sana.",
+      "title": "Perjalanan bukan hanya tentang ke mana kamu pergi.<br></br>Tapi siapa yang mendampingimu ke sana.",
       "subtitle": "Mihape menghubungkanmu dengan pendamping lokal terpercaya yang menemanimu dari awal hingga akhir — lintas kota, negara, dan budaya.",
       "actions": {
         "findGuideButton": "Cari Pemandu Perjalanan",
         "becomeGuideButton": "Jadi Pemandu"
       },
       "earlyAccess": "Early Access: Daftar sekarang dan jadilah yang pertama menjelajah bersama Mihape."
+    },
+    "StorySection": {
+      "title": "Ketenteraman untukmu.<br></br>Kebebasan untuk mereka.<br></br>Koneksi untuk semua.",
+      "description": "Baik itu orang tuamu yang menjelajah Eropa, traveler solo yang berani ke tempat baru, atau teman-teman yang ingin pengalaman lokal lebih dalam,<br></br><br></br>Mihape memasangkan setiap traveler dengan pendamping-pemandu terpercaya yang menemani dari awal hingga akhir perjalanan.",
+      "stories": {
+        "caring": {
+          "title": "Pendamping penuh perhatian untuk orang tercinta",
+          "description": "Orang-orang terkasihmu ingin menjelajah dunia, meski kamu tak bisa ikut. Mihape menemukan pendamping yang peduli dan terverifikasi untuk menemani mereka di setiap langkah perjalanan."
+        },
+        "safety": {
+          "title": "Perjalanan aman untuk petualang solo",
+          "description": "Bepergian sendiri bukan berarti sendirian. Bersama Mihape, jelajahi dengan aman bersama seseorang yang berbicara bahasamu dan berbagi rasa ingin tahu."
+        },
+        "culture": {
+          "title": "Koneksi lebih dalam lewat budaya",
+          "description": "Lebih dari sekadar daftar destinasi. Temukan makanan, alam, dan kisah bersama pendamping yang benar-benar mengalaminya, bukan tur yang kaku."
+        }
+      }
     }
   },
   "auth": {

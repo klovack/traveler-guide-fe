@@ -17,16 +17,26 @@ import { HEIGHT_IN_PX } from "@/constants/layout";
 import { BREAKPOINTS } from "@/constants/breakpoints";
 import { useMediaQuery } from "@mantine/hooks";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 export function HeroSection() {
   const isMobile = useMediaQuery(`(max-width: ${BREAKPOINTS.md})`, true);
   const t = useTranslations("HomePage.HeroSection");
+  const router = useRouter();
+
+  const handleFindGuide = () => {
+    router.push("/trip-wizard ");
+  };
+
+  const handleBecomeGuide = () => {
+    // TODO: Scroll to form section to become a guide
+  };
 
   return (
     <Box
       component="section"
       style={{
-        minHeight: `calc(90vh - ${HEIGHT_IN_PX.HEADER}px)`,
+        minHeight: `calc(100vh - ${HEIGHT_IN_PX.HEADER}px)`,
         display: "flex",
         alignItems: "center",
         boxSizing: "border-box",
@@ -47,7 +57,9 @@ export function HeroSection() {
                     fontSize: "clamp(2.5rem, 4vw, 3.5rem)",
                   }}
                 >
-                  {t("title")}
+                  {t.rich("title", {
+                    br: () => <br />,
+                  })}
                 </Title>
                 <Text size="xl" c="dimmed" style={{ maxWidth: "28rem" }}>
                   {t("subtitle")}
@@ -61,10 +73,11 @@ export function HeroSection() {
                 <Button
                   size="lg"
                   className="bg-accent hover:bg-accent/90 text-accent-foreground"
+                  onClick={handleFindGuide}
                 >
                   {t("actions.findGuideButton")}
                 </Button>
-                <Button size="lg" variant="outline">
+                <Button size="lg" variant="outline" onClick={handleBecomeGuide}>
                   {t("actions.becomeGuideButton")}
                 </Button>
               </Group>
