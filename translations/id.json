@@ -449,5 +449,25 @@
       }
     },
     "submitButton": "Selesaikan Onboarding"
+  },
+  "Footer": {
+    "brand": "Mihape",
+    "tagline": "Jelajah bersama, eksplorasi selamanya",
+    "links": {
+      "about": "Tentang",
+      "contact": "Kontak",
+      "blog": "Blog",
+      "help": "Bantuan",
+      "terms": "Syarat",
+      "privacy": "Privasi"
+    },
+    "socials": {
+      "followUs": "Ikuti Kami",
+      "instagram": "Instagram",
+      "x": "X",
+      "facebook": "Facebook",
+      "tiktok": "Tiktok"
+    },
+    "copyright": "© {year} Mihape. Semua hak dilindungi."
   }
 }

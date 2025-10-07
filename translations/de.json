@@ -449,5 +449,25 @@
       }
     },
     "submitButton": "Onboarding abschließen"
+  },
+  "Footer": {
+    "brand": "Mihape",
+    "tagline": "Gemeinsam reisen, für immer entdecken",
+    "links": {
+      "about": "Über uns",
+      "contact": "Kontakt",
+      "blog": "Blog",
+      "help": "Hilfe",
+      "terms": "Nutzungsbedingungen",
+      "privacy": "Datenschutz"
+    },
+    "socials": {
+      "followUs": "Folge uns",
+      "instagram": "Instagram",
+      "x": "X",
+      "facebook": "Facebook",
+      "tiktok": "Tiktok"
+    },
+    "copyright": "© {year} Mihape. Alle Rechte vorbehalten."
   }
 }

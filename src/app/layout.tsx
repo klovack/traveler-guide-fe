@@ -11,6 +11,7 @@ import { NextIntlClientProvider } from "next-intl";
 import QueryProvider from "@/components/QueryProvider";
 import { theme } from "@/lib/mantine/themes";
 import { HEIGHT_IN_PX } from "@/constants/layout";
+import { Footer } from "./_components/Footer";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -40,6 +41,7 @@ export default async function RootLayout({
                   <Navbar />
                   <AppShellMain style={{ maxWidth: "100vw" }}>
                     {children}
+                    <Footer />
                   </AppShellMain>
                 </AppShell>
               </MantineProvider>

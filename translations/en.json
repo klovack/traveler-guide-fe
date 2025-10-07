@@ -449,5 +449,25 @@
       }
     },
     "submitButton": "Complete Onboarding"
+  },
+  "Footer": {
+    "brand": "Mihape",
+    "tagline": "Travel together, explore forever",
+    "links": {
+      "about": "About",
+      "contact": "Contact",
+      "blog": "Blog",
+      "help": "Help",
+      "terms": "Terms",
+      "privacy": "Privacy"
+    },
+    "socials": {
+      "followUs": "Follow Us",
+      "instagram": "Instagram",
+      "x": "X",
+      "facebook": "Facebook",
+      "tiktok": "Tiktok"
+    },
+    "copyright": "© {year} Mihape. All rights reserved."
   }
 }
