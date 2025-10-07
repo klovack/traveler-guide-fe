@@ -18,6 +18,7 @@ import { BREAKPOINTS } from "@/constants/breakpoints";
 import { useMediaQuery } from "@mantine/hooks";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { scrollToElement } from "@/lib/utils/scrollToElement";
 
 export function HeroSection() {
   const isMobile = useMediaQuery(`(max-width: ${BREAKPOINTS.md})`, true);
@@ -29,7 +30,7 @@ export function HeroSection() {
   };
 
   const handleBecomeGuide = () => {
-    // TODO: Scroll to form section to become a guide
+    scrollToElement("waitlist");
   };
 
   return (

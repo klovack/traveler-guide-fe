@@ -31,7 +31,7 @@ export function HowItWorksSection() {
   ];
 
   return (
-    <Box component="section" py="xl" bg="brand.0" px="md">
+    <Box component="section" py="xl" bg="brand.0" px="md" id="how-it-works">
       <Container size="xl" px="md">
         <Stack align="center" gap="md" mb="xl">
           <Title order={2} size="h1" ta="center">
