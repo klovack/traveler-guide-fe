@@ -117,6 +117,27 @@
           "description": "Nikmati perjalananmu bersama pemandu lokal terpercaya, untuk pengalaman yang aman dan berkesan."
         }
       }
+    },
+    "WhyMihapeSection": {
+      "title": "Mengapa Mihape",
+      "description": "Baik Anda traveler, anggota keluarga, atau pemandu lokal, Mihape menciptakan koneksi bermakna yang memperkaya setiap perjalanan.",
+      "benefits": {
+        "families": {
+          "title": "Untuk Keluarga",
+          "subtitle": "Ketenteraman saat Anda tak bisa mendampingi.",
+          "description": "Keluarga tercinta Anda bisa menjelajah dunia dengan percaya diri, sementara Anda tetap terhubung sepanjang perjalanan mereka."
+        },
+        "travelers": {
+          "title": "Untuk Traveler",
+          "subtitle": "Perjalanan lebih aman, pengalaman autentik, perhatian personal.",
+          "description": "Kami mencocokkan Anda dengan pemandu berdasarkan minat, bahasa, dan gaya perjalanan untuk pengalaman yang benar-benar personal, memastikan keamanan dan memperkaya pemahaman budaya Anda."
+        },
+        "guides": {
+          "title": "Untuk Pemandu",
+          "subtitle": "Menghasilkan dari perjalanan, berbagi budaya, dan membantu sesama.",
+          "description": "Ubah passion Anda terhadap perjalanan dan pengetahuan lokal menjadi penghasilan bermakna sambil menciptakan koneksi abadi dengan para pengunjung."
+        }
+      }
     }
   },
   "auth": {

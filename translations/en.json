@@ -117,6 +117,27 @@
           "description": "Enjoy your trip with a trusted local guide by your side, ensuring a safe and enriching experience."
         }
       }
+    },
+    "WhyMihapeSection": {
+      "title": "Why Mihape",
+      "description": "Whether you're a traveler, family member, or local guide, Mihape creates meaningful connections that enrich every journey.",
+      "benefits": {
+        "families": {
+          "title": "For Families",
+          "subtitle": "Peace of mind when you can't be there.",
+          "description": "Your loved ones can explore the world confidently while you stay connected and informed throughout their journey."
+        },
+        "travelers": {
+          "title": "For Travelers",
+          "subtitle": "Safer journeys, authentic experiences, personal care.",
+          "description": "We match you with guides based on your interests, language, and travel style for a truly personalized experience, who ensures your safety and enriches your cultural understanding."
+        },
+        "guides": {
+          "title": "For Guides",
+          "subtitle": "Earn by traveling, sharing culture, and helping others.",
+          "description": "Turn your passion for travel and local knowledge into meaningful income while creating lasting connections with visitors."
+        }
+      }
     }
   },
   "auth": {

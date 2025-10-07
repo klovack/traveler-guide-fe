@@ -2,6 +2,7 @@ import { Container } from "@mantine/core";
 import { HeroSection } from "./_components/HeroSection";
 import { StorySection } from "./_components/StorySection";
 import { HowItWorksSection } from "./_components/HowItWorksSection";
+import { WhyMihapeSection } from "./_components/WhyMihapeSection";
 
 export default function HomePage() {
   return (
@@ -9,6 +10,7 @@ export default function HomePage() {
       <HeroSection />
       <StorySection />
       <HowItWorksSection />
+      <WhyMihapeSection />
     </Container>
   );
 }

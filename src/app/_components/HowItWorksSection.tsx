@@ -69,7 +69,12 @@ export function HowItWorksSection() {
                     </Stack>
 
                     <Group justify="center">
-                      <Badge size="lg" variant="light" radius="xl" color="blue">
+                      <Badge
+                        size="lg"
+                        variant="light"
+                        radius="xl"
+                        color="brand.3"
+                      >
                         {index + 1}
                       </Badge>
                     </Group>
