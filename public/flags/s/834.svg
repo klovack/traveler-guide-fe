@@ -1,15 +1,3 @@
-<svg width="16" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <mask id="a" maskUnits="userSpaceOnUse" x="0" y="0" width="16" height="12">
-    <path fill="#fff" d="M0 0h16v12H0z"/>
-  </mask>
-  <g mask="url(#a)">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0v12h16V0H0z" fill="#3195F9"/>
-    <mask id="b" maskUnits="userSpaceOnUse" x="0" y="0" width="16" height="12">
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0v12h16V0H0z" fill="#fff"/>
-    </mask>
-    <g mask="url(#b)">
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0v12L16 0H0z" fill="#73BE4A"/>
-      <path d="M-.91 12.72l.346.52.52-.348L18.086.791l.52-.347-.347-.52-1.11-1.664-.347-.52-.52.348-18.13 12.101-.52.347.347.52 1.11 1.664z" fill="#272727" stroke="#FFD018" stroke-width="1.25"/>
-    </g>
-  </g>
-</svg>
+version https://git-lfs.github.com/spec/v1
+oid sha256:dae155ee24e6ffca954308751666f29c7ec18b3f6bbf0bd957ccc4130b8ce4db
+size 822
