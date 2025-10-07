@@ -99,6 +99,24 @@
           "description": "Lebih dari sekadar daftar destinasi. Temukan makanan, alam, dan kisah bersama pendamping yang benar-benar mengalaminya, bukan tur yang kaku."
         }
       }
+    },
+    "HowItWorksSection": {
+      "title": "Cara Kerja Mihape",
+      "description": "Mulai perjalanan dengan Mihape sangat mudah. Tiga langkah sederhana untuk menemukan pendamping perjalanan yang sempurna.",
+      "steps": {
+        "tell_us_about_your_trip": {
+          "title": "Ceritakan keinginan perjalananmu",
+          "description": "Isi Trip Wizard dengan destinasi, tanggal, dan kebutuhan khusus perjalananmu."
+        },
+        "get_matched_with_guides": {
+          "title": "Dapatkan rekomendasi pemandu",
+          "description": "Kami mencarikan pendamping yang sesuai dengan bahasa, gaya, dan preferensi pengalaman perjalananmu."
+        },
+        "travel_together": {
+          "title": "Bepergian bersama",
+          "description": "Nikmati perjalananmu bersama pemandu lokal terpercaya, untuk pengalaman yang aman dan berkesan."
+        }
+      }
     }
   },
   "auth": {

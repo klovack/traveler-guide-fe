@@ -41,7 +41,7 @@ export function HeroSection() {
         alignItems: "center",
         boxSizing: "border-box",
       }}
-      className="bg-gradient-to-br from-background to-secondary"
+      px="md"
     >
       <Container size="xl" px="xl">
         <Grid align="center" gutter="xl">

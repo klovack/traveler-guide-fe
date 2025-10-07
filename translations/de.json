@@ -99,6 +99,24 @@
           "description": "Gehe über die Checkliste hinaus. Entdecke Essen, Natur und Geschichten mit Begleitern, die sie leben – statt mit vorgefertigten Touren."
         }
       }
+    },
+    "HowItWorksSection": {
+      "title": "So funktioniert es",
+      "description": "Mit Mihape startest du ganz einfach. Drei Schritte zu deinem perfekten Reisebegleiter.",
+      "steps": {
+        "tell_us_about_your_trip": {
+          "title": "Erzähle uns von deinen Reisewünschen",
+          "description": "Fülle den Reiseassistenten mit Zielen, Daten und besonderen Bedürfnissen für deine Reise aus."
+        },
+        "get_matched_with_guides": {
+          "title": "Erhalte passende Guides",
+          "description": "Wir finden Begleiter, die deine Sprache sprechen, deinen Vibe teilen und zu deinen Reisevorstellungen passen."
+        },
+        "travel_together": {
+          "title": "Gemeinsam reisen",
+          "description": "Genieße deine Reise mit einem vertrauenswürdigen lokalen Guide an deiner Seite für ein sicheres und bereicherndes Erlebnis."
+        }
+      }
     }
   },
   "auth": {

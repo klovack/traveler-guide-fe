@@ -38,7 +38,9 @@ export default async function RootLayout({
                   }}
                 >
                   <Navbar />
-                  <AppShellMain>{children}</AppShellMain>
+                  <AppShellMain style={{ maxWidth: "100vw" }}>
+                    {children}
+                  </AppShellMain>
                 </AppShell>
               </MantineProvider>
             </AuthProvider>

@@ -99,6 +99,24 @@
           "description": "Go beyond the checklist. Discover food, nature, and stories with companions who live them, not scripted tours."
         }
       }
+    },
+    "HowItWorksSection": {
+      "title": "How It Works",
+      "description": "Getting started with Mihape is simple. Three easy steps to your perfect travel companion.",
+      "steps": {
+        "tell_us_about_your_trip": {
+          "title": "Tell us your trip wishes",
+          "description": "Fill the Trip Wizard with destinations, dates, and specific needs for your journey."
+        },
+        "get_matched_with_guides": {
+          "title": "Get matched with guides",
+          "description": "We find companions who share your language, vibe, and travel experience preferences."
+        },
+        "travel_together": {
+          "title": "Travel together",
+          "description": "Enjoy your trip with a trusted local guide by your side, ensuring a safe and enriching experience."
+        }
+      }
     }
   },
   "auth": {
