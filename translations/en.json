@@ -297,7 +297,15 @@
     },
     "itinerary": {
       "title": "Your Personalized Trip Itinerary",
-      "subtitle": "Tailored to your preferences by our AI travel concierge."
+      "subtitle": "Tailored to your preferences by our AI travel concierge.",
+      "actions": {
+        "continueToBooking": "Continue to Booking"
+      },
+      "preferences": {
+        "relaxed": "Relaxed",
+        "balanced": "Balanced",
+        "intense": "Intense"
+      }
     },
     "guide": {
       "title": "Your Matched Guide",
@@ -469,5 +477,10 @@
       "tiktok": "Tiktok"
     },
     "copyright": "© {year} Mihape. All rights reserved."
+  },
+  "NotFoundPage": {
+    "title": "Oops, we took the wrong turn!",
+    "description": "The page we're looking for doesn't exist. Don't worry, I'll guide us back!",
+    "backHomeButton": "Take me back home"
   }
 }

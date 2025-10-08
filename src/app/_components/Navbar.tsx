@@ -4,6 +4,7 @@ import {
   Avatar,
   Text,
   CSSProperties,
+  Container,
 } from "@mantine/core";
 import Link from "next/link";
 import Navlinks from "./Navlinks";
@@ -19,11 +20,10 @@ export default function Navbar() {
   const hideNextFeature = envVar.safeGet<boolean>("HIDE_NEXT_FEATURES");
 
   return (
-    <AppShellHeader withBorder={false}>
+    <AppShellHeader px="md" withBorder={false}>
       <Group h="100%" px="md" justify=" space-between">
         <Link href="/" style={noTextDecoration}>
           <Group>
-            <Avatar />
             <Text className="hidden md:block" fw={700} c={COLOR.BRAND}>
               Mihape
             </Text>

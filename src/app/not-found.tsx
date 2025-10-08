@@ -1,21 +1,31 @@
-import { Center, Stack, Title, Text, Button } from "@mantine/core";
+import { Center, Stack, Title, Text, Button, Image } from "@mantine/core";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 export default function NotFoundPage() {
+  const t = useTranslations("NotFoundPage");
+
   return (
     <Center w="100vw" h="calc(100vh - 100px)" className="text-center">
       <Stack gap="md" justify="center" w="40vw">
+        <Image
+          src="/assets/mascots/mimi_read_map.svg"
+          alt="Mimi reading upside down map"
+          h={200}
+          fit="contain"
+          mx="auto"
+        />
         <Title ta="center" order={1}>
-          Oops! You seem lost.
+          {t("title")}
         </Title>
 
         <Text size="xl" c="dimmed" ta="center">
-          The page you are looking for does not exist or has been moved.
+          {t("description")}
         </Text>
 
         <Link href="/" style={{ textDecoration: "none" }}>
           <Button fullWidth variant="filled" size="md" td="none">
-            Return Home
+            {t("backHomeButton")}
           </Button>
         </Link>
       </Stack>

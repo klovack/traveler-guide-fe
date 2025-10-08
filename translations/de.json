@@ -297,7 +297,15 @@
     },
     "itinerary": {
       "title": "Dein persönlicher Reiseplan",
-      "subtitle": "Individuell abgestimmt von unserem KI-Reiseassistenten."
+      "subtitle": "Individuell abgestimmt von unserem KI-Reiseassistenten.",
+      "actions": {
+        "continueToBooking": "Weiter zur Buchung"
+      },
+      "preferences": {
+        "relaxed": "Entspannt",
+        "balanced": "Ausgewogen",
+        "intense": "Intensiv"
+      }
     },
     "guide": {
       "title": "Dein passender Guide",
@@ -469,5 +477,10 @@
       "tiktok": "Tiktok"
     },
     "copyright": "© {year} Mihape. Alle Rechte vorbehalten."
+  },
+  "NotFoundPage": {
+    "title": "Hoppla, wir haben uns verlaufen!",
+    "description": "Die Seite, die du suchst, existiert nicht. Keine Sorge, ich bringe uns zurück!",
+    "backHomeButton": "Zur Startseite zurück"
   }
 }

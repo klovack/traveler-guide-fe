@@ -79,14 +79,6 @@ export function OverviewTimeline({ days }: Readonly<OverviewTimelineProps>) {
                 </Badge>
               ))}
             </Group>
-
-            <Button
-              variant="light"
-              leftSection={<IconRefresh size={16} />}
-              size="xs"
-            >
-              Regenerate This Day
-            </Button>
           </Group>
         </Paper>
       ))}

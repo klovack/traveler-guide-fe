@@ -1,14 +1,17 @@
 "use client";
 import React from "react";
-import { Button, Stack, Title } from "@mantine/core";
+import { Button, Group, Stack, Title } from "@mantine/core";
 import ItineraryMap from "../_components/ItineraryMap";
 import { OverviewMoodboard } from "../_components/overview/OverviewMoodboard";
 import { OverviewTimeline } from "../_components/overview/OverviewTimeline";
 import { OverviewControls } from "../_components/overview/OverviewControls";
 import { useTripWizard } from "@/hooks/useTripWizard";
 import { redirect, useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function TripWizardOverview() {
+  const t = useTranslations("TripWizardPage.itinerary");
+
   const { steps } = useParams();
   if (!steps || steps.length < 2) {
     redirect("/trip-wizard");
@@ -40,9 +43,10 @@ export default function TripWizardOverview() {
           />
           <OverviewTimeline days={tripWizard.suggested_itinerary} />
           <OverviewControls />
-          <Button size="xl" color="blue" radius="xl">
-            Continue to Guides
-          </Button>
+
+          <Group justify="flex-end">
+            <Button>{t("actions.continueToBooking")}</Button>
+          </Group>
         </Stack>
       )}
     </>

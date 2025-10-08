@@ -1,4 +1,5 @@
 import { exampleTrip } from '@/app/trip-wizard/example_trip';
+import { envVar } from '@/lib/utils/env';
 import { useMutation, useQuery, UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
 import { getTripWizardByIdApiV1TripWizardTripWizardIdGet, generateTripWizardApiV1TripWizardPost } from 'tg-sdk';
 import type { TripWizardResponse, TripWizardRequest } from 'tg-sdk';
@@ -23,7 +24,8 @@ export function useTripWizard(
   return useQuery<TripWizardResponse, TripWizardError>({
     queryKey: ['tripWizard', tripWizardId],
     queryFn: async () => {
-      if (tripWizardId === 'debug') {
+      const isDev = process.env.NODE_ENV === 'development';
+      if (tripWizardId === 'debug' && isDev) {
         return exampleTrip;
       }
 

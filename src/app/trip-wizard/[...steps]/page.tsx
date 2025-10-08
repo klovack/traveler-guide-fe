@@ -5,7 +5,7 @@ import { Container, Title, Text, Stack } from "@mantine/core";
 import TripWizardSteps, {
   TripWizardStepsProps,
 } from "../_views/TripWizardSteps";
-import { TRIP_WIZARD_STEP, TRIP_WIZARD_STEPS } from "../constants";
+import { TRIP_WIZARD_STEP, TRIP_WIZARD_STEPS } from "@/constants/tripWizard";
 import { useTranslations } from "next-intl";
 
 export default function TripWizardStepPage() {
@@ -29,7 +29,7 @@ export default function TripWizardStepPage() {
   };
 
   return (
-    <Container>
+    <Container size="lg" py="xl" className="md:max-w-4/5" mih={"95vh"}>
       <Stack align="center" gap={4}>
         <Title order={2} mb="md">
           {t(`${step}.title`)}

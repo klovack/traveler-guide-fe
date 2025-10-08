@@ -1,38 +1,30 @@
-import { Paper, Group, Button, SegmentedControl } from "@mantine/core";
-import { IconExchange, IconPlus, IconHeart } from "@tabler/icons-react";
+import { Paper, Group, SegmentedControl, ActionIcon } from "@mantine/core";
+import { IconHeart, IconShare } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 
 export function OverviewControls() {
+  const t = useTranslations("TripWizardPage.itinerary");
+
   return (
     <Paper withBorder p="md" radius="md" bg="gray.0">
-      <Group gap="md" wrap="wrap">
+      <Group gap="md" wrap="wrap" justify="space-between">
         <SegmentedControl
           data={[
-            { label: "Relaxed", value: "relaxed" },
-            { label: "Balanced", value: "balanced" },
-            { label: "Intense", value: "intense" },
+            { label: t("preferences.relaxed"), value: "relaxed" },
+            { label: t("preferences.balanced"), value: "balanced" },
+            { label: t("preferences.intense"), value: "intense" },
           ]}
           defaultValue="balanced"
         />
-        <Button
-          leftSection={<IconExchange size={16} />}
-          variant="outline"
-          color="blue"
-        >
-          Swap City
-        </Button>
-        <Button
-          leftSection={<IconPlus size={16} />}
-          variant="outline"
-          color="blue"
-        >
-          Add Another Destination
-        </Button>
-        <Button variant="outline" color="gray">
-          Save This Trip for Later
-        </Button>
-        <Button leftSection={<IconHeart size={16} />} color="red">
-          I Like This Trip → Continue
-        </Button>
+
+        <Group>
+          <ActionIcon variant="subtle">
+            <IconHeart />
+          </ActionIcon>
+          <ActionIcon variant="subtle">
+            <IconShare />
+          </ActionIcon>
+        </Group>
       </Group>
     </Paper>
   );

@@ -297,7 +297,15 @@
     },
     "itinerary": {
       "title": "Rencana Perjalanan Pribadimu",
-      "subtitle": "Disesuaikan dengan preferensimu oleh asisten perjalanan AI kami."
+      "subtitle": "Disesuaikan dengan preferensimu oleh asisten perjalanan AI kami.",
+      "actions": {
+        "continueToBooking": "Lanjut ke Pemesanan"
+      },
+      "preferences": {
+        "relaxed": "Santai",
+        "balanced": "Seimbang",
+        "intense": "Intens"
+      }
     },
     "guide": {
       "title": "Pemandu yang Cocok untukmu",
@@ -469,5 +477,10 @@
       "tiktok": "Tiktok"
     },
     "copyright": "© {year} Mihape. Semua hak dilindungi."
+  },
+  "NotFoundPage": {
+    "title": "Ups, kita salah jalan!",
+    "description": "Halaman yang kita cari tidak ditemukan. Tenang, aku akan mengarahkan kita kembali!",
+    "backHomeButton": "Kembali ke Beranda"
   }
 }
