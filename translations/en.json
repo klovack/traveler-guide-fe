@@ -61,7 +61,8 @@
       "next": "Next",
       "back": "Back",
       "submit": "Submit",
-      "exit": "Exit"
+      "exit": "Exit",
+      "confirm": "Confirm"
     },
     "currencies": {
       "symbol": {
@@ -70,6 +71,24 @@
         "GBP": "£",
         "IDR": "Rp."
       }
+    },
+    "groupSize": {
+      "adults": "Adults",
+      "children": "Children",
+      "infants": "Infants",
+      "total": "Total"
+    }
+  },
+  "form": {
+    "chipSelector": {
+      "addNew": "Add New",
+      "addNewPlaceholder": "Item name"
+    },
+    "selectInterest": {
+      "placeholder": "New interest name"
+    },
+    "selectPersonality": {
+      "placeholder": "New personality trait"
     }
   },
   "HomePage": {
@@ -253,44 +272,27 @@
         },
         "languages": {
           "label": "Languages Spoken",
-          "placeholder": "Select your preferred language",
-          "options": {
-            "en": "English",
-            "de": "German",
-            "id": "Indonesian",
-            "jawa": "Javanese",
-            "sunda": "Sundanese",
-            "batak": "Bataknese",
-            "madura": "Madurese",
-            "bali": "Balinese",
-            "bugis": "Buginese",
-            "aceh": "Acehnese",
-            "banjar": "Banjarese",
-            "betawi": "Betawi",
-            "minangkabau": "Minangkabau",
-            "sasak": "Sasak",
-            "toraja": "Torajan",
-            "ambon": "Ambonese",
-            "papua": "Papuan",
-            "other": "Other"
-          }
+          "placeholder": "Select your preferred language"
         },
         "interests": {
           "label": "Interests",
-          "placeholder": "Select your interests",
+          "description": "Select up to {max} interests that you would like to explore during your trip."
+        },
+        "vibe": {
+          "label": "How would you like the travel vibe to be?",
+          "description": "Choose the vibe that best matches your travel style.",
           "options": {
-            "culture": "Culture & History",
-            "nature": "Nature & Adventure",
-            "food": "Food & Dining",
-            "shopping": "Shopping",
-            "nightlife": "Nightlife & Entertainment",
-            "wellness": "Wellness & Relaxation",
-            "family": "Family-Friendly Activities",
-            "romantic": "Romantic Experiences",
-            "sports": "Sports & Activities",
-            "art": "Art & Museums",
-            "local": "Local Experiences"
+            "relaxed": "Relaxed",
+            "balanced": "Balanced",
+            "intense": "Intense",
+            "budget": "Budget",
+            "luxury": "Luxury",
+            "adventurous": "Adventurous"
           }
+        },
+        "personality": {
+          "label": "Which type of person do you prefer as your guide?",
+          "description": "Select up to {max} personality traits that best describe your ideal guide."
         },
         "submitButton": "Generate My Trip"
       }

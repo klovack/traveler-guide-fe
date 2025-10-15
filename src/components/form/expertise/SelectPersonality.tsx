@@ -4,6 +4,7 @@ import {
   usePersonality,
 } from "@/hooks/usePersonality";
 import { ChipSelector, ChipSelectorError } from "../ChipSelector";
+import { useTranslations } from "next-intl";
 
 export type SelectPersonalityProps = {
   label: string;
@@ -18,6 +19,7 @@ export type SelectPersonalityProps = {
 };
 
 export function SelectPersonality(props: Readonly<SelectPersonalityProps>) {
+  const t = useTranslations();
   const { data: personalities } = usePersonality();
   const { mutate: addNewPersonality } = useCreatePersonalityMutation();
 
@@ -69,8 +71,7 @@ export function SelectPersonality(props: Readonly<SelectPersonalityProps>) {
       max={props.max}
       items={dataPersonalities}
       onAddNew={handleAddNewPersonality}
-      addNewLabel="Add more"
-      addNewPlaceholder="Personality name"
+      addNewPlaceholder={t("form.selectPersonality.placeholder")}
       disabled={props.disabled}
     />
   );

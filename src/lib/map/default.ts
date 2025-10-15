@@ -26,8 +26,10 @@ export const DEFAULT_MAP_OPTIONS = {
   canvasContextAttributes: { antialias: true },
   attributionControl: { compact: true },
   interactive: true,
-  maxBounds: [
-    [-37.717, 30.354], // South-West corner around island of west of canaria
-    [42.531, 72.976], // North-East corner around Murmansk (Russia)
-  ],
+  minZoom: 2.5,
+  maxZoom: 16,
+  // maxBounds: [
+  // [-37.717, 30.354], // South-West corner around island of west of canaria
+  // [42.531, 72.976], // North-East corner around Murmansk (Russia)
+  // ],
 } satisfies Omit<maplibregl.MapOptions, "container">;

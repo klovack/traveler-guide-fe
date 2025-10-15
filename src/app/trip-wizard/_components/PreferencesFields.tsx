@@ -1,6 +1,13 @@
 'use client';
 
-import { Textarea, RangeSliderValue, Collapse, Switch } from "@mantine/core";
+import {
+  Textarea,
+  RangeSliderValue,
+  Collapse,
+  Switch,
+  Group,
+  Flex,
+} from "@mantine/core";
 import { useFormContext } from "react-hook-form";
 import { interestOptions, languageOptions } from "../_hooks/useTripWizardForm";
 import { useMemo } from "react";
@@ -8,6 +15,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { TripWizardRequest } from "tg-sdk";
 import { OptionalPreferencesFields } from "./PreferencesGroupFields";
 import { useDisclosure } from "@mantine/hooks";
+import { SelectGroupSize } from "@/components/form/groupSize/SelectGroupSize";
+import { TravelVibeControl } from "@/components/form/travelVibe/TravelVibeControl";
 
 export default function PreferencesFields() {
   const t = useTranslations("TripWizardPage.preferences");
@@ -17,42 +26,32 @@ export default function PreferencesFields() {
     watch,
     setValue,
     formState: { errors },
+    getValues,
   } = useFormContext<TripWizardRequest>();
   const [optionalPreferenceOpened, { toggle: toggleOptionalPreference }] =
     useDisclosure();
 
-  const groupSize = watch("group_size");
-  const groupSizeValue = useMemo((): RangeSliderValue | undefined => {
-    if (groupSize?.min == null || groupSize?.max == null) return;
-
-    return [groupSize.min, groupSize.max];
-  }, [groupSize]);
-
-  const languageSelectOptions = useMemo(() => {
-    return languageOptions
-      .map((value) => {
-        const hasTranslation = t.has(`form.languages.options.${value}`);
-        if (!hasTranslation) {
-          return null;
-        }
-
-        return {
-          value,
-          label: t(`form.languages.options.${value}`),
-        };
-      })
-      .filter((option) => option !== null);
-  }, [locale, t]);
-
-  const interestOptionsSelect = useMemo(() => {
-    return interestOptions.map((value) => ({
-      value,
-      label: t(`form.interests.options.${value}`),
-    }));
-  }, [locale, t]);
-
   return (
     <div className="space-y-4">
+      <Flex maw="100%" justify="center" gap="md" wrap="wrap">
+        <SelectGroupSize
+          label={t("form.groupSize.label")}
+          value={watch("group_size_details")}
+          onChange={(value) => setValue("group_size_details", value)}
+          style={{ flexGrow: 1 }}
+          maw={{ base: "100%", sm: "40%" }}
+          miw={300}
+        />
+        <TravelVibeControl
+          style={{ flexGrow: 1 }}
+          maw={{ base: "100%", sm: "60%" }}
+          miw={300}
+          label={t("form.vibe.label")}
+          value={watch("travel_vibe")}
+          onChange={(value) => setValue("travel_vibe", value)}
+        />
+      </Flex>
+
       <Textarea
         {...register("trip_description")}
         required
@@ -69,13 +68,7 @@ export default function PreferencesFields() {
       />
 
       <Collapse in={optionalPreferenceOpened}>
-        <OptionalPreferencesFields
-          languageSelectOptions={languageSelectOptions}
-          interestOptionsSelect={interestOptionsSelect}
-          groupSizeValue={groupSizeValue}
-          setValue={setValue}
-          watch={watch}
-        />
+        <OptionalPreferencesFields setValue={setValue} watch={watch} />
       </Collapse>
     </div>
   );

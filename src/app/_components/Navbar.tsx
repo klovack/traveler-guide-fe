@@ -1,11 +1,4 @@
-import {
-  AppShellHeader,
-  Group,
-  Avatar,
-  Text,
-  CSSProperties,
-  Container,
-} from "@mantine/core";
+import { AppShellHeader, Group, Text, CSSProperties } from "@mantine/core";
 import Link from "next/link";
 import Navlinks from "./Navlinks";
 import LocaleSwitcher from "./LocaleSwitcher";

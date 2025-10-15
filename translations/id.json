@@ -61,7 +61,8 @@
       "next": "Berikutnya",
       "back": "Kembali",
       "submit": "Kirim",
-      "exit": "Keluar"
+      "exit": "Keluar",
+      "confirm": "Konfirmasi"
     },
     "currencies": {
       "symbol": {
@@ -70,6 +71,24 @@
         "GBP": "£",
         "IDR": "Rp."
       }
+    },
+    "groupSize": {
+      "adults": "Dewasa",
+      "children": "Anak-anak",
+      "infants": "Bayi",
+      "total": "Total"
+    }
+  },
+  "form": {
+    "chipSelector": {
+      "addNew": "Tambah Baru",
+      "addNewPlaceholder": "Nama item"
+    },
+    "selectInterest": {
+      "placeholder": "Nama minat baru"
+    },
+    "selectPersonality": {
+      "placeholder": "Sifat kepribadian baru"
     }
   },
   "HomePage": {
@@ -253,44 +272,27 @@
         },
         "languages": {
           "label": "Bahasa yang Digunakan",
-          "placeholder": "Pilih bahasa yang diinginkan",
-          "options": {
-            "en": "Inggris",
-            "de": "Jerman",
-            "id": "Indonesia",
-            "jawa": "Jawa",
-            "sunda": "Sunda",
-            "batak": "Batak",
-            "madura": "Madura",
-            "bali": "Bali",
-            "bugis": "Bugis",
-            "aceh": "Aceh",
-            "banjar": "Banjar",
-            "betawi": "Betawi",
-            "minangkabau": "Minangkabau",
-            "sasak": "Sasak",
-            "toraja": "Toraja",
-            "ambon": "Ambon",
-            "papua": "Papua",
-            "other": "Lainnya"
-          }
+          "placeholder": "Pilih bahasa yang diinginkan"
         },
         "interests": {
           "label": "Minat",
-          "placeholder": "Pilih minatmu",
+          "description": "Pilih hingga {max} minat yang ingin kamu eksplorasi selama perjalanan."
+        },
+        "vibe": {
+          "label": "Bagaimana suasana perjalanan yang kamu inginkan?",
+          "description": "Pilih suasana yang paling sesuai dengan gaya perjalananmu.",
           "options": {
-            "culture": "Budaya & Sejarah",
-            "nature": "Alam & Petualangan",
-            "food": "Kuliner & Makan",
-            "shopping": "Belanja",
-            "nightlife": "Hiburan Malam & Rekreasi",
-            "wellness": "Kesehatan & Relaksasi",
-            "family": "Aktivitas Ramah Keluarga",
-            "romantic": "Pengalaman Romantis",
-            "sports": "Olahraga & Aktivitas",
-            "art": "Seni & Museum",
-            "local": "Pengalaman Lokal"
+            "relaxed": "Santai",
+            "balanced": "Seimbang",
+            "intense": "Intens",
+            "budget": "Hemat",
+            "luxury": "Mewah",
+            "adventurous": "Petualangan"
           }
+        },
+        "personality": {
+          "label": "Tipe pemandu seperti apa yang kamu inginkan?",
+          "description": "Pilih hingga {max} sifat kepribadian yang paling menggambarkan pemandu idealmu."
         },
         "submitButton": "Buat Perjalananku"
       }

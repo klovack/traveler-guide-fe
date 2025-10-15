@@ -6,6 +6,7 @@ import {
   Button,
   TextInput,
   ActionIcon,
+  Skeleton,
 } from "@mantine/core";
 import { useState } from "react";
 import { IconPlus, IconX } from "@tabler/icons-react";
@@ -37,6 +38,7 @@ export type ChipSelectorProps = {
   addNewLabel?: string;
   addNewPlaceholder?: string;
   disabled?: boolean;
+  loading?: boolean;
 };
 
 export function ChipSelector(props: Readonly<ChipSelectorProps>) {
@@ -52,7 +54,7 @@ export function ChipSelector(props: Readonly<ChipSelectorProps>) {
     setNewItemName("");
   };
 
-  const isRequired = props.required || (props.min && props.min > 0);
+  const isRequired = props.required || (!!props.min && props.min > 0);
 
   return (
     <Stack>
@@ -68,71 +70,84 @@ export function ChipSelector(props: Readonly<ChipSelectorProps>) {
         )}
       </Stack>
 
-      <Flex maw="100%" gap="xs" wrap="wrap" align="center" justify="center">
-        {props.items.map((item) => (
-          <Chip
-            id={item.id}
-            checked={item.checked}
-            key={item.id}
-            value={item.id}
-            disabled={props.disabled}
-            onChange={(checked) => {
-              if (checked && props.max && props.value?.length === props.max) {
-                return;
-              }
-              props.onChange?.([
-                ...(props.value || []).filter((v) => v !== item.id),
-                ...(checked ? [item.id] : []),
-              ]);
-            }}
-          >
-            {item.name}
-          </Chip>
-        ))}
+      {props.loading && (
+        <Flex maw="100%" gap="xs" wrap="wrap" align="center" justify="center">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <Skeleton key={index} height={30} width={80} radius="xl" />
+          ))}
+        </Flex>
+      )}
 
-        {props.onAddNew && !isAddingMore && !props.disabled && (
-          <Button
-            variant="default"
-            rightSection={<IconPlus size={14} />}
-            radius="xl"
-            size="xs"
-            onClick={() => setIsAddingMore(true)}
-          >
-            {props.addNewLabel || "Add more"}
-          </Button>
-        )}
+      {!props.loading && (
+        <Flex maw="100%" gap="xs" wrap="wrap" align="center" justify="center">
+          {props.items.map((item) => (
+            <Chip
+              id={item.id}
+              checked={item.checked}
+              key={item.id}
+              value={item.id}
+              disabled={props.disabled}
+              onChange={(checked) => {
+                if (checked && props.max && props.value?.length === props.max) {
+                  return;
+                }
+                props.onChange?.([
+                  ...(props.value || []).filter((v) => v !== item.id),
+                  ...(checked ? [item.id] : []),
+                ]);
+              }}
+            >
+              {item.name}
+            </Chip>
+          ))}
 
-        {props.onAddNew && isAddingMore && (
-          <TextInput
-            variant="filled"
-            size="xs"
-            radius="xl"
-            placeholder={props.addNewPlaceholder || "Item name"}
-            onChange={(e) => setNewItemName(e.currentTarget.value)}
-            value={newItemName}
-            rightSection={
-              <ActionIcon
-                size="sm"
-                onClick={() => {
-                  setIsAddingMore(false);
-                  setNewItemName("");
-                }}
-                variant="subtle"
-                radius="xl"
-              >
-                <IconX size={14} />
-              </ActionIcon>
-            }
-            onKeyDown={async (e) => {
-              if (e.key === "Enter" && newItemName?.trim()) {
-                e.preventDefault();
-                await handleAddNew(newItemName.trim());
-                return false;
+          {props.onAddNew && !isAddingMore && !props.disabled && (
+            <Button
+              variant="default"
+              rightSection={<IconPlus size={14} />}
+              radius="xl"
+              size="xs"
+              onClick={() => setIsAddingMore(true)}
+            >
+              {props.addNewLabel || t("form.chipSelector.addNew")}
+            </Button>
+          )}
+
+          {props.onAddNew && isAddingMore && (
+            <TextInput
+              variant="filled"
+              size="xs"
+              radius="xl"
+              placeholder={
+                props.addNewPlaceholder ||
+                t("form.chipSelector.addNewPlaceholder")
               }
-            }}
-          />
-        )}
-      </Flex>
+              onChange={(e) => setNewItemName(e.currentTarget.value)}
+              value={newItemName}
+              rightSection={
+                <ActionIcon
+                  size="sm"
+                  onClick={() => {
+                    setIsAddingMore(false);
+                    setNewItemName("");
+                  }}
+                  variant="subtle"
+                  radius="xl"
+                >
+                  <IconX size={14} />
+                </ActionIcon>
+              }
+              onKeyDown={async (e) => {
+                if (e.key === "Enter" && newItemName?.trim()) {
+                  e.preventDefault();
+                  await handleAddNew(newItemName.trim());
+                  return false;
+                }
+              }}
+            />
+          )}
+        </Flex>
+      )}
 
       {props.error && (
         <>

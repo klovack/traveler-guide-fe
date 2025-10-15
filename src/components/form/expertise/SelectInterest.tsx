@@ -1,9 +1,11 @@
 import { useMemo } from "react";
 import { useCreateInterestMutation, useInterest } from "@/hooks/useInterest";
 import { ChipSelector, ChipSelectorError } from "../ChipSelector";
+import { useTranslations } from "next-intl";
 
 export type SelectInterestProps = {
   label: string;
+  placeholder?: string;
   description?: string;
   error?: ChipSelectorError;
   required?: boolean;
@@ -15,7 +17,8 @@ export type SelectInterestProps = {
 };
 
 export function SelectInterest(props: Readonly<SelectInterestProps>) {
-  const { data: interests } = useInterest();
+  const t = useTranslations();
+  const { data: interests, isPending } = useInterest();
   const { mutate: addNewInterest } = useCreateInterestMutation();
 
   const normalizedValues = useMemo(() => {
@@ -66,9 +69,11 @@ export function SelectInterest(props: Readonly<SelectInterestProps>) {
       max={props.max}
       items={dataInterests}
       onAddNew={handleAddNewInterest}
-      addNewLabel="Add more"
-      addNewPlaceholder="interest name"
+      addNewPlaceholder={
+        props.placeholder ?? t("form.selectInterest.placeholder")
+      }
       disabled={props.disabled}
+      loading={isPending}
     />
   );
 }

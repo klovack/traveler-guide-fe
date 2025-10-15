@@ -61,7 +61,8 @@
       "next": "Weiter",
       "back": "Zurück",
       "submit": "Absenden",
-      "exit": "Beenden"
+      "exit": "Beenden",
+      "confirm": "Bestätigen"
     },
     "currencies": {
       "symbol": {
@@ -70,6 +71,24 @@
         "GBP": "£",
         "IDR": "Rp."
       }
+    },
+    "groupSize": {
+      "adults": "Erwachsene",
+      "children": "Kinder",
+      "infants": "Kleinkinder",
+      "total": "Gesamt"
+    }
+  },
+  "form": {
+    "chipSelector": {
+      "addNew": "Neu hinzufügen",
+      "addNewPlaceholder": "Name des Elements"
+    },
+    "selectInterest": {
+      "placeholder": "Neuer Interessenname"
+    },
+    "selectPersonality": {
+      "placeholder": "Neues Persönlichkeitsmerkmal"
     }
   },
   "HomePage": {
@@ -253,44 +272,27 @@
         },
         "languages": {
           "label": "Gesprochene Sprachen",
-          "placeholder": "Bevorzugte Sprache auswählen",
-          "options": {
-            "en": "Englisch",
-            "de": "Deutsch",
-            "id": "Indonesisch",
-            "jawa": "Javanisch",
-            "sunda": "Sundanesisch",
-            "batak": "Batak",
-            "madura": "Maduresisch",
-            "bali": "Balinesisch",
-            "bugis": "Buginesisch",
-            "aceh": "Acehnesisch",
-            "banjar": "Banjaresisch",
-            "betawi": "Betawi",
-            "minangkabau": "Minangkabau",
-            "sasak": "Sasak",
-            "toraja": "Toraja",
-            "ambon": "Ambonesisch",
-            "papua": "Papuanisch",
-            "other": "Andere"
-          }
+          "placeholder": "Bevorzugte Sprache auswählen"
         },
         "interests": {
           "label": "Interessen",
-          "placeholder": "Wähle deine Interessen aus",
+          "description": "Wähle bis zu {max} Interessen aus, die du während deiner Reise erkunden möchtest."
+        },
+        "vibe": {
+          "label": "Wie soll die Stimmung deiner Reise sein?",
+          "description": "Wähle die Stimmung, die am besten zu deinem Reisestil passt.",
           "options": {
-            "culture": "Kultur & Geschichte",
-            "nature": "Natur & Abenteuer",
-            "food": "Essen & Gastronomie",
-            "shopping": "Shopping",
-            "nightlife": "Nachtleben & Unterhaltung",
-            "wellness": "Wellness & Entspannung",
-            "family": "Familienfreundliche Aktivitäten",
-            "romantic": "Romantische Erlebnisse",
-            "sports": "Sport & Aktivitäten",
-            "art": "Kunst & Museen",
-            "local": "Lokale Erlebnisse"
+            "relaxed": "Entspannt",
+            "balanced": "Ausgewogen",
+            "intense": "Intensiv",
+            "budget": "Preiswert",
+            "luxury": "Luxuriös",
+            "adventurous": "Abenteuerlich"
           }
+        },
+        "personality": {
+          "label": "Welche Art von Person bevorzugst du als Guide?",
+          "description": "Wähle bis zu {max} Persönlichkeitsmerkmale aus, die deinen idealen Guide am besten beschreiben."
         },
         "submitButton": "Meine Reise erstellen"
       }

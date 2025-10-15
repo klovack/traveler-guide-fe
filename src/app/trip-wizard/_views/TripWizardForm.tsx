@@ -55,7 +55,7 @@ export default function TripWizardForm({
       })}
       className="space-y-6"
     >
-      <DateRangePicker onDateSelected={() => openMap()} />
+      <DateRangePicker onDateSelected={openMap} />
 
       <Collapse my="15vh" in={!mapOpened}>
         <Image
@@ -67,12 +67,16 @@ export default function TripWizardForm({
       </Collapse>
 
       <Collapse in={mapOpened}>
-        <DestinationMap onDestinationSelected={() => openPreference()} />
+        <DestinationMap onDestinationSelected={openPreference} />
       </Collapse>
 
       <Collapse in={preferenceOpened}>
         <PreferencesFields />
-        <Flex mt="xl" justify="flex-end" align="center">
+        <Flex
+          mt="xl"
+          justify={{ base: "center", sm: "flex-end" }}
+          align="center"
+        >
           <Button
             loading={isPending}
             loaderProps={{ type: "dots" }}

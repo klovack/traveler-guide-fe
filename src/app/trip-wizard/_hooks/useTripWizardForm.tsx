@@ -96,6 +96,11 @@ export const TripWizardFormProvider = ({
       destinations: [],
       languages: [],
       interests: [],
+      group_size_details: {
+        adult: 1,
+        children: 0,
+        infants: 0,
+      },
     },
   });
 
