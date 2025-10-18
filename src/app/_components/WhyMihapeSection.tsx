@@ -65,7 +65,7 @@ export function WhyMihapeSection() {
           </Text>
         </Stack>
 
-        <Grid>
+        <Grid align="end">
           {benefits.map((benefit, index) => (
             <Grid.Col key={index} span={{ base: 12, lg: 4 }}>
               <Paper

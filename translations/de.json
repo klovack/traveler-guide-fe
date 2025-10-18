@@ -300,8 +300,12 @@
     "itinerary": {
       "title": "Dein persönlicher Reiseplan",
       "subtitle": "Individuell abgestimmt von unserem KI-Reiseassistenten.",
+      "itineraryRegeneration": {
+        "placeholder": "Füge etwas hinzu oder ändere es..."
+      },
       "actions": {
-        "continueToBooking": "Weiter zur Buchung"
+        "continueToBooking": "Weiter zur Buchung",
+        "regenerateItinerary": "Reiseplan neu generieren"
       },
       "preferences": {
         "relaxed": "Entspannt",

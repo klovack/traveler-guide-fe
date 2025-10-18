@@ -3,14 +3,14 @@
 import DestinationMap from "../_components/DestinationMap";
 import PreferencesFields from "../_components/PreferencesFields";
 import { useTripWizardForm } from "../_hooks/useTripWizardForm";
-import { Button, Collapse, Flex, Image, Overlay } from "@mantine/core";
+import { Button, Collapse, Flex, Image } from "@mantine/core";
 import DateRangePicker from "../_components/DateRangePicker";
 import { useLocale, useTranslations } from "next-intl";
 import { LanguagesEnum, TripWizardRequest } from "tg-sdk";
 import { useDisclosure } from "@mantine/hooks";
 import { useGenerateTripWizard } from "@/hooks/useTripWizard";
 import "@/lib/animations/flash.css";
-import { BRAND_COLOR } from "@/lib/mantine/themes";
+import { SendingTripWizardOverlay } from "@/components/overlay/SendingTripWizardOverlay";
 
 export type TripWizardFormProps = {
   onSubmit?: (tripWizardId: string) => void;
@@ -87,26 +87,7 @@ export default function TripWizardForm({
         </Flex>
       </Collapse>
 
-      {isPending && (
-        <Overlay
-          color={BRAND_COLOR[0]}
-          backgroundOpacity={0.55}
-          blur={6}
-          style={{
-            position: "fixed",
-          }}
-        >
-          <Image
-            style={{ animation: "flash 5s linear 0s infinite normal forwards" }}
-            src="/assets/mascots/mimi_look_at_globe.png"
-            alt="Mascot typing on laptop"
-            h={250}
-            fit="contain"
-            mx="auto"
-            mt="20vh"
-          />
-        </Overlay>
-      )}
+      <SendingTripWizardOverlay open={isPending} />
     </form>
   );
 }

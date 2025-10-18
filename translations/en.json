@@ -300,8 +300,12 @@
     "itinerary": {
       "title": "Your Personalized Trip Itinerary",
       "subtitle": "Tailored to your preferences by our AI travel concierge.",
+      "itineraryRegeneration": {
+        "placeholder": "Add or change anything..."
+      },
       "actions": {
-        "continueToBooking": "Continue to Booking"
+        "continueToBooking": "Continue to Booking",
+        "regenerateItinerary": "Regenerate Itinerary"
       },
       "preferences": {
         "relaxed": "Relaxed",

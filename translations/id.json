@@ -300,8 +300,12 @@
     "itinerary": {
       "title": "Rencana Perjalanan Pribadimu",
       "subtitle": "Disesuaikan dengan preferensimu oleh asisten perjalanan AI kami.",
+      "itineraryRegeneration": {
+        "placeholder": "Tambahkan atau ubah apapun..."
+      },
       "actions": {
-        "continueToBooking": "Lanjut ke Pemesanan"
+        "continueToBooking": "Lanjut ke Pemesanan",
+        "regenerateItinerary": "Buat Ulang Rencana Perjalanan"
       },
       "preferences": {
         "relaxed": "Santai",
