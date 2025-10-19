@@ -12,6 +12,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useTripWizardRegenerateForm } from "../../_hooks/useTripWizardRegenerateForm";
 import { TripWizardResponse } from "tg-sdk";
+import { Favorite } from "@/components/action/Favorite";
 
 export type OverviewControlsProps = {
   tripWizard: TripWizardResponse;
@@ -48,9 +49,7 @@ export function OverviewControls(props: Readonly<OverviewControlsProps>) {
         />
 
         <Group>
-          <ActionIcon variant="subtle">
-            <IconHeart />
-          </ActionIcon>
+          <Favorite type="trip" item={props.tripWizard.id} />
           <ActionIcon variant="subtle">
             <IconShare />
           </ActionIcon>

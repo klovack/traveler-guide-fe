@@ -4,6 +4,7 @@ import Navlinks from "./Navlinks";
 import LocaleSwitcher from "./LocaleSwitcher";
 import { envVar } from "@/lib/utils/env";
 import { COLOR } from "@/lib/mantine/themes";
+import { FavoriteList } from "@/components/action/FavoriteList";
 
 export default function Navbar() {
   const noTextDecoration: CSSProperties = {
@@ -25,6 +26,7 @@ export default function Navbar() {
 
         <Group h="100%">
           <LocaleSwitcher />
+          <FavoriteList />
           {hideNextFeature ? null : <Navlinks />}
         </Group>
       </Group>

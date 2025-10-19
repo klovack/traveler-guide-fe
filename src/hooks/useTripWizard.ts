@@ -76,3 +76,40 @@ export function useGenerateTripWizard(
     ...options,
   });
 }
+
+
+// Query hook to get multiple trip wizards by their IDs
+// it works by calling get by id endpoint for each id and aggregating the results
+export function useTripWizardsByIds(
+  tripWizardIds: string[],
+  options?: UseQueryOptions<TripWizardResponse[], TripWizardError>
+) {
+  return useQuery<TripWizardResponse[], TripWizardError>({
+    queryKey: ['tripWizards', tripWizardIds],
+    queryFn: async () => {
+      const tripWizards: TripWizardResponse[] = [];
+      // Collect promises for all trip wizard fetches
+      const promises = tripWizardIds.map(async (id) => {
+        try {
+          const result = await getTripWizardByIdApiV1TripWizardTripWizardIdGet({ path: { trip_wizard_id: id } });
+          if (result.error) {
+            // Ignore this trip wizard if there's an API error
+            return null;
+          }
+          return result.data ?? null;
+        } catch {
+          // Ignore this trip wizard if there's a network or unknown error
+          return null;
+        }
+      });
+
+      // Wait for all promises to settle
+      const results = await Promise.all(promises);
+
+      // Filter out nulls (failed fetches)
+      tripWizards.push(...results.filter((tw): tw is TripWizardResponse => !!tw));
+      return tripWizards;
+    },
+    ...options,
+  });
+}

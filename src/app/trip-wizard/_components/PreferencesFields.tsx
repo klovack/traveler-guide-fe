@@ -1,17 +1,8 @@
 'use client';
 
-import {
-  Textarea,
-  RangeSliderValue,
-  Collapse,
-  Switch,
-  Group,
-  Flex,
-} from "@mantine/core";
+import { Textarea, Collapse, Switch, Flex } from "@mantine/core";
 import { useFormContext } from "react-hook-form";
-import { interestOptions, languageOptions } from "../_hooks/useTripWizardForm";
-import { useMemo } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { TripWizardRequest } from "tg-sdk";
 import { OptionalPreferencesFields } from "./PreferencesGroupFields";
 import { useDisclosure } from "@mantine/hooks";
@@ -20,7 +11,6 @@ import { TravelVibeControl } from "@/components/form/travelVibe/TravelVibeContro
 
 export default function PreferencesFields() {
   const t = useTranslations("TripWizardPage.preferences");
-  const locale = useLocale();
   const {
     register,
     watch,
