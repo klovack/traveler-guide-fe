@@ -7,12 +7,14 @@ import {
   Collapse,
   Textarea,
 } from "@mantine/core";
-import { IconHeart, IconSend, IconShare } from "@tabler/icons-react";
+import { IconSend } from "@tabler/icons-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useTripWizardRegenerateForm } from "../../_hooks/useTripWizardRegenerateForm";
 import { TripWizardResponse } from "tg-sdk";
 import { Favorite } from "@/components/action/Favorite";
+import { ShareClipboard } from "@/components/action/ShareClipboard";
+import { ShareSocialMedia } from "@/components/action/ShareSocialMedia";
 
 export type OverviewControlsProps = {
   tripWizard: TripWizardResponse;
@@ -50,9 +52,9 @@ export function OverviewControls(props: Readonly<OverviewControlsProps>) {
 
         <Group>
           <Favorite type="trip" item={props.tripWizard.id} />
-          <ActionIcon variant="subtle">
-            <IconShare />
-          </ActionIcon>
+          <ShareSocialMedia platform="whatsapp" message={t("share.message")} />
+          <ShareSocialMedia platform="x" message={t("share.message")} />
+          <ShareClipboard />
         </Group>
       </Group>
 

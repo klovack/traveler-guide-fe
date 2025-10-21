@@ -6,6 +6,6 @@ export const locales = ['id', 'en', 'de'] as const;
 export const defaultLocale: Locale = 'id';
 export const localeToFlag: Record<Locale, FlagProps["code"]> = {
   id: "ID",
-  en: "US",
+  en: "GBR",
   de: "DE",
 };

@@ -77,6 +77,22 @@
       "children": "Anak-anak",
       "infants": "Bayi",
       "total": "Total"
+    },
+    "share": {
+      "share": "Bagikan",
+      "copyLink": "Salin Tautan",
+      "linkCopied": "Tautan Disalin!",
+      "linkCopiedDescription": "Tautan Anda telah disalin dan siap dibagikan.",
+      "linkCopyError": "Gagal menyalin tautan.",
+      "linkCopiedDescriptionError": "Tidak dapat menyalin teks ke papan klip. Silakan coba salin tautan secara manual.",
+      "platforms": {
+        "whatsapp": "WhatsApp",
+        "x": "X"
+      }
+    },
+    "favorite": {
+      "add": "Tambahkan ke Favorit",
+      "remove": "Hapus dari Favorit"
     }
   },
   "form": {
@@ -305,12 +321,10 @@
       },
       "actions": {
         "continueToBooking": "Lanjut ke Pemesanan",
-        "regenerateItinerary": "Buat Ulang Rencana Perjalanan"
+        "regenerateItinerary": "Sesuaikan Rencana Perjalanan"
       },
-      "preferences": {
-        "relaxed": "Santai",
-        "balanced": "Seimbang",
-        "intense": "Intens"
+      "share": {
+        "message": "Lihat rencana perjalananku di Mihape."
       }
     },
     "guide": {

@@ -34,6 +34,7 @@ export function FavoriteList() {
           c="dimmed"
           withBorder
           disabled={favoriteTrips.length === 0}
+          pt={2}
         >
           <ActionIcon variant="transparent" c="dimmed">
             <IconHeart />

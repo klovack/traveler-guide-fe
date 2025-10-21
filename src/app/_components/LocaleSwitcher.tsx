@@ -2,8 +2,8 @@
 
 import { Locale, localeToFlag } from "@/i18n/config";
 import { setUserLocale } from "@/lib/locale";
-import { Button, Combobox, useCombobox } from "@mantine/core";
-import { useLocale } from "next-intl";
+import { Button, Combobox, Tooltip, useCombobox } from "@mantine/core";
+import { useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
 import Flag, { FlagProps } from "react-flagpack";
 
@@ -11,6 +11,7 @@ export default function LocaleSwitcher() {
   const locale = useLocale();
   const [isPending, startTransition] = useTransition();
   const combobox = useCombobox();
+  const t = useTranslations("common.languages.options");
 
   const handleSelectLocale = async (locale: string) => {
     if (!localeToFlag[locale as Locale]) {
@@ -26,9 +27,17 @@ export default function LocaleSwitcher() {
 
   const localeOptions = Object.entries<FlagProps["code"]>(localeToFlag).map(
     ([key, value]) => (
-      <Combobox.Option key={key} value={key} ta={"center"}>
-        <Flag code={value} />
-      </Combobox.Option>
+      <Tooltip label={t(key)} key={key} position="left">
+        <Combobox.Option value={key} ta={"center"}>
+          <Flag
+            code={value}
+            hasDropShadow
+            hasBorder
+            gradient="real-linear"
+            size="M"
+          />
+        </Combobox.Option>
+      </Tooltip>
     )
   );
 
@@ -41,7 +50,13 @@ export default function LocaleSwitcher() {
     >
       <Combobox.Target>
         <Button variant="subtle" onClick={() => combobox.openDropdown()}>
-          <Flag code={localeToFlag[locale as Locale]} size="M" />
+          <Flag
+            code={localeToFlag[locale as Locale]}
+            size="M"
+            hasDropShadow
+            hasBorder
+            gradient="real-linear"
+          />
         </Button>
       </Combobox.Target>
       <Combobox.Dropdown>

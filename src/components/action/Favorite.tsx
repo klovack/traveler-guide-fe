@@ -1,7 +1,8 @@
 import { STORAGE_KEYS } from "@/constants/localStorageKeys";
-import { ActionIcon } from "@mantine/core";
+import { ActionIcon, Tooltip } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 
 export type FavoriteProps = {
@@ -10,6 +11,7 @@ export type FavoriteProps = {
 };
 
 export function Favorite(props: Readonly<FavoriteProps>) {
+  const t = useTranslations("common.favorite");
   const [favoriteTrips, setFavoriteTrips] = useLocalStorage({
     key: STORAGE_KEYS.TRIP_WIZARD_FAVORITE_ITINERARIES,
     defaultValue: [] as string[],
@@ -32,8 +34,10 @@ export function Favorite(props: Readonly<FavoriteProps>) {
   }, [favoriteTrips, props.item]);
 
   return (
-    <ActionIcon variant="subtle" onClick={handleFavorite}>
-      {isInFavorite ? <IconHeartFilled /> : <IconHeart />}
-    </ActionIcon>
+    <Tooltip label={isInFavorite ? t("add") : t("remove")}>
+      <ActionIcon variant="subtle" onClick={handleFavorite}>
+        {isInFavorite ? <IconHeartFilled /> : <IconHeart />}
+      </ActionIcon>
+    </Tooltip>
   );
 }

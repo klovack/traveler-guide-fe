@@ -77,6 +77,22 @@
       "children": "Kinder",
       "infants": "Kleinkinder",
       "total": "Gesamt"
+    },
+    "share": {
+      "share": "Teilen",
+      "copyLink": "Link kopieren",
+      "linkCopied": "Link kopiert!",
+      "linkCopiedDescription": "Dein Link wurde kopiert und kann jetzt mit anderen geteilt werden.",
+      "linkCopyError": "Fehler beim Kopieren des Links.",
+      "linkCopiedDescriptionError": "Der Text konnte nicht in die Zwischenablage kopiert werden. Bitte versuche, den Link manuell zu kopieren.",
+      "platforms": {
+        "whatsapp": "WhatsApp",
+        "x": "X"
+      }
+    },
+    "favorite": {
+      "add": "Zu Favoriten hinzufügen",
+      "remove": "Aus Favoriten entfernen"
     }
   },
   "form": {
@@ -305,12 +321,10 @@
       },
       "actions": {
         "continueToBooking": "Weiter zur Buchung",
-        "regenerateItinerary": "Reiseplan neu generieren"
+        "regenerateItinerary": "Reiseplan anpassen"
       },
-      "preferences": {
-        "relaxed": "Entspannt",
-        "balanced": "Ausgewogen",
-        "intense": "Intensiv"
+      "share": {
+        "message": "Schau dir meinen geplanten Reiseplan bei Mihape an."
       }
     },
     "guide": {

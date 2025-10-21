@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
 import { AppShell, AppShellMain, MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import { AuthProvider } from "@/hooks/useAuth";
@@ -44,6 +45,7 @@ export default async function RootLayout({
                     <Footer />
                   </AppShellMain>
                 </AppShell>
+                <Notifications position="bottom-center" />
               </MantineProvider>
             </AuthProvider>
           </QueryProvider>

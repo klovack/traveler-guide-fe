@@ -77,6 +77,22 @@
       "children": "Children",
       "infants": "Infants",
       "total": "Total"
+    },
+    "share": {
+      "share": "Share",
+      "copyLink": "Copy Link",
+      "linkCopied": "Link Copied!",
+      "linkCopiedDescription": "Your link has been copied and ready to be shared with others.",
+      "linkCopyError": "Failed to copy link.",
+      "linkCopiedDescriptionError": "Could not copy the text to clipboard. Please try copying the link manually.",
+      "platforms": {
+        "whatsapp": "WhatsApp",
+        "x": "X"
+      }
+    },
+    "favorite": {
+      "add": "Add to Favorites",
+      "remove": "Remove from Favorites"
     }
   },
   "form": {
@@ -305,12 +321,10 @@
       },
       "actions": {
         "continueToBooking": "Continue to Booking",
-        "regenerateItinerary": "Regenerate Itinerary"
+        "regenerateItinerary": "Adjust Itinerary"
       },
-      "preferences": {
-        "relaxed": "Relaxed",
-        "balanced": "Balanced",
-        "intense": "Intense"
+      "share": {
+        "message": "Check out my planned itinerary at Mihape."
       }
     },
     "guide": {
