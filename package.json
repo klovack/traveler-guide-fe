@@ -34,7 +34,7 @@
     "react-dom": "^19.1.0",
     "react-flagpack": "^2.0.6",
     "react-hook-form": "^7.60.0",
-    "tg-sdk": "link:/Users/fikriansyahmr/Development/Business/traveler-guide/packages/tg-sdk",
+    "tg-sdk": "link:../packages/tg-sdk",
     "zod": "^3.25.74"
   },
   "devDependencies": {
